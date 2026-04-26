@@ -855,7 +855,7 @@
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    padding: 4px 20px 20px;
+    padding: 4px 0 20px;
     scrollbar-width: none;
   }
   .strip::-webkit-scrollbar { display: none; }
@@ -1081,6 +1081,7 @@
 
     <div class="strip-wrap">
     <div class="strip" id="libraryStrip" role="list">
+      <div style="flex:0 0 20px;scroll-snap-align:none;" aria-hidden="true"></div>
       <a class="strip__card" href="/library/" role="listitem">
         <div class="strip__cover">CHEM · 통합과학</div>
         <div class="strip__body">
@@ -1117,6 +1118,7 @@
           <span class="strip__meta">→ /library/</span>
         </div>
       </a>
+      <div style="flex:0 0 20px;scroll-snap-align:none;" aria-hidden="true"></div>
     </div>
     </div>
   </section>
@@ -1326,23 +1328,25 @@
   (function() {
     var strip = document.getElementById('libraryStrip');
     if (!strip) return;
-    var cardWidth = 0;
     var timer;
+    var idx = 0;
 
-    function getCardWidth() {
-      var card = strip.querySelector('.strip__card');
-      if (!card) return 252;
-      return card.offsetWidth + 12;
+    function getCards() {
+      return Array.from(strip.querySelectorAll('.strip__card'));
+    }
+
+    function scrollToCard(cards, i) {
+      var card = cards[i];
+      if (!card) return;
+      // card의 strip 내 offsetLeft 기준으로 스크롤 (spacer 20px 포함)
+      strip.scrollTo({ left: card.offsetLeft - 20, behavior: 'smooth' });
     }
 
     function autoScroll() {
-      cardWidth = getCardWidth();
-      var maxScroll = strip.scrollWidth - strip.clientWidth;
-      if (strip.scrollLeft >= maxScroll - 4) {
-        strip.scrollLeft = 0;
-      } else {
-        strip.scrollLeft += cardWidth;
-      }
+      var cards = getCards();
+      if (!cards.length) return;
+      idx = (idx + 1) % cards.length;
+      scrollToCard(cards, idx);
     }
 
     function start() { timer = setInterval(autoScroll, 3000); }
