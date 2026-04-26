@@ -674,6 +674,299 @@
     color: var(--ink-2);
   }
 
+  /* HERO V2 — 사진 + 경력 강조 */
+  .hero2 { padding: 24px 20px 36px; }
+  .hero2__brand {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero2__cover {
+    position: relative;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background: var(--primary);
+    margin-bottom: 18px;
+  }
+  .hero2__cover img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center 15%;
+  }
+  .hero2__cover-grad {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(20,36,31,0.85) 100%);
+  }
+  .hero2__cover-text {
+    position: absolute; left: 18px; right: 18px; bottom: 18px;
+    color: #F2EFE8;
+  }
+  .hero2__cover-name {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 28px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .hero2__cover-creds {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: rgba(242,239,232,0.85);
+    line-height: 1.5;
+  }
+  .hero2__title {
+    margin: 0 0 12px;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+  }
+  .hero2__title .it { font-style: italic; }
+  .hero2__pull {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    border-left: 2px solid var(--accent);
+    padding-left: 12px;
+  }
+
+  /* SECTION HEADER (공통) */
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .sec-head h2 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 28px;
+    line-height: 1.1;
+    color: var(--primary);
+    letter-spacing: -0.01em;
+  }
+  .sec-head__meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+  .sec-lede {
+    margin: 0 0 18px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  /* LATEST — 큰 단일 카드 */
+  .latest__card {
+    display: block;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .latest__card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .latest__cover {
+    aspect-ratio: 16 / 9;
+    background: var(--tint);
+    background-image: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(242,239,232,0.85);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+  }
+  .latest__body { padding: 18px 18px 20px; }
+  .latest__tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .latest__title {
+    margin: 0 0 6px;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+  .latest__desc {
+    margin: 0 0 14px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .latest__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  /* CARD STRIP — 가로 스크롤 카드 */
+  .strip {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 4px 20px 20px;
+    margin: 0 -20px;
+    scrollbar-width: none;
+  }
+  .strip::-webkit-scrollbar { display: none; }
+  .strip__card {
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .strip__card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .strip__cover {
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(242,239,232,0.85);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+  .strip__body { padding: 12px 14px 16px; flex: 1; display: flex; flex-direction: column; }
+  .strip__tag {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .strip__title {
+    margin: 0 0 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+  }
+  .strip__desc {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    flex: 1;
+  }
+  .strip__meta {
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--ink-3);
+    letter-spacing: 0.05em;
+  }
+
+  /* COMING SOON 카드 (멤버십·하루과학) */
+  .coming {
+    background: var(--bg-elev);
+    border: 1px dashed var(--accent);
+    border-radius: var(--r-md);
+    padding: 22px 20px;
+  }
+  .coming__tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 8px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .coming__title {
+    margin: 0 0 6px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 24px;
+    color: var(--primary);
+    letter-spacing: -0.01em;
+  }
+  .coming__desc {
+    margin: 0 0 16px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+  .coming__form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .coming__form input {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    padding: 0 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+  }
+  .coming__form input:focus { border-color: var(--accent); }
+  .coming__form button {
+    height: 44px;
+    padding: 0 18px;
+    background: var(--primary);
+    color: var(--primary-ink);
+    border: none;
+    border-radius: var(--r-sm);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .coming__form button:hover { opacity: 0.92; }
+  .coming__note {
+    margin-top: 10px;
+    font-size: 11.5px;
+    color: var(--ink-3);
+    line-height: 1.5;
+  }
+
   @media (min-width: 720px) {
     body { background: #ECE7DC; }
     .page {
@@ -701,422 +994,260 @@
     </button>
   </nav>
 
-  <!-- HERO — 헤드라인/Lede/풀인용은 시기성에 맞춰 갈아끼우는 영역 -->
-  <section class="hero">
-    <div class="hero__masthead">
-      <span>VOL.01 · 2026</span>
-      <span>SCIENCE / INQUIRY</span>
-      <span>1학기 · 중간 직후</span>
+  <!-- 1. HERO — 사진 + 경력 + 시기성 핵심 문구 -->
+  <section class="hero2">
+    <div class="hero2__brand">THEJINIUSLAB · 지성현T · 고1 통합과학</div>
+
+    <div class="hero2__cover">
+      <img src="/assets/profile-green.jpg" alt="지성현T" />
+      <div class="hero2__cover-grad"></div>
+      <div class="hero2__cover-text">
+        <div class="hero2__cover-name">지성현T</div>
+        <div class="hero2__cover-creds">
+          충북과학고등학교 조기졸업<br/>
+          UNIST 생명과학 전공<br/>
+          정율사관학원 탐구과 팀장 · 2020~
+        </div>
+      </div>
     </div>
-    <div class="hero__intro">
-      <div class="t-caption">THEJINIUSLAB · 지성현T · 고1 통합과학</div>
-      <h1 class="hero__title">
-        중간 끝,<br/>
-        다음 시험까지<br/>
-        <span class="it">무엇을</span> 바꿔야 할까.
-      </h1>
-      <p class="hero__lede">
-        기말까지 6주, <b>고1 통합과학</b>에서
-        점수와 방향을 같이 끌어올릴 수 있는 시간입니다.
+
+    <h1 class="hero2__title">
+      중간 끝,<br/>
+      다음 시험까지<br/>
+      <span class="it">무엇을</span> 바꿔야 할까.
+    </h1>
+    <p class="hero2__pull">
+      "점수보다, 다음에 무엇을 바꿀지가 중요합니다."
+    </p>
+  </section>
+
+  <!-- 2. LATEST — 최신 공개 자료 (단일 큰 카드) -->
+  <section class="section--bordered" style="padding:32px 20px;">
+    <div class="sec-head">
+      <h2>Latest.</h2>
+      <span class="sec-head__meta">최신 공개 자료</span>
+    </div>
+    <p class="sec-lede">
+      가장 최근에 공개한 무료 자료입니다. 시기에 맞춰 새 자료가 추가됩니다.
+    </p>
+
+    <a class="latest__card" href="/library/">
+      <div class="latest__cover">PREVIEW · COMING SOON</div>
+      <div class="latest__body">
+        <span class="latest__tag">고1 통합과학 · 4월</span>
+        <h3 class="latest__title">중간 직후, 6주 동안 무엇을 바꿔야 할까</h3>
+        <p class="latest__desc">중간고사 시험지 진단 · 기말 범위 재배치 · 수행평가 동선 정리 한 장 가이드. 곧 공개됩니다.</p>
+        <span class="latest__cta">자세히 보기 →</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- 3. LIBRARY — 공개 무료 자료 목록 (가로 카드) -->
+  <section style="padding:32px 0 32px;">
+    <div style="padding:0 20px;">
+      <div class="sec-head">
+        <h2>Library.</h2>
+        <span class="sec-head__meta">공개 무료 자료</span>
+      </div>
+      <p class="sec-lede">
+        고1 통합과학과 화학·생명과학 학습에 바로 도움 되는 자료들. 옆으로 넘겨 보세요.
       </p>
     </div>
 
-    <div class="hero__cover">
-      <img src="/assets/profile-green.jpg" alt="지성현T" />
-      <div class="hero__cover-top">
-        <img src="/assets/logo-final.png" alt="" />
-        <div class="hero__byline">
-          지성현T
-          <span class="hero__byline-roman">THEJINIUSLAB</span>
+    <div class="strip" role="list">
+      <a class="strip__card" href="/library/" role="listitem">
+        <div class="strip__cover">CHEM · 통합과학</div>
+        <div class="strip__body">
+          <span class="strip__tag">통합과학</span>
+          <h3 class="strip__title">단원별 핵심 정리 — 1단원</h3>
+          <p class="strip__desc">자유 낙하·운동·물질의 규칙성. 시험 직전 한 번에 보는 정리본.</p>
+          <span class="strip__meta">PDF · 준비 중</span>
         </div>
-      </div>
-      <div class="hero__cover-bottom">
-        <div class="hero__pull">
-          "점수보다,<br/>다음에 무엇을<br/>바꿀지가 중요합니다."
+      </a>
+      <a class="strip__card" href="/library/" role="listitem">
+        <div class="strip__cover">BIO · 통합과학</div>
+        <div class="strip__body">
+          <span class="strip__tag">생명·지구과학</span>
+          <h3 class="strip__title">생명 시스템 핵심 25제</h3>
+          <p class="strip__desc">세포·물질대사·항상성 빈출 문항을 골라 풀이까지.</p>
+          <span class="strip__meta">PDF · 준비 중</span>
         </div>
-        <div class="hero__cover-meta">
-          고1<br/>통합과학
+      </a>
+      <a class="strip__card" href="/library/" role="listitem">
+        <div class="strip__cover">PHYS · 통합과학</div>
+        <div class="strip__body">
+          <span class="strip__tag">통합과학</span>
+          <h3 class="strip__title">물리 단원 오답 패턴 분석</h3>
+          <p class="strip__desc">중간고사에서 자주 틀리는 유형 정리, 다음 시험을 위한 점검표.</p>
+          <span class="strip__meta">PDF · 준비 중</span>
         </div>
-      </div>
-    </div>
-
-    <a class="btn btn--primary btn--full btn--lg" style="margin-top:16px;" href="#resources">
-      기말 준비 가이드 보기 →
-    </a>
-    <div class="hero__channels">
-      <span>무료 자료 · 익명 다운로드</span>
-      <span>2026 · 1학기 기말 대비</span>
-    </div>
-  </section>
-
-  <!-- NOTE — 짧은 신뢰 한 줄 (브랜드 + 강사) -->
-  <section class="note section--bordered">
-    <p class="note__line">
-      <b>지성현T</b>는 충북과학고 조기졸업, UNIST 생명과학 전공.
-      현 정율사관학원 탐구과 팀장으로
-      2020년부터 <b>통합과학·화학·생명과학</b>을 가르치고 있습니다.
-    </p>
-  </section>
-
-  <!-- TIMELY — 중간 직후 시기성 콘텐츠 -->
-  <section class="timely">
-    <div class="t-caption" style="margin-bottom:12px;">NOW · 중간고사 이후 6주</div>
-    <h2 class="timely__title">
-      <span class="it">점수보다,</span><br/>
-      바꿀 것이 보입니다.
-    </h2>
-    <p class="timely__lede">
-      만족스럽지 않았다면 그건 자연스러운 결과입니다.
-      문제는 <b>다음 한 달 반</b>을 어떻게 쓰는지에 달려 있습니다.
-    </p>
-    <ol class="timely__list">
-      <li>
-        <span class="timely__num">01</span>
-        <div>
-          <div class="timely__heading">중간 시험지 진단</div>
-          <div class="timely__desc">틀린 문제의 원인을 개념·풀이속도·실수로 분리. 다음 학습량의 우선순위가 정해집니다.</div>
+      </a>
+      <a class="strip__card" href="/library/" role="listitem">
+        <div class="strip__cover">+ MORE</div>
+        <div class="strip__body">
+          <span class="strip__tag">전체 보기</span>
+          <h3 class="strip__title">자료실에서 더 보기</h3>
+          <p class="strip__desc">시험·단원·시기별 모든 공개 자료를 한 곳에서.</p>
+          <span class="strip__meta">→ /library/</span>
         </div>
-      </li>
-      <li>
-        <span class="timely__num">02</span>
-        <div>
-          <div class="timely__heading">기말 범위 재배치</div>
-          <div class="timely__desc">중간보다 분량이 많아지는 단원에서 시간 배분을 다시 짭니다. 1주 단위 계획으로 압축.</div>
-        </div>
-      </li>
-      <li>
-        <span class="timely__num">03</span>
-        <div>
-          <div class="timely__heading">수행평가·탐구 동선</div>
-          <div class="timely__desc">시험 준비와 수행평가가 서로 잡아먹지 않도록, 학교 일정에 맞춘 순서를 정리합니다.</div>
-        </div>
-      </li>
-    </ol>
-    <a class="btn btn--outline btn--full btn--lg" href="#resources" style="margin-top:8px;">
-      관련 자료 보기 →
-    </a>
-  </section>
-
-  <!-- SUBJECTS -->
-  <section>
-    <div class="section__head">
-      <h2>What I teach.</h2>
-      <span class="section__num">03</span>
-    </div>
-    <div class="subject">
-      <div class="subject__meta">
-        <span class="subject__num">01 / 고1</span>
-        <span class="chip">필수</span>
-      </div>
-      <h3 class="subject__title">통합과학</h3>
-      <p class="subject__desc">내신 1등급의 토대를 쌓고, 탐구 주제의 씨앗을 발굴합니다.</p>
-    </div>
-    <div class="subject">
-      <div class="subject__meta">
-        <span class="subject__num">02 / 고2</span>
-        <span class="chip">선택</span>
-      </div>
-      <h3 class="subject__title">화학Ⅰ · Ⅱ</h3>
-      <p class="subject__desc">평형·산화환원·반응속도까지. 의·약·화공 진로 학생을 위한 심화 트랙.</p>
-    </div>
-    <div class="subject">
-      <div class="subject__meta">
-        <span class="subject__num">03 / 고2</span>
-        <span class="chip">선택</span>
-      </div>
-      <h3 class="subject__title">생명과학Ⅰ · Ⅱ</h3>
-      <p class="subject__desc">유전·신경·면역. 의·약·생명·치대 학생의 보고서까지 함께 설계합니다.</p>
+      </a>
     </div>
   </section>
 
-  <!-- LIBRARY -->
-  <section id="resources" class="section--elevated">
-    <div class="t-caption" style="margin-bottom:8px;">LIBRARY · 공개 자료실</div>
-    <h2 style="margin:0 0 18px; font-family:var(--font-serif); font-style:italic; font-size:32px; color:var(--primary);">Resources.</h2>
-    <p style="margin:-8px 0 18px; font-size:13.5px; line-height:1.55; color:var(--ink-2);">
-      가벼운 자료는 즉시 받을 수 있고, 분량이 큰 자료는 연락처를 남기시면 보내드립니다.
-    </p>
-    <div>
-      <div class="library__row">
-        <div class="library__tag">CHEM</div>
-        <div class="library__body">
-          <div class="library__title">평형 단원 핵심 25제</div>
-          <div class="library__desc">내신·모의고사 출제 빈도 분석본</div>
-          <div class="library__size">PDF · 18p</div>
-        </div>
-        <button class="library__btn" type="button" aria-label="다운로드">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-            <path d="M8 2v10M3 8l5 5 5-5"/>
-          </svg>
-        </button>
+  <!-- 4. INSIGHT — 세특(공개) 자료 — 탐구 주제 -->
+  <section class="section--elevated" style="padding:32px 0;">
+    <div style="padding:0 20px;">
+      <div class="sec-head">
+        <h2>Insight.</h2>
+        <span class="sec-head__meta">세특 · 공개 자료</span>
       </div>
-      <div class="library__row">
-        <div class="library__tag">BIO</div>
-        <div class="library__body">
-          <div class="library__title">신경계 탐구주제 20선</div>
-          <div class="library__desc">학년별 난이도 매핑 + 참고문헌</div>
-          <div class="library__size">PDF · 12p</div>
+      <p class="sec-lede">
+        탐구 주제와 보고서 방향에 도움 되는 공개 자료. 인스타 게시물에서 더 깊이 정리한 버전입니다.
+      </p>
+    </div>
+
+    <div class="strip" role="list">
+      <a class="strip__card" href="/insight/" role="listitem">
+        <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · CHEM</div>
+        <div class="strip__body">
+          <span class="strip__tag">화학 진로</span>
+          <h3 class="strip__title">의·약·화공 진로 탐구 주제 12선</h3>
+          <p class="strip__desc">단원과 진로의 교차점에서 고른 실제 보고서 가능 주제.</p>
+          <span class="strip__meta">POST · 준비 중</span>
         </div>
-        <button class="library__btn" type="button" aria-label="다운로드">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-            <path d="M8 2v10M3 8l5 5 5-5"/>
-          </svg>
-        </button>
-      </div>
-      <div class="library__row">
-        <div class="library__tag">INT</div>
-        <div class="library__body">
-          <div class="library__title">탐구보고서 양식 v3</div>
-          <div class="library__desc">서론–방법–결과–고찰 + 첨삭 예시</div>
-          <div class="library__size">DOCX · 4p</div>
+      </a>
+      <a class="strip__card" href="/insight/" role="listitem">
+        <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · BIO</div>
+        <div class="strip__body">
+          <span class="strip__tag">생명 진로</span>
+          <h3 class="strip__title">의·생명·치 진로 탐구 주제 12선</h3>
+          <p class="strip__desc">유전·신경·면역에서 학교에서 가능한 변수 통제까지.</p>
+          <span class="strip__meta">POST · 준비 중</span>
         </div>
-        <button class="library__btn" type="button" aria-label="다운로드">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-            <path d="M8 2v10M3 8l5 5 5-5"/>
-          </svg>
-        </button>
-      </div>
+      </a>
+      <a class="strip__card" href="/insight/" role="listitem">
+        <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">보고서 양식</div>
+        <div class="strip__body">
+          <span class="strip__tag">보고서</span>
+          <h3 class="strip__title">서론–방법–결과–고찰 양식</h3>
+          <p class="strip__desc">실제 첨삭 예시 포함. 학생 문체로 다듬는 가이드.</p>
+          <span class="strip__meta">DOCX · 준비 중</span>
+        </div>
+      </a>
+      <a class="strip__card" href="/insight/" role="listitem">
+        <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">+ MORE</div>
+        <div class="strip__body">
+          <span class="strip__tag">전체 보기</span>
+          <h3 class="strip__title">세특 자료 더 보기</h3>
+          <p class="strip__desc">탐구 주제·보고서·진로별 자료 전체.</p>
+          <span class="strip__meta">→ /insight/</span>
+        </div>
+      </a>
     </div>
   </section>
 
-  <!-- RESULTS — 슬롯 템플릿. 데이터를 받아 .results__row 행으로 채워 넣으면 됩니다. -->
-  <section>
-    <div class="section__head">
-      <h2 style="font-size:32px;">Where they go.</h2>
-      <span class="section__num">합격 실적</span>
+  <!-- 5. MEMBERSHIP — 세특 멤버십 (Coming Soon + 대기자) -->
+  <section style="padding:32px 20px;">
+    <div class="sec-head">
+      <h2>Membership.</h2>
+      <span class="sec-head__meta">세특 멤버십</span>
     </div>
-    <div class="results__list">
-      <!-- TODO: 실제 합격 실적 데이터 받아서 채우기. 행 형식:
-        <div class="results__row">
-          <span class="results__yr">YYYY</span>
-          <span class="results__schools">학교 / 학과 …</span>
-        </div>
-      -->
-      <div class="results__row">
-        <span class="results__yr">— —</span>
-        <span class="results__schools" style="color:var(--ink-3);">합격 실적은 정리해 게재 예정입니다.</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS — 슬롯 템플릿. 후기를 받으면 .testimonial 카드를 추가하세요. -->
-  <section class="section--elevated">
-    <div class="t-caption" style="margin-bottom:8px;">VOICES · 수강 후기</div>
-    <h2 style="margin:0 0 24px; font-family:var(--font-serif); font-style:italic; font-size:32px; color:var(--primary); letter-spacing:-0.01em; line-height:1.05;">
-      학생과 학부모의<br/>한 줄.
-    </h2>
-    <div class="testimonials__list">
-      <!-- TODO: 실제 후기를 받아서 카드로 채우기. 카드 형식:
-        <div class="testimonial">
-          <div class="testimonial__mark">"</div>
-          <p class="testimonial__text">후기 본문…</p>
-          <div class="testimonial__by">
-            <span class="testimonial__name">학부모 / 수강생 표기</span>
-            <span class="testimonial__sep"></span>
-            <span class="testimonial__meta">학년 / 진학 정보 등</span>
-          </div>
-        </div>
-      -->
-      <div class="testimonial" style="opacity:0.6;">
-        <div class="testimonial__mark">"</div>
-        <p class="testimonial__text" style="color:var(--ink-3);">수강생과 학부모의 후기를 정리해 곧 게재합니다.</p>
-      </div>
+    <div class="coming">
+      <span class="coming__tag">COMING SOON</span>
+      <h3 class="coming__title">학생 한 명을 위한<br/>탐구·세특 코칭 멤버십</h3>
+      <p class="coming__desc">
+        학생 진로에 맞춘 <b>주제 발굴 → 보고서 첨삭 → 생기부 문장화</b>까지,
+        한 학기 단위로 함께 설계합니다. 인원 한정으로 곧 오픈할 예정이며,
+        대기자 명단을 우선 안내드립니다.
+      </p>
+      <form class="coming__form" data-waitlist="membership" onsubmit="return handleWaitlist(event)">
+        <input type="text" name="contact" placeholder="이름 또는 인스타 아이디" required />
+        <button type="submit">대기자 신청</button>
+      </form>
+      <p class="coming__note">
+        제출하신 정보는 멤버십 안내 외 다른 용도로 사용하지 않습니다.
+        <a href="/legal/privacy/" style="color:var(--ink-2); text-decoration:underline;">개인정보 수집·이용 동의</a>
+      </p>
     </div>
   </section>
 
-  <!-- FEATURE — coaching -->
-  <section class="feature">
-    <div class="t-caption">ESSAY · 고교학점제 코칭</div>
-    <h2 class="feature__title">
-      "<span class="it">탐구</span>는 진로를<br/>증명하는 가장<br/>강한 문장이다."
-    </h2>
-    <div class="feature__steps">
-      <div class="feature__step">
-        <span class="feature__step-n">01</span>
-        <div>
-          <div class="feature__step-t">주제 발굴</div>
-          <div class="feature__step-d">학생 진로 + 교과 단원의 교차점에서 6개 후보를 제시.</div>
-        </div>
-      </div>
-      <div class="feature__step">
-        <span class="feature__step-n">02</span>
-        <div>
-          <div class="feature__step-t">실험·자료 설계</div>
-          <div class="feature__step-d">학교 환경에서 가능한 변수 통제와 자료 출처를 함께 점검.</div>
-        </div>
-      </div>
-      <div class="feature__step">
-        <span class="feature__step-n">03</span>
-        <div>
-          <div class="feature__step-t">보고서 첨삭</div>
-          <div class="feature__step-d">서론–방법–결과–고찰의 구조를 학생 문체로 다듬습니다.</div>
-        </div>
-      </div>
-      <div class="feature__step">
-        <span class="feature__step-n">04</span>
-        <div>
-          <div class="feature__step-t">생기부 문장화</div>
-          <div class="feature__step-d">담임 선생님이 그대로 옮길 수 있는 핵심 문장 3줄로 압축.</div>
-        </div>
-      </div>
+  <!-- 6. PROGRAM — 하루과학 (Coming Soon + 대기자) -->
+  <section class="section--bordered" style="padding:32px 20px;">
+    <div class="sec-head">
+      <h2>하루과학.</h2>
+      <span class="sec-head__meta">데일리 학습 프로그램</span>
+    </div>
+    <div class="coming">
+      <span class="coming__tag">PREP · 추후 공개</span>
+      <h3 class="coming__title">하루 1개념, 5문제로<br/>매일 쌓는 과학</h3>
+      <p class="coming__desc">
+        하루에 핵심 개념 하나와 관련 문제 <b>5~6문항</b>을 풀어보면서
+        매일매일 쌓아가는 학습 프로그램. 카카오 채널을 통해 운영 예정입니다.
+        오픈 시점에 가장 먼저 안내드릴게요.
+      </p>
+      <form class="coming__form" data-waitlist="haru" onsubmit="return handleWaitlist(event)">
+        <input type="text" name="contact" placeholder="이름 또는 인스타 아이디" required />
+        <button type="submit">알림 신청</button>
+      </form>
+      <p class="coming__note">
+        오픈 시점·운영 방식 안내만 드립니다.
+        <a href="/legal/privacy/" style="color:var(--ink-2); text-decoration:underline;">개인정보 수집·이용 동의</a>
+      </p>
     </div>
   </section>
 
-  <!-- SCHEDULE -->
-  <section class="section--bordered">
-    <div class="section__head">
-      <h2>Schedule.</h2>
-      <span class="section__num">2026 / SPRING</span>
+  <!-- 7. FAQ -->
+  <section style="padding:32px 20px;">
+    <div class="sec-head">
+      <h2>Questions.</h2>
+      <span class="sec-head__meta">자주 묻는 질문</span>
     </div>
-    <div class="schedule__grid">
-      <div class="schedule__row">
-        <div class="schedule__head"></div>
-        <div class="schedule__head">MON</div>
-        <div class="schedule__head">TUE</div>
-        <div class="schedule__head">WED</div>
-        <div class="schedule__head">THU</div>
-        <div class="schedule__head">FRI</div>
-        <div class="schedule__head">SAT</div>
-      </div>
-      <div class="schedule__row">
-        <div class="schedule__time">16:00</div>
-        <div class="schedule__cell"><div class="schedule__chip" title="고1 통합과학"><span class="schedule__chip-dot">•</span></div></div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"><div class="schedule__chip" title="고1 통합과학"><span class="schedule__chip-dot">•</span></div></div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"><div class="schedule__chip" title="고1 통합과학"><span class="schedule__chip-dot">•</span></div></div>
-        <div class="schedule__cell"></div>
-      </div>
-      <div class="schedule__row">
-        <div class="schedule__time">18:00</div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"><div class="schedule__chip" title="고2 화학Ⅰ"><span class="schedule__chip-dot">•</span></div></div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"><div class="schedule__chip" title="고2 화학Ⅰ"><span class="schedule__chip-dot">•</span></div></div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"></div>
-      </div>
-      <div class="schedule__row">
-        <div class="schedule__time">20:00</div>
-        <div class="schedule__cell"><div class="schedule__chip" title="고2 생명Ⅰ"><span class="schedule__chip-dot">•</span></div></div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"><div class="schedule__chip" title="고2 생명Ⅰ"><span class="schedule__chip-dot">•</span></div></div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"><div class="schedule__chip" title="고2 생명Ⅰ"><span class="schedule__chip-dot">•</span></div></div>
-        <div class="schedule__cell"></div>
-      </div>
-      <div class="schedule__row">
-        <div class="schedule__time">14:00</div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"></div>
-        <div class="schedule__cell"><div class="schedule__chip schedule__chip--accent" title="주말 심화·탐구"><span class="schedule__chip-dot">•</span></div></div>
-      </div>
-    </div>
-    <div class="schedule__legend">
-      <div class="schedule__legend-row"><span class="schedule__legend-dot"></span><span class="schedule__legend-time">16:00</span><span class="schedule__legend-name">고1 통합과학</span></div>
-      <div class="schedule__legend-row"><span class="schedule__legend-dot"></span><span class="schedule__legend-time">18:00</span><span class="schedule__legend-name">고2 화학Ⅰ</span></div>
-      <div class="schedule__legend-row"><span class="schedule__legend-dot"></span><span class="schedule__legend-time">20:00</span><span class="schedule__legend-name">고2 생명Ⅰ</span></div>
-      <div class="schedule__legend-row"><span class="schedule__legend-dot schedule__legend-dot--accent"></span><span class="schedule__legend-time">14:00</span><span class="schedule__legend-name">주말 심화·탐구</span></div>
-    </div>
-  </section>
-
-  <!-- CV -->
-  <section class="section--elevated">
-    <div class="t-caption" style="margin-bottom:14px;">CURRICULUM VITAE</div>
-    <div class="cv__row"><span class="cv__yr">2014</span><span class="cv__ev">충북과학고등학교 입학</span></div>
-    <div class="cv__row"><span class="cv__yr">2016</span><span class="cv__ev">충북과학고등학교 조기졸업</span></div>
-    <div class="cv__row"><span class="cv__yr">2020</span><span class="cv__ev">UNIST 생명과학과 졸업 / 강의 시작</span></div>
-    <div class="cv__row"><span class="cv__yr">2023</span><span class="cv__ev">정율사관학원 탐구과 합류</span></div>
-    <div class="cv__row"><span class="cv__yr">2025</span><span class="cv__ev">탐구과 팀장 · 자체 교재 집필</span></div>
-  </section>
-
-  <!-- FAQ -->
-  <section>
-    <div class="t-caption" style="margin-bottom:8px;">FAQ · 자주 묻는 질문</div>
-    <h2 style="margin:0 0 20px; font-family:var(--font-serif); font-style:italic; font-size:32px; color:var(--primary);">Questions.</h2>
     <div class="faq" data-faq>
       <div class="faq__item" data-open="true">
         <button class="faq__btn" type="button" aria-expanded="true">
-          <span class="faq__q">수업은 1:1인가요, 그룹인가요?</span>
+          <span class="faq__q">자료는 어디서 받나요?</span>
           <span class="faq__sign" aria-hidden="true">−</span>
         </button>
-        <div class="faq__a">소수정예 그룹 수업이 기본이며, 탐구 코칭은 1:1 별도 진행됩니다.</div>
+        <div class="faq__a">위 자료실 카드의 자료를 클릭하시거나, 인스타그램 게시물에 "자료" 댓글을 달아주시면 DM으로 자동 안내됩니다.</div>
       </div>
       <div class="faq__item">
         <button class="faq__btn" type="button" aria-expanded="false">
-          <span class="faq__q">학원 다니지 않아도 탐구 코칭만 받을 수 있나요?</span>
+          <span class="faq__q">멤버십은 언제 오픈되나요?</span>
           <span class="faq__sign" aria-hidden="true">+</span>
         </button>
-        <div class="faq__a">네, 가능합니다. 단 진행 가능한 인원이 학기당 한정되어 있어 상담 후 결정됩니다.</div>
+        <div class="faq__a">2026년 상반기 중 한정 인원으로 오픈 예정입니다. 대기자 신청을 남기시면 오픈 시점에 가장 먼저 안내드립니다.</div>
       </div>
       <div class="faq__item">
         <button class="faq__btn" type="button" aria-expanded="false">
-          <span class="faq__q">교재는 자체 제작인가요?</span>
+          <span class="faq__q">하루과학은 어떻게 운영되나요?</span>
           <span class="faq__sign" aria-hidden="true">+</span>
         </button>
-        <div class="faq__a">통합과학·화학·생명과학 모두 자체 교재를 사용합니다. 시중 교재와 병행하지 않습니다.</div>
+        <div class="faq__a">하루 1개념 + 문제 5~6문항을 카카오 채널을 통해 매일 보내드리는 형태로 준비 중입니다. 운영 방식 확정 후 알림 신청자분들께 우선 안내드립니다.</div>
       </div>
       <div class="faq__item">
         <button class="faq__btn" type="button" aria-expanded="false">
-          <span class="faq__q">결석 시 보강은요?</span>
+          <span class="faq__q">상담은 누구든 신청할 수 있나요?</span>
           <span class="faq__sign" aria-hidden="true">+</span>
         </button>
-        <div class="faq__a">동주차 다른 요일 수업 중 동일 진도 반으로 1회 보강 가능합니다.</div>
+        <div class="faq__a">고1 통합과학·고2 화학·생명과학 학생과 학부모님을 우선 상담드립니다. 자료만 필요하시면 위 자료실을 이용해주세요.</div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT — 백엔드 미연결 상태. 폼 활성화는 api 연결 후 진행. -->
+  <!-- 8. CONTACT — 비상업 톤 -->
   <section id="contact" class="contact section--elevated" style="border-bottom:none;">
-    <div class="t-caption" style="margin-bottom:8px;">상담 신청</div>
+    <div class="t-caption" style="margin-bottom:8px;">상담</div>
     <h2>같이 정리해드립니다.</h2>
     <p style="margin:-12px 0 20px; font-size:13.5px; line-height:1.55; color:var(--ink-2);">
       자료만 필요하시면 위의 자료실을 이용해주세요.
-      직접 이야기 나누고 싶으신 경우에만 신청해주시면 충분합니다.
+      직접 이야기 나누고 싶으신 경우에만 연락 부탁드립니다.
     </p>
-    <form class="contact__form" onsubmit="event.preventDefault(); alert('신청 폼은 곧 활성화됩니다. 그동안은 인스타그램 DM으로 연락 부탁드립니다.');">
-      <div class="contact__field">
-        <label class="contact__label" for="f-kind">상담 종류</label>
-        <select class="contact__input" id="f-kind" name="kind" style="appearance:none; -webkit-appearance:none;">
-          <option>무료 진단 상담 (방향만 정리)</option>
-          <option>수업 등록·정규 상담</option>
-        </select>
-      </div>
-      <div class="contact__field">
-        <label class="contact__label" for="f-name">학생 이름</label>
-        <input class="contact__input" id="f-name" name="name" placeholder="이름" autocomplete="name" />
-      </div>
-      <div class="contact__field">
-        <label class="contact__label" for="f-grade">학년</label>
-        <input class="contact__input" id="f-grade" name="grade" placeholder="예) 고1" value="고1" />
-      </div>
-      <div class="contact__field">
-        <label class="contact__label" for="f-phone">연락처</label>
-        <input class="contact__input" id="f-phone" name="phone" placeholder="010-0000-0000" autocomplete="tel" inputmode="tel" />
-      </div>
-      <div class="contact__field">
-        <label class="contact__label" for="f-channel">희망 연락 방식</label>
-        <select class="contact__input" id="f-channel" name="channel" style="appearance:none; -webkit-appearance:none;">
-          <option>문자</option>
-          <option>전화</option>
-          <option>인스타 DM</option>
-        </select>
-      </div>
-      <label style="display:flex; gap:10px; align-items:flex-start; padding:8px 0 14px; font-size:12.5px; color:var(--ink-2); line-height:1.5;">
-        <input type="checkbox" name="consent" required style="margin-top:3px;" />
-        <span>
-          <a href="/legal/privacy/" style="color:var(--ink); text-decoration:underline;">개인정보 수집·이용</a>에 동의합니다.
-          상담 외 목적으로 사용하지 않습니다.
-        </span>
-      </label>
-      <button class="btn btn--primary btn--full btn--lg" type="submit" style="margin-top:4px;">신청 보내기</button>
-    </form>
-    <div class="contact__channels">
+    <div class="contact__channels" style="grid-template-columns: 1fr;">
+      <a class="btn btn--primary btn--lg" href="https://instagram.com/jysk_prof.z" rel="noopener" target="_blank">인스타그램 DM 보내기</a>
+    </div>
+    <div class="contact__channels" style="margin-top:8px;">
       <a class="btn btn--outline btn--sm" href="#" rel="noopener">카카오톡 채널 (준비 중)</a>
-      <a class="btn btn--outline btn--sm" href="https://instagram.com/" rel="noopener" target="_blank">인스타그램 DM</a>
+      <a class="btn btn--outline btn--sm" href="mailto:admin@thejiniuslab.com" rel="noopener">이메일</a>
     </div>
   </section>
 
@@ -1132,6 +1263,7 @@
 </div>
 
 <script>
+  // FAQ accordion
   document.querySelectorAll('[data-faq] .faq__item').forEach(function (item) {
     var btn = item.querySelector('.faq__btn');
     var sign = item.querySelector('.faq__sign');
@@ -1149,7 +1281,19 @@
       }
     });
   });
+
+  // 대기자 폼 — 백엔드 미연결, 임시로 인스타 DM 안내
+  function handleWaitlist(e) {
+    e.preventDefault();
+    var form = e.target;
+    var kind = form.getAttribute('data-waitlist');
+    var label = kind === 'membership' ? '세특 멤버십' : '하루과학';
+    var contact = (form.elements.contact.value || '').trim();
+    if (!contact) return false;
+    var msg = '신청 접수 안내\n\n현재 폼 백엔드는 준비 중입니다.\n다음 내용을 인스타그램 DM(@jysk_prof.z)으로 보내주세요:\n\n[' + label + ' 대기자 신청] ' + contact;
+    alert(msg);
+    return false;
+  }
 </script>
 </body>
 </html>
-</content>
