@@ -1069,6 +1069,55 @@
       border-radius: 24px;
     }
   }
+
+  /* ── ANIMATION: Hero (B) — 순차 슬라이드업 ── */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero2__cover       { animation: slideUp 0.7s cubic-bezier(.22,.68,0,1) 0.1s both; }
+  .hero2__title       { animation: slideUp 0.7s cubic-bezier(.22,.68,0,1) 0.35s both; }
+  .hero2__pull        { animation: slideUp 0.6s cubic-bezier(.22,.68,0,1) 0.55s both; }
+
+  /* nav 팔로우 버튼 shimmer */
+  .nav__follow { position: relative; overflow: hidden; }
+  .nav__follow::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    animation: shimmer 3s infinite;
+  }
+  @keyframes shimmer { to { left: 160%; } }
+
+  /* ── ANIMATION: Sections (A) — 스크롤 페이드인 ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(18px);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 카드 호버 float */
+  .latest__card, .coming, .faq__item {
+    transition: transform 0.25s cubic-bezier(.22,.68,0,1.2), box-shadow 0.25s ease, border-color 0.2s ease;
+  }
+  .latest__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(27,59,54,0.1);
+  }
+  .coming:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(27,59,54,0.08);
+  }
 </style>
 </head>
 <body>
@@ -1120,7 +1169,7 @@
   </section>
 
   <!-- 2. LATEST — 최신 공개 자료 (단일 큰 카드) -->
-  <section class="section--bordered" style="padding:32px 20px;">
+  <section class="section--bordered reveal" style="padding:32px 20px;">
     <div class="sec-head">
       <h2>Latest.</h2>
       <span class="sec-head__meta">최신 공개 자료</span>
@@ -1141,7 +1190,7 @@
   </section>
 
   <!-- 3. LIBRARY — 공개 자료 목록 (가로 카드) -->
-  <section style="padding:32px 0 32px;">
+  <section class="reveal" style="padding:32px 0 32px;">
     <div style="padding:0 20px;">
       <div class="sec-head">
         <h2>Library.</h2>
@@ -1233,7 +1282,7 @@
   </section>
 
   <!-- 4. INSIGHT — 세특(공개) 자료 — 탐구 주제 -->
-  <section class="section--elevated" style="padding:32px 0;">
+  <section class="section--elevated reveal" style="padding:32px 0;">
     <div style="padding:0 20px;">
       <div class="sec-head">
         <h2>Insight.</h2>
@@ -1325,7 +1374,7 @@
   </section>
 
   <!-- 5. MEMBERSHIP — 세특 멤버십 (Coming Soon + 대기자) -->
-  <section style="padding:32px 20px;">
+  <section class="reveal" style="padding:32px 20px;">
     <div class="sec-head">
       <h2>Membership.</h2>
       <span class="sec-head__meta">세특 멤버십</span>
@@ -1352,7 +1401,7 @@
   </section>
 
   <!-- 6. PROGRAM — 하루과학 (Coming Soon + 대기자) -->
-  <section class="section--bordered" style="padding:32px 20px;">
+  <section class="section--bordered reveal" style="padding:32px 20px;">
     <div class="sec-head">
       <h2>하루과학.</h2>
       <span class="sec-head__meta">데일리 학습 프로그램</span>
@@ -1379,7 +1428,7 @@
   </section>
 
   <!-- 7. FAQ -->
-  <section style="padding:32px 20px;">
+  <section class="reveal" style="padding:32px 20px;">
     <div class="sec-head">
       <h2>Questions.</h2>
       <span class="sec-head__meta">자주 묻는 질문</span>
@@ -1417,7 +1466,7 @@
   </section>
 
   <!-- 8. CONTACT — 비상업 톤 -->
-  <section id="contact" class="contact section--elevated" style="border-bottom:none;">
+  <section id="contact" class="contact section--elevated reveal" style="border-bottom:none;">
     <h2>Contact.</h2>
     <p style="margin:-12px 0 20px; font-size:13.5px; line-height:1.55; color:var(--ink-2);">
       자료만 필요하시면 위의 자료실을 이용해주세요.
@@ -1475,6 +1524,21 @@
     alert(msg);
     return false;
   }
+
+  // 스크롤 reveal
+  (function() {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      observer.observe(el);
+    });
+  })();
 
   // 마퀴 터치 일시정지
   document.querySelectorAll('.marquee-wrap').forEach(function(wrap) {
