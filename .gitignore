@@ -20,3 +20,7 @@ node_modules/
 
 # Logs
 *.log
+
+# webhook secrets
+api/webhook/.env
+api/webhook/data/

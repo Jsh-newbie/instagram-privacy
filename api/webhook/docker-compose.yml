@@ -1,0 +1,17 @@
+services:
+  webhook:
+    image: node:22-alpine
+    container_name: thejiniuslab-webhook
+    restart: unless-stopped
+    ports:
+      - "3017:3017"
+    working_dir: /app
+    command: node /app/webhook.mjs
+    env_file:
+      - .env
+    environment:
+      PORT: 3017
+      IG_TOKEN_FILE: /data/ig-token.txt
+    volumes:
+      - .:/app:ro
+      - ./data:/data
