@@ -106,18 +106,24 @@
     font-size: 18px;
     letter-spacing: 0.01em;
   }
-  .nav__menu {
-    width: 36px;
-    height: 36px;
-    border-radius: 999px;
-    background: transparent;
-    border: 1px solid var(--line);
+  .nav__follow {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--ink);
+    gap: 6px;
+    height: 34px;
+    padding: 0 14px;
+    border-radius: var(--r-pill);
+    background: var(--primary);
+    color: var(--primary-ink);
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: -0.01em;
+    transition: opacity 0.15s ease;
   }
+  .nav__follow:hover { opacity: 0.85; }
+  .nav__follow svg { flex-shrink: 0; }
 
   /* HERO */
   .hero { padding: 20px 20px 32px; }
@@ -990,11 +996,18 @@
       <img src="/assets/logo-final.png" alt="" />
       <span>TheJiniusLab</span>
     </a>
-    <button class="nav__menu" type="button" aria-label="메뉴">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M2 4h12M2 8h12M2 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <a class="nav__follow"
+       href="https://www.instagram.com/jysk_prof.z?igsh=YTkybHR1dTNzMWxo&utm_source=qr"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="인스타그램 팔로우">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2"/>
+        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
       </svg>
-    </button>
+      팔로우
+    </a>
   </nav>
 
   <!-- 1. HERO — 사진 + 경력 + 시기성 핵심 문구 -->
