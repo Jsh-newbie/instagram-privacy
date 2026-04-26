@@ -858,6 +858,42 @@
     scrollbar-width: none;
   }
   .strip::-webkit-scrollbar { display: none; }
+
+  /* MARQUEE — 무한 흐르는 카드 */
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .marquee-wrap {
+    overflow: hidden;
+    padding: 4px 0 20px;
+    cursor: grab;
+  }
+  .marquee-wrap:active { cursor: grabbing; }
+  .marquee-track {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    animation: marquee 18s linear infinite;
+  }
+  .marquee-wrap:hover .marquee-track,
+  .marquee-wrap.paused .marquee-track {
+    animation-play-state: paused;
+  }
+  .marquee-card {
+    flex: 0 0 220px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s ease;
+  }
+  .marquee-card:hover { border-color: var(--accent); }
+
   .strip__card {
     flex: 0 0 calc(100% - 40px);
     scroll-snap-align: center;
@@ -1116,45 +1152,83 @@
       </p>
     </div>
 
-    <div class="strip-wrap">
-    <div class="strip" id="libraryStrip" role="list">
-      <a class="strip__card" href="/library/" role="listitem">
-        <div class="strip__cover">CHEM · 통합과학</div>
-        <div class="strip__body">
-          <span class="strip__tag">통합과학</span>
-          <h3 class="strip__title">단원별 핵심 정리 — 1단원</h3>
-          <p class="strip__desc">자유 낙하·운동·물질의 규칙성. 시험 직전 한 번에 보는 정리본.</p>
-          <span class="strip__meta">PDF · 준비 중</span>
-        </div>
-      </a>
-      <a class="strip__card" href="/library/" role="listitem">
-        <div class="strip__cover">BIO · 통합과학</div>
-        <div class="strip__body">
-          <span class="strip__tag">생명·지구과학</span>
-          <h3 class="strip__title">생명 시스템 핵심 25제</h3>
-          <p class="strip__desc">세포·물질대사·항상성 빈출 문항을 골라 풀이까지.</p>
-          <span class="strip__meta">PDF · 준비 중</span>
-        </div>
-      </a>
-      <a class="strip__card" href="/library/" role="listitem">
-        <div class="strip__cover">PHYS · 통합과학</div>
-        <div class="strip__body">
-          <span class="strip__tag">통합과학</span>
-          <h3 class="strip__title">물리 단원 오답 패턴 분석</h3>
-          <p class="strip__desc">중간고사에서 자주 틀리는 유형 정리, 다음 시험을 위한 점검표.</p>
-          <span class="strip__meta">PDF · 준비 중</span>
-        </div>
-      </a>
-      <a class="strip__card" href="/library/" role="listitem">
-        <div class="strip__cover">+ MORE</div>
-        <div class="strip__body">
-          <span class="strip__tag">전체 보기</span>
-          <h3 class="strip__title">자료실에서 더 보기</h3>
-          <p class="strip__desc">시험·단원·시기별 모든 공개 자료를 한 곳에서.</p>
-          <span class="strip__meta">→ /library/</span>
-        </div>
-      </a>
-    </div>
+    <div class="marquee-wrap" id="libraryMarquee">
+      <div class="marquee-track">
+        <!-- 원본 -->
+        <a class="marquee-card" href="/library/">
+          <div class="strip__cover">CHEM · 통합과학</div>
+          <div class="strip__body">
+            <span class="strip__tag">통합과학</span>
+            <h3 class="strip__title">단원별 핵심 정리 — 1단원</h3>
+            <p class="strip__desc">자유 낙하·운동·물질의 규칙성. 시험 직전 한 번에 보는 정리본.</p>
+            <span class="strip__meta">PDF · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/library/">
+          <div class="strip__cover">BIO · 통합과학</div>
+          <div class="strip__body">
+            <span class="strip__tag">생명·지구과학</span>
+            <h3 class="strip__title">생명 시스템 핵심 25제</h3>
+            <p class="strip__desc">세포·물질대사·항상성 빈출 문항을 골라 풀이까지.</p>
+            <span class="strip__meta">PDF · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/library/">
+          <div class="strip__cover">PHYS · 통합과학</div>
+          <div class="strip__body">
+            <span class="strip__tag">통합과학</span>
+            <h3 class="strip__title">물리 단원 오답 패턴 분석</h3>
+            <p class="strip__desc">중간고사에서 자주 틀리는 유형 정리, 다음 시험을 위한 점검표.</p>
+            <span class="strip__meta">PDF · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/library/">
+          <div class="strip__cover">+ MORE</div>
+          <div class="strip__body">
+            <span class="strip__tag">전체 보기</span>
+            <h3 class="strip__title">자료실에서 더 보기</h3>
+            <p class="strip__desc">시험·단원·시기별 모든 공개 자료를 한 곳에서.</p>
+            <span class="strip__meta">→ /library/</span>
+          </div>
+        </a>
+        <!-- 복제 (무한루프용) -->
+        <a class="marquee-card" href="/library/">
+          <div class="strip__cover">CHEM · 통합과학</div>
+          <div class="strip__body">
+            <span class="strip__tag">통합과학</span>
+            <h3 class="strip__title">단원별 핵심 정리 — 1단원</h3>
+            <p class="strip__desc">자유 낙하·운동·물질의 규칙성. 시험 직전 한 번에 보는 정리본.</p>
+            <span class="strip__meta">PDF · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/library/">
+          <div class="strip__cover">BIO · 통합과학</div>
+          <div class="strip__body">
+            <span class="strip__tag">생명·지구과학</span>
+            <h3 class="strip__title">생명 시스템 핵심 25제</h3>
+            <p class="strip__desc">세포·물질대사·항상성 빈출 문항을 골라 풀이까지.</p>
+            <span class="strip__meta">PDF · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/library/">
+          <div class="strip__cover">PHYS · 통합과학</div>
+          <div class="strip__body">
+            <span class="strip__tag">통합과학</span>
+            <h3 class="strip__title">물리 단원 오답 패턴 분석</h3>
+            <p class="strip__desc">중간고사에서 자주 틀리는 유형 정리, 다음 시험을 위한 점검표.</p>
+            <span class="strip__meta">PDF · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/library/">
+          <div class="strip__cover">+ MORE</div>
+          <div class="strip__body">
+            <span class="strip__tag">전체 보기</span>
+            <h3 class="strip__title">자료실에서 더 보기</h3>
+            <p class="strip__desc">시험·단원·시기별 모든 공개 자료를 한 곳에서.</p>
+            <span class="strip__meta">→ /library/</span>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -1170,43 +1244,83 @@
       </p>
     </div>
 
-    <div class="strip" role="list">
-      <a class="strip__card" href="/insight/" role="listitem">
-        <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · CHEM</div>
-        <div class="strip__body">
-          <span class="strip__tag">화학 진로</span>
-          <h3 class="strip__title">의·약·화공 진로 탐구 주제 12선</h3>
-          <p class="strip__desc">단원과 진로의 교차점에서 고른 실제 보고서 가능 주제.</p>
-          <span class="strip__meta">POST · 준비 중</span>
-        </div>
-      </a>
-      <a class="strip__card" href="/insight/" role="listitem">
-        <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · BIO</div>
-        <div class="strip__body">
-          <span class="strip__tag">생명 진로</span>
-          <h3 class="strip__title">의·생명·치 진로 탐구 주제 12선</h3>
-          <p class="strip__desc">유전·신경·면역에서 학교에서 가능한 변수 통제까지.</p>
-          <span class="strip__meta">POST · 준비 중</span>
-        </div>
-      </a>
-      <a class="strip__card" href="/insight/" role="listitem">
-        <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">보고서 양식</div>
-        <div class="strip__body">
-          <span class="strip__tag">보고서</span>
-          <h3 class="strip__title">서론–방법–결과–고찰 양식</h3>
-          <p class="strip__desc">실제 첨삭 예시 포함. 학생 문체로 다듬는 가이드.</p>
-          <span class="strip__meta">DOCX · 준비 중</span>
-        </div>
-      </a>
-      <a class="strip__card" href="/insight/" role="listitem">
-        <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">+ MORE</div>
-        <div class="strip__body">
-          <span class="strip__tag">전체 보기</span>
-          <h3 class="strip__title">세특 자료 더 보기</h3>
-          <p class="strip__desc">탐구 주제·보고서·진로별 자료 전체.</p>
-          <span class="strip__meta">→ /insight/</span>
-        </div>
-      </a>
+    <div class="marquee-wrap" id="insightMarquee">
+      <div class="marquee-track" style="animation-direction: reverse;">
+        <!-- 원본 -->
+        <a class="marquee-card" href="/insight/">
+          <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · CHEM</div>
+          <div class="strip__body">
+            <span class="strip__tag">화학 진로</span>
+            <h3 class="strip__title">의·약·화공 진로 탐구 주제 12선</h3>
+            <p class="strip__desc">단원과 진로의 교차점에서 고른 실제 보고서 가능 주제.</p>
+            <span class="strip__meta">POST · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/insight/">
+          <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · BIO</div>
+          <div class="strip__body">
+            <span class="strip__tag">생명 진로</span>
+            <h3 class="strip__title">의·생명·치 진로 탐구 주제 12선</h3>
+            <p class="strip__desc">유전·신경·면역에서 학교에서 가능한 변수 통제까지.</p>
+            <span class="strip__meta">POST · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/insight/">
+          <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">보고서 양식</div>
+          <div class="strip__body">
+            <span class="strip__tag">보고서</span>
+            <h3 class="strip__title">서론–방법–결과–고찰 양식</h3>
+            <p class="strip__desc">실제 첨삭 예시 포함. 학생 문체로 다듬는 가이드.</p>
+            <span class="strip__meta">DOCX · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/insight/">
+          <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">+ MORE</div>
+          <div class="strip__body">
+            <span class="strip__tag">전체 보기</span>
+            <h3 class="strip__title">세특 자료 더 보기</h3>
+            <p class="strip__desc">탐구 주제·보고서·진로별 자료 전체.</p>
+            <span class="strip__meta">→ /insight/</span>
+          </div>
+        </a>
+        <!-- 복제 (무한루프용) -->
+        <a class="marquee-card" href="/insight/">
+          <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · CHEM</div>
+          <div class="strip__body">
+            <span class="strip__tag">화학 진로</span>
+            <h3 class="strip__title">의·약·화공 진로 탐구 주제 12선</h3>
+            <p class="strip__desc">단원과 진로의 교차점에서 고른 실제 보고서 가능 주제.</p>
+            <span class="strip__meta">POST · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/insight/">
+          <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · BIO</div>
+          <div class="strip__body">
+            <span class="strip__tag">생명 진로</span>
+            <h3 class="strip__title">의·생명·치 진로 탐구 주제 12선</h3>
+            <p class="strip__desc">유전·신경·면역에서 학교에서 가능한 변수 통제까지.</p>
+            <span class="strip__meta">POST · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/insight/">
+          <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">보고서 양식</div>
+          <div class="strip__body">
+            <span class="strip__tag">보고서</span>
+            <h3 class="strip__title">서론–방법–결과–고찰 양식</h3>
+            <p class="strip__desc">실제 첨삭 예시 포함. 학생 문체로 다듬는 가이드.</p>
+            <span class="strip__meta">DOCX · 준비 중</span>
+          </div>
+        </a>
+        <a class="marquee-card" href="/insight/">
+          <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">+ MORE</div>
+          <div class="strip__body">
+            <span class="strip__tag">전체 보기</span>
+            <h3 class="strip__title">세특 자료 더 보기</h3>
+            <p class="strip__desc">탐구 주제·보고서·진로별 자료 전체.</p>
+            <span class="strip__meta">→ /insight/</span>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -1362,41 +1476,11 @@
     return false;
   }
 
-  // Library 카드 자동 슬라이드
-  (function() {
-    var strip = document.getElementById('libraryStrip');
-    if (!strip) return;
-    var timer;
-    var idx = 0;
-
-    function getCards() {
-      return Array.from(strip.querySelectorAll('.strip__card'));
-    }
-
-    function scrollToCard(cards, i) {
-      var card = cards[i];
-      if (!card) return;
-      var target = card.offsetLeft - (strip.clientWidth - card.offsetWidth) / 2;
-      strip.scrollTo({ left: target, behavior: 'smooth' });
-    }
-
-    function autoScroll() {
-      var cards = getCards();
-      if (!cards.length) return;
-      idx = (idx + 1) % cards.length;
-      scrollToCard(cards, idx);
-    }
-
-    function start() { timer = setInterval(autoScroll, 3000); }
-    function stop() { clearInterval(timer); }
-
-    strip.addEventListener('mouseenter', stop);
-    strip.addEventListener('touchstart', stop, { passive: true });
-    strip.addEventListener('mouseleave', start);
-    strip.addEventListener('touchend', function() { setTimeout(start, 3000); }, { passive: true });
-
-    start();
-  })();
+  // 마퀴 터치 일시정지
+  document.querySelectorAll('.marquee-wrap').forEach(function(wrap) {
+    wrap.addEventListener('touchstart', function() { wrap.classList.add('paused'); }, { passive: true });
+    wrap.addEventListener('touchend', function() { wrap.classList.remove('paused'); }, { passive: true });
+  });
 </script>
 </body>
 </html>
