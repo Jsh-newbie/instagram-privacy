@@ -607,6 +607,73 @@
     letter-spacing: 0.08em;
   }
 
+  /* NOTE — 짧은 신뢰 한 줄 */
+  .note { padding: 24px 20px; }
+  .note__line {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+  .note__line b { color: var(--ink); font-weight: 700; }
+
+  /* TIMELY — 시기성 콘텐츠 */
+  .timely {
+    padding: 40px 20px;
+    background: var(--bg-elev);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .timely__title {
+    margin: 0 0 14px;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+  }
+  .timely__title .it { font-style: italic; color: var(--accent); }
+  .timely__lede {
+    margin: 0 0 24px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+  .timely__lede b { color: var(--ink); font-weight: 700; }
+  .timely__list {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+  }
+  .timely__list li {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .timely__list li:first-child { border-top: 1px solid var(--ink); }
+  .timely__num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    padding-top: 2px;
+  }
+  .timely__heading {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .timely__desc {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
   @media (min-width: 720px) {
     body { background: #ECE7DC; }
     .page {
@@ -625,7 +692,7 @@
   <nav class="nav" aria-label="주요">
     <a class="nav__brand" href="/">
       <img src="/assets/logo-final.png" alt="" />
-      <span>Ji Sung Hyun</span>
+      <span>TheJiniusLab</span>
     </a>
     <button class="nav__menu" type="button" aria-label="메뉴">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -634,61 +701,100 @@
     </button>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO — 헤드라인/Lede/풀인용은 시기성에 맞춰 갈아끼우는 영역 -->
   <section class="hero">
     <div class="hero__masthead">
-      <span>VOL.06 · 2026</span>
+      <span>VOL.01 · 2026</span>
       <span>SCIENCE / INQUIRY</span>
-      <span>NO.001</span>
+      <span>1학기 · 중간 직후</span>
     </div>
     <div class="hero__intro">
-      <div class="t-caption">INSTRUCTOR · 정율사관학원 탐구과</div>
+      <div class="t-caption">THEJINIUSLAB · 지성현T · 고1 통합과학</div>
       <h1 class="hero__title">
-        <span class="it">Inquiry</span><br/>
-        <span>by Design.</span>
+        중간 끝,<br/>
+        다음 시험까지<br/>
+        <span class="it">무엇을</span> 바꿔야 할까.
       </h1>
       <p class="hero__lede">
-        과학고 조기졸업·UNIST 출신의 강사 <b>지성현</b>이
-        설계하는, 학생 한 명을 위한 6년치 탐구 로드맵.
+        기말까지 6주, <b>고1 통합과학</b>에서
+        점수와 방향을 같이 끌어올릴 수 있는 시간입니다.
       </p>
     </div>
 
     <div class="hero__cover">
-      <img src="/assets/profile-green.jpg" alt="지성현 강사 프로필" />
+      <img src="/assets/profile-green.jpg" alt="지성현T" />
       <div class="hero__cover-top">
         <img src="/assets/logo-final.png" alt="" />
         <div class="hero__byline">
-          지성현
-          <span class="hero__byline-roman">SUNG HYUN JI</span>
+          지성현T
+          <span class="hero__byline-roman">THEJINIUSLAB</span>
         </div>
       </div>
       <div class="hero__cover-bottom">
         <div class="hero__pull">
-          "탐구는<br/>발견이 아니라<br/>설계입니다."
+          "점수보다,<br/>다음에 무엇을<br/>바꿀지가 중요합니다."
         </div>
         <div class="hero__cover-meta">
-          CH / BIO<br/>INTEGRATED
+          고1<br/>통합과학
         </div>
       </div>
     </div>
 
-    <a class="btn btn--primary btn--full btn--lg" style="margin-top:16px;" href="#contact">
-      상담 예약하기 →
+    <a class="btn btn--primary btn--full btn--lg" style="margin-top:16px;" href="#resources">
+      기말 준비 가이드 보기 →
     </a>
     <div class="hero__channels">
-      <span>카카오톡 · 인스타 DM</span>
-      <span>RESPONSE &lt; 24H</span>
+      <span>무료 자료 · 익명 다운로드</span>
+      <span>2026 · 1학기 기말 대비</span>
     </div>
   </section>
 
-  <!-- CV -->
-  <section class="section--elevated">
-    <div class="t-caption" style="margin-bottom:14px;">CURRICULUM VITAE</div>
-    <div class="cv__row"><span class="cv__yr">2014</span><span class="cv__ev">충북과학고등학교 입학</span></div>
-    <div class="cv__row"><span class="cv__yr">2016</span><span class="cv__ev">충북과학고등학교 조기졸업</span></div>
-    <div class="cv__row"><span class="cv__yr">2020</span><span class="cv__ev">UNIST 생명과학과 졸업 / 강의 시작</span></div>
-    <div class="cv__row"><span class="cv__yr">2023</span><span class="cv__ev">정율사관학원 탐구과 합류</span></div>
-    <div class="cv__row"><span class="cv__yr">2025</span><span class="cv__ev">탐구과 팀장 · 자체 교재 집필</span></div>
+  <!-- NOTE — 짧은 신뢰 한 줄 (브랜드 + 강사) -->
+  <section class="note section--bordered">
+    <p class="note__line">
+      <b>지성현T</b>는 충북과학고 조기졸업, UNIST 생명과학 전공.
+      현 정율사관학원 탐구과 팀장으로
+      2020년부터 <b>통합과학·화학·생명과학</b>을 가르치고 있습니다.
+    </p>
+  </section>
+
+  <!-- TIMELY — 중간 직후 시기성 콘텐츠 -->
+  <section class="timely">
+    <div class="t-caption" style="margin-bottom:12px;">NOW · 중간고사 이후 6주</div>
+    <h2 class="timely__title">
+      <span class="it">점수보다,</span><br/>
+      바꿀 것이 보입니다.
+    </h2>
+    <p class="timely__lede">
+      만족스럽지 않았다면 그건 자연스러운 결과입니다.
+      문제는 <b>다음 한 달 반</b>을 어떻게 쓰는지에 달려 있습니다.
+    </p>
+    <ol class="timely__list">
+      <li>
+        <span class="timely__num">01</span>
+        <div>
+          <div class="timely__heading">중간 시험지 진단</div>
+          <div class="timely__desc">틀린 문제의 원인을 개념·풀이속도·실수로 분리. 다음 학습량의 우선순위가 정해집니다.</div>
+        </div>
+      </li>
+      <li>
+        <span class="timely__num">02</span>
+        <div>
+          <div class="timely__heading">기말 범위 재배치</div>
+          <div class="timely__desc">중간보다 분량이 많아지는 단원에서 시간 배분을 다시 짭니다. 1주 단위 계획으로 압축.</div>
+        </div>
+      </li>
+      <li>
+        <span class="timely__num">03</span>
+        <div>
+          <div class="timely__heading">수행평가·탐구 동선</div>
+          <div class="timely__desc">시험 준비와 수행평가가 서로 잡아먹지 않도록, 학교 일정에 맞춘 순서를 정리합니다.</div>
+        </div>
+      </li>
+    </ol>
+    <a class="btn btn--outline btn--full btn--lg" href="#resources" style="margin-top:8px;">
+      관련 자료 보기 →
+    </a>
   </section>
 
   <!-- SUBJECTS -->
@@ -720,6 +826,101 @@
       </div>
       <h3 class="subject__title">생명과학Ⅰ · Ⅱ</h3>
       <p class="subject__desc">유전·신경·면역. 의·약·생명·치대 학생의 보고서까지 함께 설계합니다.</p>
+    </div>
+  </section>
+
+  <!-- LIBRARY -->
+  <section id="resources" class="section--elevated">
+    <div class="t-caption" style="margin-bottom:8px;">LIBRARY · 공개 자료실</div>
+    <h2 style="margin:0 0 18px; font-family:var(--font-serif); font-style:italic; font-size:32px; color:var(--primary);">Resources.</h2>
+    <p style="margin:-8px 0 18px; font-size:13.5px; line-height:1.55; color:var(--ink-2);">
+      가벼운 자료는 즉시 받을 수 있고, 분량이 큰 자료는 연락처를 남기시면 보내드립니다.
+    </p>
+    <div>
+      <div class="library__row">
+        <div class="library__tag">CHEM</div>
+        <div class="library__body">
+          <div class="library__title">평형 단원 핵심 25제</div>
+          <div class="library__desc">내신·모의고사 출제 빈도 분석본</div>
+          <div class="library__size">PDF · 18p</div>
+        </div>
+        <button class="library__btn" type="button" aria-label="다운로드">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <path d="M8 2v10M3 8l5 5 5-5"/>
+          </svg>
+        </button>
+      </div>
+      <div class="library__row">
+        <div class="library__tag">BIO</div>
+        <div class="library__body">
+          <div class="library__title">신경계 탐구주제 20선</div>
+          <div class="library__desc">학년별 난이도 매핑 + 참고문헌</div>
+          <div class="library__size">PDF · 12p</div>
+        </div>
+        <button class="library__btn" type="button" aria-label="다운로드">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <path d="M8 2v10M3 8l5 5 5-5"/>
+          </svg>
+        </button>
+      </div>
+      <div class="library__row">
+        <div class="library__tag">INT</div>
+        <div class="library__body">
+          <div class="library__title">탐구보고서 양식 v3</div>
+          <div class="library__desc">서론–방법–결과–고찰 + 첨삭 예시</div>
+          <div class="library__size">DOCX · 4p</div>
+        </div>
+        <button class="library__btn" type="button" aria-label="다운로드">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <path d="M8 2v10M3 8l5 5 5-5"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS — 슬롯 템플릿. 데이터를 받아 .results__row 행으로 채워 넣으면 됩니다. -->
+  <section>
+    <div class="section__head">
+      <h2 style="font-size:32px;">Where they go.</h2>
+      <span class="section__num">합격 실적</span>
+    </div>
+    <div class="results__list">
+      <!-- TODO: 실제 합격 실적 데이터 받아서 채우기. 행 형식:
+        <div class="results__row">
+          <span class="results__yr">YYYY</span>
+          <span class="results__schools">학교 / 학과 …</span>
+        </div>
+      -->
+      <div class="results__row">
+        <span class="results__yr">— —</span>
+        <span class="results__schools" style="color:var(--ink-3);">합격 실적은 정리해 게재 예정입니다.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS — 슬롯 템플릿. 후기를 받으면 .testimonial 카드를 추가하세요. -->
+  <section class="section--elevated">
+    <div class="t-caption" style="margin-bottom:8px;">VOICES · 수강 후기</div>
+    <h2 style="margin:0 0 24px; font-family:var(--font-serif); font-style:italic; font-size:32px; color:var(--primary); letter-spacing:-0.01em; line-height:1.05;">
+      학생과 학부모의<br/>한 줄.
+    </h2>
+    <div class="testimonials__list">
+      <!-- TODO: 실제 후기를 받아서 카드로 채우기. 카드 형식:
+        <div class="testimonial">
+          <div class="testimonial__mark">"</div>
+          <p class="testimonial__text">후기 본문…</p>
+          <div class="testimonial__by">
+            <span class="testimonial__name">학부모 / 수강생 표기</span>
+            <span class="testimonial__sep"></span>
+            <span class="testimonial__meta">학년 / 진학 정보 등</span>
+          </div>
+        </div>
+      -->
+      <div class="testimonial" style="opacity:0.6;">
+        <div class="testimonial__mark">"</div>
+        <p class="testimonial__text" style="color:var(--ink-3);">수강생과 학부모의 후기를 정리해 곧 게재합니다.</p>
+      </div>
     </div>
   </section>
 
@@ -822,110 +1023,14 @@
     </div>
   </section>
 
-  <!-- RESULTS -->
-  <section>
-    <div class="section__head">
-      <h2 style="font-size:32px;">Where they go.</h2>
-      <span class="section__num">'22 — '25</span>
-    </div>
-    <div class="results__list">
-      <div class="results__row">
-        <span class="results__yr">2025</span>
-        <span class="results__schools">서울대 생명과학부 / 한양대 의예과 / KAIST 생명화학공학 …</span>
-      </div>
-      <div class="results__row">
-        <span class="results__yr">2024</span>
-        <span class="results__schools">연세대 의예 / 성균관대 약학 / 고려대 생명공학 …</span>
-      </div>
-      <div class="results__row">
-        <span class="results__yr">2023</span>
-        <span class="results__schools">UNIST / 포스텍 / 중앙대 의학부 …</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
+  <!-- CV -->
   <section class="section--elevated">
-    <div class="t-caption" style="margin-bottom:8px;">VOICES · 수강 후기</div>
-    <h2 style="margin:0 0 24px; font-family:var(--font-serif); font-style:italic; font-size:32px; color:var(--primary); letter-spacing:-0.01em; line-height:1.05;">
-      From students<br/>and parents.
-    </h2>
-    <div class="testimonials__list">
-      <div class="testimonial">
-        <div class="testimonial__mark">"</div>
-        <p class="testimonial__text">아이가 탐구보고서를 통째로 들고와서 함께 설계받는 게 처음에는 신기했어요. 한 학기 만에 생기부 문장이 다른 학생들과 차별화됐다는 평을 학교에서 들었습니다.</p>
-        <div class="testimonial__by">
-          <span class="testimonial__name">학부모 K</span>
-          <span class="testimonial__sep"></span>
-          <span class="testimonial__meta">고2 자녀 / 의예 진학</span>
-        </div>
-      </div>
-      <div class="testimonial">
-        <div class="testimonial__mark">"</div>
-        <p class="testimonial__text">개념을 이해 안 한 채로 외우는 걸 절대 허용 안 하시는데, 그게 1학년 때는 답답했지만 3학년 가면서 결국 그게 차이를 만들었습니다.</p>
-        <div class="testimonial__by">
-          <span class="testimonial__name">수강생 P</span>
-          <span class="testimonial__sep"></span>
-          <span class="testimonial__meta">UNIST 생명과학 합격</span>
-        </div>
-      </div>
-      <div class="testimonial">
-        <div class="testimonial__mark">"</div>
-        <p class="testimonial__text">학원 알아보다가 친구 추천으로 왔는데, 첫 상담 때 우리 아이의 진로를 더 정확히 짚어주셔서 놀랐어요.</p>
-        <div class="testimonial__by">
-          <span class="testimonial__name">학부모 L</span>
-          <span class="testimonial__sep"></span>
-          <span class="testimonial__meta">고1 자녀</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- LIBRARY -->
-  <section class="section--elevated" style="border-bottom:none;">
-    <div class="t-caption" style="margin-bottom:8px;">LIBRARY · 공개 자료실</div>
-    <h2 style="margin:0 0 18px; font-family:var(--font-serif); font-style:italic; font-size:32px; color:var(--primary);">Resources.</h2>
-    <div>
-      <div class="library__row">
-        <div class="library__tag">CHEM</div>
-        <div class="library__body">
-          <div class="library__title">평형 단원 핵심 25제</div>
-          <div class="library__desc">내신·모의고사 출제 빈도 분석본</div>
-          <div class="library__size">PDF · 18p</div>
-        </div>
-        <button class="library__btn" type="button" aria-label="다운로드">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-            <path d="M8 2v10M3 8l5 5 5-5"/>
-          </svg>
-        </button>
-      </div>
-      <div class="library__row">
-        <div class="library__tag">BIO</div>
-        <div class="library__body">
-          <div class="library__title">신경계 탐구주제 20선</div>
-          <div class="library__desc">학년별 난이도 매핑 + 참고문헌</div>
-          <div class="library__size">PDF · 12p</div>
-        </div>
-        <button class="library__btn" type="button" aria-label="다운로드">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-            <path d="M8 2v10M3 8l5 5 5-5"/>
-          </svg>
-        </button>
-      </div>
-      <div class="library__row">
-        <div class="library__tag">INT</div>
-        <div class="library__body">
-          <div class="library__title">탐구보고서 양식 v3</div>
-          <div class="library__desc">서론–방법–결과–고찰 + 첨삭 예시</div>
-          <div class="library__size">DOCX · 4p</div>
-        </div>
-        <button class="library__btn" type="button" aria-label="다운로드">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-            <path d="M8 2v10M3 8l5 5 5-5"/>
-          </svg>
-        </button>
-      </div>
-    </div>
+    <div class="t-caption" style="margin-bottom:14px;">CURRICULUM VITAE</div>
+    <div class="cv__row"><span class="cv__yr">2014</span><span class="cv__ev">충북과학고등학교 입학</span></div>
+    <div class="cv__row"><span class="cv__yr">2016</span><span class="cv__ev">충북과학고등학교 조기졸업</span></div>
+    <div class="cv__row"><span class="cv__yr">2020</span><span class="cv__ev">UNIST 생명과학과 졸업 / 강의 시작</span></div>
+    <div class="cv__row"><span class="cv__yr">2023</span><span class="cv__ev">정율사관학원 탐구과 합류</span></div>
+    <div class="cv__row"><span class="cv__yr">2025</span><span class="cv__ev">탐구과 팀장 · 자체 교재 집필</span></div>
   </section>
 
   <!-- FAQ -->
@@ -964,27 +1069,53 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- CONTACT — 백엔드 미연결 상태. 폼 활성화는 api 연결 후 진행. -->
   <section id="contact" class="contact section--elevated" style="border-bottom:none;">
-    <div class="t-caption" style="margin-bottom:8px;">BOOK A SESSION</div>
-    <h2>Let's design<br/>your inquiry.</h2>
-    <form class="contact__form" onsubmit="event.preventDefault();">
+    <div class="t-caption" style="margin-bottom:8px;">상담 신청</div>
+    <h2>같이 정리해드립니다.</h2>
+    <p style="margin:-12px 0 20px; font-size:13.5px; line-height:1.55; color:var(--ink-2);">
+      자료만 필요하시면 위의 자료실을 이용해주세요.
+      직접 이야기 나누고 싶으신 경우에만 신청해주시면 충분합니다.
+    </p>
+    <form class="contact__form" onsubmit="event.preventDefault(); alert('신청 폼은 곧 활성화됩니다. 그동안은 인스타그램 DM으로 연락 부탁드립니다.');">
       <div class="contact__field">
-        <label class="contact__label" for="f-name">이름</label>
-        <input class="contact__input" id="f-name" name="name" placeholder="예) 김율현" autocomplete="name" />
+        <label class="contact__label" for="f-kind">상담 종류</label>
+        <select class="contact__input" id="f-kind" name="kind" style="appearance:none; -webkit-appearance:none;">
+          <option>무료 진단 상담 (방향만 정리)</option>
+          <option>수업 등록·정규 상담</option>
+        </select>
+      </div>
+      <div class="contact__field">
+        <label class="contact__label" for="f-name">학생 이름</label>
+        <input class="contact__input" id="f-name" name="name" placeholder="이름" autocomplete="name" />
+      </div>
+      <div class="contact__field">
+        <label class="contact__label" for="f-grade">학년</label>
+        <input class="contact__input" id="f-grade" name="grade" placeholder="예) 고1" value="고1" />
       </div>
       <div class="contact__field">
         <label class="contact__label" for="f-phone">연락처</label>
         <input class="contact__input" id="f-phone" name="phone" placeholder="010-0000-0000" autocomplete="tel" inputmode="tel" />
       </div>
       <div class="contact__field">
-        <label class="contact__label" for="f-grade">학년 / 과목</label>
-        <input class="contact__input" id="f-grade" name="grade" placeholder="예) 고2 화학·생명" />
+        <label class="contact__label" for="f-channel">희망 연락 방식</label>
+        <select class="contact__input" id="f-channel" name="channel" style="appearance:none; -webkit-appearance:none;">
+          <option>문자</option>
+          <option>전화</option>
+          <option>인스타 DM</option>
+        </select>
       </div>
-      <button class="btn btn--primary btn--full btn--lg" type="submit" style="margin-top:12px;">예약 요청 보내기</button>
+      <label style="display:flex; gap:10px; align-items:flex-start; padding:8px 0 14px; font-size:12.5px; color:var(--ink-2); line-height:1.5;">
+        <input type="checkbox" name="consent" required style="margin-top:3px;" />
+        <span>
+          <a href="/legal/privacy/" style="color:var(--ink); text-decoration:underline;">개인정보 수집·이용</a>에 동의합니다.
+          상담 외 목적으로 사용하지 않습니다.
+        </span>
+      </label>
+      <button class="btn btn--primary btn--full btn--lg" type="submit" style="margin-top:4px;">신청 보내기</button>
     </form>
     <div class="contact__channels">
-      <a class="btn btn--outline btn--sm" href="#" rel="noopener">카카오톡 채널</a>
+      <a class="btn btn--outline btn--sm" href="#" rel="noopener">카카오톡 채널 (준비 중)</a>
       <a class="btn btn--outline btn--sm" href="https://instagram.com/" rel="noopener" target="_blank">인스타그램 DM</a>
     </div>
   </section>
@@ -993,9 +1124,9 @@
   <footer class="footer">
     <div class="footer__brand">
       <img src="/assets/logo-final.png" alt="" />
-      <span>JI SUNG HYUN · 2026</span>
+      <span>THEJINIUSLAB · 지성현T</span>
     </div>
-    <span class="footer__meta">JEONGYUL · 탐구과</span>
+    <span class="footer__meta">정율사관학원 · 탐구과</span>
   </footer>
 
 </div>
