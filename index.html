@@ -854,13 +854,13 @@
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    padding: 4px 0 20px;
+    padding: 4px 20px 20px;
     scrollbar-width: none;
   }
   .strip::-webkit-scrollbar { display: none; }
   .strip__card {
-    flex: 0 0 240px;
-    scroll-snap-align: start;
+    flex: 0 0 calc(100% - 40px);
+    scroll-snap-align: center;
     background: var(--bg-elev);
     border: 1px solid var(--line);
     border-radius: var(--r-md);
@@ -1080,7 +1080,6 @@
 
     <div class="strip-wrap">
     <div class="strip" id="libraryStrip" role="list">
-      <div style="flex:0 0 20px;scroll-snap-align:none;" aria-hidden="true"></div>
       <a class="strip__card" href="/library/" role="listitem">
         <div class="strip__cover">CHEM · 통합과학</div>
         <div class="strip__body">
@@ -1117,7 +1116,6 @@
           <span class="strip__meta">→ /library/</span>
         </div>
       </a>
-      <div style="flex:0 0 20px;scroll-snap-align:none;" aria-hidden="true"></div>
     </div>
     </div>
   </section>
@@ -1337,8 +1335,8 @@
     function scrollToCard(cards, i) {
       var card = cards[i];
       if (!card) return;
-      // card의 strip 내 offsetLeft 기준으로 스크롤 (spacer 20px 포함)
-      strip.scrollTo({ left: card.offsetLeft - 20, behavior: 'smooth' });
+      var target = card.offsetLeft - (strip.clientWidth - card.offsetWidth) / 2;
+      strip.scrollTo({ left: target, behavior: 'smooth' });
     }
 
     function autoScroll() {
