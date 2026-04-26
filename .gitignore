@@ -1,0 +1,22 @@
+# Brainstorming / scratch artifacts
+.superpowers/
+
+# Local working assets (raw images, PDFs)
+*.pdf
+*.JPG
+*.jpg
+*.jpeg
+*.png
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Node
+node_modules/
+
+# Logs
+*.log
