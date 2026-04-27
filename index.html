@@ -1112,6 +1112,99 @@
     line-height: 1.5;
   }
 
+  /* REVIEW CARDS */
+  .review-card {
+    flex: 0 0 260px;
+    height: 180px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+  }
+  .review-card:hover { border-color: var(--accent); }
+  .review-card--score {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+  .review-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .review-card__type {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .review-card--score .review-card__type { color: rgba(194,150,74,0.75); }
+  .review-card__body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 10px 0 8px;
+    overflow: hidden;
+  }
+  .review-card__score-num {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+  }
+  .review-card__score-num span {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  .review-card__quote {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .review-card__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .review-card__by {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .review-card--score .review-card__by { color: rgba(242,239,232,0.45); }
+  .review-card__grade-change {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .review-card__grade-change .arrow { color: var(--accent); }
+  .review-card__grade-change .after { color: var(--primary); font-weight: 700; }
+
   @media (min-width: 720px) {
     body { background: #ECE7DC; }
     .page {
@@ -1243,7 +1336,7 @@
       가장 최근에 공개한 무료 자료입니다. 시기에 맞춰 새 자료가 추가됩니다.
     </p>
 
-    <a class="latest__card" href="/library/">
+    <a class="latest__card" href="/library/integrated-1/">
       <div class="latest__cover">PREVIEW · COMING SOON</div>
       <div class="latest__body">
         <span class="latest__tag">고1 통합과학 · 4월</span>
@@ -1259,7 +1352,7 @@
     <div style="padding:0 20px;">
       <div class="sec-head">
         <h2>Library.</h2>
-        <span class="sec-head__meta">공개 자료</span>
+        <a class="sec-head__meta" href="/library/" style="text-decoration:none; border-bottom: 1px solid var(--line); padding-bottom:1px;">공개 자료 더보기 →</a>
       </div>
       <p class="sec-lede">
         탐구 주제와 보고서 작성에 도움 되는 공개 자료.<br/>인스타 게시물에서 더 깊이 정리한 버전입니다.
@@ -1269,7 +1362,7 @@
     <div class="marquee-wrap" id="libraryMarquee">
       <div class="marquee-track">
         <!-- 원본 -->
-        <a class="marquee-card" href="/library/">
+        <a class="marquee-card" href="/library/integrated-1/">
           <div class="strip__cover">CHEM · 통합과학</div>
           <div class="strip__body">
             <span class="strip__tag">통합과학</span>
@@ -1278,7 +1371,7 @@
             <span class="strip__meta">PDF · 준비 중</span>
           </div>
         </a>
-        <a class="marquee-card" href="/library/">
+        <a class="marquee-card" href="/library/biology-25/">
           <div class="strip__cover">BIO · 통합과학</div>
           <div class="strip__body">
             <span class="strip__tag">생명·지구과학</span>
@@ -1287,7 +1380,7 @@
             <span class="strip__meta">PDF · 준비 중</span>
           </div>
         </a>
-        <a class="marquee-card" href="/library/">
+        <a class="marquee-card" href="/library/physics-error/">
           <div class="strip__cover">PHYS · 통합과학</div>
           <div class="strip__body">
             <span class="strip__tag">통합과학</span>
@@ -1306,7 +1399,7 @@
           </div>
         </a>
         <!-- 복제 (무한루프용) -->
-        <a class="marquee-card" href="/library/">
+        <a class="marquee-card" href="/library/integrated-1/">
           <div class="strip__cover">CHEM · 통합과학</div>
           <div class="strip__body">
             <span class="strip__tag">통합과학</span>
@@ -1315,7 +1408,7 @@
             <span class="strip__meta">PDF · 준비 중</span>
           </div>
         </a>
-        <a class="marquee-card" href="/library/">
+        <a class="marquee-card" href="/library/biology-25/">
           <div class="strip__cover">BIO · 통합과학</div>
           <div class="strip__body">
             <span class="strip__tag">생명·지구과학</span>
@@ -1324,7 +1417,7 @@
             <span class="strip__meta">PDF · 준비 중</span>
           </div>
         </a>
-        <a class="marquee-card" href="/library/">
+        <a class="marquee-card" href="/library/physics-error/">
           <div class="strip__cover">PHYS · 통합과학</div>
           <div class="strip__body">
             <span class="strip__tag">통합과학</span>
@@ -1351,7 +1444,7 @@
     <div style="padding:0 20px;">
       <div class="sec-head">
         <h2>Insight.</h2>
-        <span class="sec-head__meta">세특 · 공개 자료</span>
+        <a class="sec-head__meta" href="/insight/" style="text-decoration:none; border-bottom: 1px solid var(--line); padding-bottom:1px;">세특 자료 더보기 →</a>
       </div>
       <p class="sec-lede">
         탐구 주제와 보고서 방향에 도움 되는 공개 자료. 인스타 게시물에서 더 깊이 정리한 버전입니다.
@@ -1361,7 +1454,7 @@
     <div class="marquee-wrap" id="insightMarquee">
       <div class="marquee-track" style="animation-direction: reverse;">
         <!-- 원본 -->
-        <a class="marquee-card" href="/insight/">
+        <a class="marquee-card" href="/insight/chem-topics/">
           <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · CHEM</div>
           <div class="strip__body">
             <span class="strip__tag">화학 진로</span>
@@ -1370,7 +1463,7 @@
             <span class="strip__meta">POST · 준비 중</span>
           </div>
         </a>
-        <a class="marquee-card" href="/insight/">
+        <a class="marquee-card" href="/insight/bio-topics/">
           <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · BIO</div>
           <div class="strip__body">
             <span class="strip__tag">생명 진로</span>
@@ -1379,7 +1472,7 @@
             <span class="strip__meta">POST · 준비 중</span>
           </div>
         </a>
-        <a class="marquee-card" href="/insight/">
+        <a class="marquee-card" href="/insight/report-template/">
           <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">보고서 양식</div>
           <div class="strip__body">
             <span class="strip__tag">보고서</span>
@@ -1398,7 +1491,7 @@
           </div>
         </a>
         <!-- 복제 (무한루프용) -->
-        <a class="marquee-card" href="/insight/">
+        <a class="marquee-card" href="/insight/chem-topics/">
           <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · CHEM</div>
           <div class="strip__body">
             <span class="strip__tag">화학 진로</span>
@@ -1407,7 +1500,7 @@
             <span class="strip__meta">POST · 준비 중</span>
           </div>
         </a>
-        <a class="marquee-card" href="/insight/">
+        <a class="marquee-card" href="/insight/bio-topics/">
           <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">탐구 주제 · BIO</div>
           <div class="strip__body">
             <span class="strip__tag">생명 진로</span>
@@ -1416,7 +1509,7 @@
             <span class="strip__meta">POST · 준비 중</span>
           </div>
         </a>
-        <a class="marquee-card" href="/insight/">
+        <a class="marquee-card" href="/insight/report-template/">
           <div class="strip__cover" style="background:linear-gradient(135deg,#14241F 0%,#3D4F49 100%);">보고서 양식</div>
           <div class="strip__body">
             <span class="strip__tag">보고서</span>
@@ -1438,7 +1531,21 @@
     </div>
   </section>
 
-  <!-- 5. MEMBERSHIP — 세특 멤버십 (Coming Soon + 대기자) -->
+  <!-- 5. REVIEWS — 후기 + 성적 마퀴 -->
+  <section class="section--elevated reveal" style="padding:32px 0;" id="reviews">
+    <div style="padding:0 20px;">
+      <div class="sec-head">
+        <h2>Results.</h2>
+        <span class="sec-head__meta">후기 · 성적</span>
+      </div>
+      <p class="sec-lede">실제 수강생의 피드백과 시험 결과입니다.</p>
+    </div>
+    <div class="marquee-wrap" id="reviewMarquee">
+      <div class="marquee-track" id="reviewTrack" style="animation: none;"></div>
+    </div>
+  </section>
+
+  <!-- 6. MEMBERSHIP — 세특 멤버십 (Coming Soon + 대기자) -->
   <section class="reveal" style="padding:32px 20px;">
     <div class="sec-head">
       <h2>Membership.</h2>
@@ -1604,6 +1711,115 @@
     document.querySelectorAll('.reveal').forEach(function(el) {
       observer.observe(el);
     });
+  })();
+
+  // 후기 + 성적 마퀴 렌더링
+  (function() {
+    var track = document.getElementById('reviewTrack');
+    if (!track) return;
+
+    function maskName(name) {
+      if (!name) return '';
+      if (name.length <= 2) return name[0] + '*';
+      return name[0] + '*'.repeat(name.length - 2) + name[name.length - 1];
+    }
+
+    fetch('/data/reviews.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var cards = [];
+
+        // 성적 카드
+        data.scores.forEach(function(s) {
+          cards.push({
+            type: 'score',
+            score: s.score,
+            subject: s.subject,
+            student: maskName(s.student.name) + ' · ' + s.student.school + ' ' + s.student.grade,
+            exam: s.year + ' ' + s.term + ' ' + s.exam
+          });
+        });
+
+        // 후기 카드
+        data.testimonials.forEach(function(t) {
+          var by = t.student.name_public && t.student.name
+            ? maskName(t.student.name) + ' · ' + t.student.school + ' ' + t.student.status
+            : t.student.grade_at_time + ' 재학생';
+          cards.push({
+            type: 'review',
+            quote: t.quote,
+            by: by,
+            subject: t.subject,
+            grade_change: t.grade_change
+          });
+        });
+
+        // 순서: 성적·후기 교차
+        var mixed = [];
+        var scores = cards.filter(function(c) { return c.type === 'score'; });
+        var reviews = cards.filter(function(c) { return c.type === 'review'; });
+        var max = Math.max(scores.length, reviews.length);
+        for (var i = 0; i < max; i++) {
+          if (scores[i]) mixed.push(scores[i]);
+          if (reviews[i]) mixed.push(reviews[i]);
+        }
+
+        // 원본 + 복제(무한루프)
+        var all = mixed.concat(mixed);
+        var html = all.map(function(c) {
+          if (c.type === 'score') {
+            return '<div class="review-card review-card--score">' +
+              '<div class="review-card__top"><span class="review-card__type">' + c.subject + ' · ' + c.exam + '</span></div>' +
+              '<div class="review-card__body"><div class="review-card__score-num">' + c.score + '<span>점</span></div></div>' +
+              '<div class="review-card__bottom"><span class="review-card__by">' + c.student + '</span></div>' +
+            '</div>';
+          } else {
+            var gcHtml = c.grade_change
+              ? '<span class="review-card__grade-change"><span>' + c.grade_change.before + '</span><span class="arrow">→</span><span class="after">' + c.grade_change.after + '</span></span>'
+              : '';
+            return '<div class="review-card">' +
+              '<div class="review-card__top"><span class="review-card__type">' + c.subject + '</span>' + gcHtml + '</div>' +
+              '<div class="review-card__body"><p class="review-card__quote">"' + c.quote + '"</p></div>' +
+              '<div class="review-card__bottom"><span class="review-card__by">' + c.by + '</span></div>' +
+            '</div>';
+          }
+        }).join('');
+
+        track.innerHTML = html;
+        track.style.animation = 'none';
+        track.style.transform = 'translateX(0)';
+
+        setTimeout(function() {
+          // 카드 수의 절반 = 원본 세트 1개 너비
+          var totalCards = track.children.length;
+          var firstCard = track.children[0];
+          if (!firstCard) return;
+          var cardW = firstCard.getBoundingClientRect().width;
+          var gap = 12; // CSS gap과 동일
+          var halfWidth = Math.round((cardW + gap) * (totalCards / 2));
+
+          var x = 0;
+          var speed = 1.2;
+          var paused = false;
+
+          var wrap = document.getElementById('reviewMarquee');
+          wrap.addEventListener('mouseenter', function() { paused = true; });
+          wrap.addEventListener('mouseleave', function() { paused = false; });
+          wrap.addEventListener('touchstart', function() { paused = true; }, { passive: true });
+          wrap.addEventListener('touchend', function() { paused = false; }, { passive: true });
+
+          function step() {
+            if (!paused) {
+              x -= speed;
+              if (x <= -halfWidth) x = x + halfWidth;
+              track.style.transform = 'translateX(' + x + 'px)';
+            }
+            requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }, 200);
+      })
+      .catch(function() {});
   })();
 
   // 마퀴 터치 일시정지
