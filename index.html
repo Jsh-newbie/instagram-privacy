@@ -1111,20 +1111,20 @@
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .hero2__cover { animation: slideUp 1.4s cubic-bezier(.22,.68,0,1) 0.3s both; }
+  .js-ready .hero2__cover { animation: slideUp 1.4s cubic-bezier(.22,.68,0,1) 0.3s both; }
 
   /* 제목 어절 순차 등장 */
   .hero2__title { overflow: visible; }
-  .hero2__title .word {
+  .js-ready .hero2__title .word {
     display: block;
     opacity: 0;
     transform: translateY(20px);
     animation: slideUp 0.9s cubic-bezier(.22,.68,0,1) both;
   }
-  .hero2__title .word:nth-child(1) { animation-delay: 1.0s; }
-  .hero2__title .word:nth-child(2) { animation-delay: 1.4s; }
-  .hero2__title .word:nth-child(3) { animation-delay: 1.8s; }
-  .hero2__pull { animation: slideUp 1.0s cubic-bezier(.22,.68,0,1) 2.4s both; }
+  .js-ready .hero2__title .word:nth-child(1) { animation-delay: 1.0s; }
+  .js-ready .hero2__title .word:nth-child(2) { animation-delay: 1.4s; }
+  .js-ready .hero2__title .word:nth-child(3) { animation-delay: 1.8s; }
+  .js-ready .hero2__pull { animation: slideUp 1.0s cubic-bezier(.22,.68,0,1) 2.4s both; }
 
   /* nav 팔로우 버튼 shimmer */
   .nav__follow { position: relative; overflow: hidden; }
@@ -1144,11 +1144,13 @@
     to   { opacity: 1; transform: translateY(0); }
   }
   .reveal {
-    opacity: 0;
     transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .js-ready .reveal {
+    opacity: 0;
     transform: translateY(18px);
   }
-  .reveal.visible {
+  .js-ready .reveal.visible {
     opacity: 1;
     transform: translateY(0);
   }
@@ -1574,6 +1576,7 @@
 
   // 스크롤 reveal
   (function() {
+    document.documentElement.classList.add('js-ready');
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
