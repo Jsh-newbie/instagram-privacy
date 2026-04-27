@@ -137,16 +137,22 @@ homepage/                       ← 로컬 작업 디렉토리
 
 ---
 
-## GitHub 계정 전환
+## GitHub 계정
 
 현재 두 개의 GitHub 계정이 등록되어 있음:
 
-```bash
-gh auth switch --user Jsh-newbie    # 레포 소유 계정 (push 가능)
-gh auth switch --user jy3219937-beep  # 다른 계정
-```
+| 계정 | 용도 |
+|------|------|
+| **Jsh-newbie** | 레포 소유 계정 — push 가능 |
+| jy3219937-beep | 다른 계정 |
 
-push 전 반드시 `Jsh-newbie`로 전환할 것.
+**자동 전환:** `.git/hooks/pre-push` 훅이 설정되어 있어 push 시 자동으로 `Jsh-newbie` 계정으로 전환됨. 별도 수동 전환 불필요.
+
+git user도 이 레포에 고정되어 있음:
+```
+user.name = Jsh-newbie
+user.email = tjdeh111@gmail.com
+```
 
 ---
 
