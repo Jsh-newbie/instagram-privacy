@@ -107,7 +107,6 @@
     margin: 0 auto;
     background: var(--bg);
     min-height: 100vh;
-    overflow: hidden;
   }
 
   .t-caption {
@@ -1056,6 +1055,11 @@
     box-sizing: border-box;
   }
   .coming__form input:focus { border-color: var(--accent); }
+  @keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0 rgba(27, 59, 54, 0.45); }
+    70%  { box-shadow: 0 0 0 10px rgba(27, 59, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(27, 59, 54, 0); }
+  }
   .coming__form button {
     height: 44px;
     padding: 0 18px;
@@ -1069,8 +1073,20 @@
     cursor: pointer;
     white-space: nowrap;
     width: 100%;
+    position: relative;
+    overflow: hidden;
+    animation: pulse-ring 2s ease-out infinite;
   }
-  .coming__form button:hover { opacity: 0.92; }
+  .coming__form button::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    animation: shimmer 3s infinite;
+  }
+  .coming__form button:hover { opacity: 0.92; animation: none; }
+  .coming__form button:hover::after { animation: none; }
   .coming__agree {
     display: flex;
     align-items: flex-start;
