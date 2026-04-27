@@ -32,10 +32,12 @@ if (!TOKEN || !IG_USER) { console.error('MISSING IG_TOKEN/IG_TOKEN_FILE or IG_US
 const ts  = () => new Date().toLocaleTimeString('ko-KR');
 const log = (...a) => console.log(`[${ts()}]`, ...a);
 
-async function sendDM(recipientId, text) {
+// recipient: { id }            — 24시간 메시징 윈도우 안의 사용자 (이미 DM 받음)
+// recipient: { comment_id }    — Private Reply: 댓글 단 사용자에게 윈도우 없이 DM 가능
+async function sendDM(recipient, text) {
   const r = await fetch(`${BASE}/${IG_USER}/messages?access_token=${encodeURIComponent(TOKEN)}`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ recipient: { id: recipientId }, message: { text } }),
+    body: JSON.stringify({ recipient, message: { text } }),
   });
   return { status: r.status, body: await r.text() };
 }
@@ -54,10 +56,24 @@ async function handleComment(v) {
   const commentId = v.id;
   const matched = text.includes(KEYWORD);
   log(`    comment by ${v.from?.username || '?'} ${matched ? '✅ MATCH' : '·'}: ${(v.text || '').slice(0, 80)}`);
-  if (!matched || !fromId) return;
-  const r = await sendDM(fromId, REPLY);
-  log(`    ✉ DM result: ${r.status} ${r.body.slice(0, 300)}`);
-  if (r.status >= 400 && commentId) {
+  if (!matched) return;
+
+  // 1) Private Reply (댓글 ID 기반) — 24시간 윈도우 없이 일반 사용자에게도 DM 가능
+  if (commentId) {
+    const r = await sendDM({ comment_id: commentId }, REPLY);
+    log(`    ✉ private-reply result: ${r.status} ${r.body.slice(0, 300)}`);
+    if (r.status < 400) return;
+  }
+
+  // 2) Fallback: from.id 기반 DM (이미 윈도우 열려있는 경우)
+  if (fromId) {
+    const r2 = await sendDM({ id: fromId }, REPLY);
+    log(`    ✉ DM-by-id result: ${r2.status} ${r2.body.slice(0, 300)}`);
+    if (r2.status < 400) return;
+  }
+
+  // 3) Last resort: 댓글 답글 (공개)
+  if (commentId) {
     const rr = await replyComment(commentId, '댓글 감사합니다! 자료는 https://thejiniuslab.com/library/ 에서 받으실 수 있어요.');
     log(`    💬 reply-comment fallback: ${rr.status} ${rr.body.slice(0, 200)}`);
   }
@@ -72,7 +88,7 @@ async function handleMessage(v) {
   const matched = text.includes(KEYWORD);
   log(`    message from ${senderId || '?'} ${matched ? '✅ MATCH' : '·'}: ${(v.message?.text || v.text || '').slice(0, 80)}`);
   if (!matched || !senderId) return;
-  const r = await sendDM(senderId, REPLY);
+  const r = await sendDM({ id: senderId }, REPLY);
   log(`    ✉ DM result: ${r.status} ${r.body.slice(0, 300)}`);
 }
 

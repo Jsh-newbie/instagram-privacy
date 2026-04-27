@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>물리 단위 & 측정 퀴즈</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --primary:#4f46e5; --primary-light:#818cf8;
+  --success:#10b981; --danger:#ef4444; --warning:#f59e0b;
+  --bg:#0f172a; --card:#1e293b; --card2:#273344;
+  --text:#f1f5f9; --muted:#94a3b8; --border:#334155;
+}
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; -webkit-tap-highlight-color:transparent; }
+
+/* 헤더 */
+.header { background:linear-gradient(135deg,#4f46e5,#7c3aed); padding:18px 16px 14px; text-align:center; position:sticky; top:0; z-index:100; box-shadow:0 4px 20px rgba(79,70,229,.4); }
+.header h1 { font-size:17px; font-weight:700; }
+.header p { font-size:11px; color:rgba(255,255,255,.75); margin-top:2px; }
+.progress-bar { height:4px; background:var(--border); border-radius:2px; margin-top:10px; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg,#a5f3fc,#818cf8); border-radius:2px; transition:width .4s ease; }
+
+.container { max-width:520px; margin:0 auto; padding:16px; }
+
+/* 시작 화면 */
+.start-screen { text-align:center; padding:32px 0 16px; }
+.start-icon { font-size:56px; margin-bottom:12px; }
+.start-screen h2 { font-size:20px; font-weight:700; margin-bottom:6px; }
+.start-screen > p { color:var(--muted); font-size:13px; line-height:1.6; margin-bottom:20px; }
+
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:18px; }
+.stat-box { background:var(--card); border-radius:10px; padding:14px 10px; text-align:center; }
+.stat-box .num { font-size:22px; font-weight:700; color:var(--primary-light); }
+.stat-box .label { font-size:11px; color:var(--muted); margin-top:2px; }
+
+.topic-list { background:var(--card); border-radius:12px; padding:14px 16px; margin-bottom:18px; text-align:left; }
+.topic-list h3 { font-size:12px; color:var(--primary-light); font-weight:700; margin-bottom:8px; }
+.topic-item { display:flex; align-items:center; gap:7px; font-size:13px; color:var(--muted); padding:4px 0; }
+.topic-item::before { content:"✓"; color:var(--success); font-size:11px; flex-shrink:0; }
+
+.filter-tabs { display:flex; gap:8px; margin-bottom:16px; overflow-x:auto; padding-bottom:2px; }
+.filter-tabs::-webkit-scrollbar { display:none; }
+.tab-btn { padding:7px 14px; border-radius:20px; border:1.5px solid var(--border); background:transparent; color:var(--muted); font-size:12px; font-weight:600; white-space:nowrap; cursor:pointer; transition:all .15s; }
+.tab-btn.active { background:var(--primary); border-color:var(--primary); color:#fff; }
+
+/* 공통 버튼 */
+.btn { display:block; width:100%; padding:15px; border:none; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; transition:all .15s; }
+.btn:active { transform:scale(.97); }
+.btn-primary { background:linear-gradient(135deg,#4f46e5,#7c3aed); color:#fff; }
+.btn-outline { background:transparent; border:2px solid var(--border); color:var(--muted); font-size:14px; padding:12px; margin-top:10px; }
+
+/* 퀴즈 화면 */
+.quiz-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.badge { padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+.badge-mc  { background:rgba(79,70,229,.2);  color:var(--primary-light); }
+.badge-tf  { background:rgba(245,158,11,.2); color:var(--warning); }
+.badge-ab  { background:rgba(16,185,129,.2); color:var(--success); }
+.q-counter { font-size:12px; color:var(--muted); }
+
+.question-card { background:var(--card); border-radius:16px; padding:20px; margin-bottom:14px; border:1px solid var(--border); }
+.question-text { font-size:16px; line-height:1.65; font-weight:500; }
+
+/* 객관식 */
+.options { display:flex; flex-direction:column; gap:10px; }
+.option { background:var(--card2); border:2px solid var(--border); border-radius:12px; padding:14px 16px; font-size:15px; cursor:pointer; transition:all .15s; text-align:left; color:var(--text); display:flex; align-items:center; gap:12px; width:100%; }
+.option:active { transform:scale(.98); }
+.option-label { width:26px; height:26px; border-radius:50%; background:var(--border); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; color:var(--muted); }
+.option.correct { border-color:var(--success); background:rgba(16,185,129,.1); }
+.option.correct .option-label { background:var(--success); color:#fff; }
+.option.wrong { border-color:var(--danger); background:rgba(239,68,68,.1); }
+.option.wrong .option-label { background:var(--danger); color:#fff; }
+
+/* O/X */
+.ox-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.ox-btn { padding:26px 0; border-radius:16px; border:2px solid var(--border); background:var(--card2); font-size:38px; cursor:pointer; transition:all .15s; display:flex; flex-direction:column; align-items:center; gap:5px; width:100%; }
+.ox-btn span { font-size:12px; font-weight:600; color:var(--muted); }
+.ox-btn:active { transform:scale(.96); }
+.ox-btn.o-btn { border-color:rgba(16,185,129,.3); }
+.ox-btn.x-btn { border-color:rgba(239,68,68,.3); }
+.ox-btn.correct-o { background:rgba(16,185,129,.2); border-color:var(--success); }
+.ox-btn.correct-x { background:rgba(239,68,68,.2); border-color:var(--danger); }
+.ox-btn.wrong-hi  { background:rgba(239,68,68,.15); border-color:var(--danger); }
+
+/* A/B 선택형 */
+.ab-buttons { display:flex; flex-direction:column; gap:10px; }
+.ab-btn { background:var(--card2); border:2px solid var(--border); border-radius:14px; padding:16px 18px; font-size:15px; cursor:pointer; transition:all .15s; text-align:left; color:var(--text); display:flex; align-items:center; gap:12px; width:100%; line-height:1.5; }
+.ab-btn:active { transform:scale(.98); }
+.ab-label { width:30px; height:30px; border-radius:50%; background:var(--border); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; flex-shrink:0; color:var(--muted); }
+.ab-btn.correct { border-color:var(--success); background:rgba(16,185,129,.1); }
+.ab-btn.correct .ab-label { background:var(--success); color:#fff; }
+.ab-btn.wrong { border-color:var(--danger); background:rgba(239,68,68,.1); }
+.ab-btn.wrong .ab-label { background:var(--danger); color:#fff; }
+
+/* 피드백 */
+.feedback { border-radius:12px; padding:14px 16px; margin-top:12px; font-size:14px; line-height:1.6; display:none; }
+.feedback.show { display:block; }
+.feedback.correct-fb { background:rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.3); }
+.feedback.wrong-fb   { background:rgba(239,68,68,.10);  border:1px solid rgba(239,68,68,.3); }
+.feedback-icon  { font-size:17px; margin-bottom:3px; }
+.feedback-title { font-weight:700; margin-bottom:3px; }
+.feedback.correct-fb .feedback-title { color:var(--success); }
+.feedback.wrong-fb   .feedback-title { color:var(--danger); }
+.feedback-body  { color:var(--muted); }
+
+.next-btn { display:none; width:100%; margin-top:14px; padding:15px; background:linear-gradient(135deg,#4f46e5,#7c3aed); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:700; cursor:pointer; transition:all .15s; }
+.next-btn:active { transform:scale(.97); }
+.next-btn.show { display:block; }
+
+/* 결과 화면 */
+.result-screen { text-align:center; padding:20px 0; }
+.score-circle { width:136px; height:136px; border-radius:50%; margin:0 auto 18px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:34px; font-weight:800; }
+.score-circle.grade-a { background:rgba(16,185,129,.1);  border:6px solid var(--success);      color:var(--success); }
+.score-circle.grade-b { background:rgba(79,70,229,.1);   border:6px solid var(--primary-light); color:var(--primary-light); }
+.score-circle.grade-c { background:rgba(245,158,11,.1);  border:6px solid var(--warning);       color:var(--warning); }
+.score-circle.grade-d { background:rgba(239,68,68,.1);   border:6px solid var(--danger);        color:var(--danger); }
+.score-label  { font-size:12px; font-weight:500; opacity:.8; }
+.result-message { font-size:20px; font-weight:700; margin-bottom:5px; }
+.result-sub   { color:var(--muted); font-size:13px; margin-bottom:22px; }
+
+.result-breakdown { background:var(--card); border-radius:14px; padding:16px; margin-bottom:14px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.breakdown-item { text-align:center; }
+.breakdown-num   { font-size:20px; font-weight:700; }
+.breakdown-label { font-size:11px; color:var(--muted); margin-top:2px; }
+.cn { color:var(--success); } .wn { color:var(--danger); } .tn { color:var(--primary-light); }
+
+.wrong-list { margin-bottom:14px; text-align:left; }
+.wrong-list h3 { font-size:13px; font-weight:700; margin-bottom:8px; color:var(--danger); }
+.wrong-item { background:var(--card); border-radius:10px; padding:12px 14px; margin-bottom:8px; border-left:3px solid var(--danger); font-size:13px; }
+.wrong-item .wq { color:var(--muted); margin-bottom:3px; }
+.wrong-item .wa { color:var(--success); font-weight:600; }
+.wrong-item .wmy { color:var(--danger); font-size:12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📐 물리 단위 & 측정 퀴즈</h1>
+  <p>SI 기본단위 · 접두사 · 유도량 · 측정 표준</p>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<div class="container">
+
+  <!-- 시작 화면 -->
+  <div id="startScreen" class="start-screen">
+    <div class="start-icon">🧪</div>
+    <h2>시험 직전 최종 점검</h2>
+    <p>노트 이미지 전체 내용 기반 퀴즈<br>객관식 · O/X · A/B 선택형 랜덤 출제</p>
+
+    <div class="stats-row">
+      <div class="stat-box"><div class="num" id="totalCount">0</div><div class="label">전체 문항</div></div>
+      <div class="stat-box"><div class="num">3</div><div class="label">유형</div></div>
+      <div class="stat-box"><div class="num">랜덤</div><div class="label">출제순서</div></div>
+    </div>
+
+    <div class="topic-list">
+      <h3>📚 출제 범위</h3>
+      <div class="topic-item">SI 7가지 기본량과 기본단위</div>
+      <div class="topic-item">SI 접두사 (테라 ~ 피코)</div>
+      <div class="topic-item">유도량과 유도단위 (압력·에너지·전압 등)</div>
+      <div class="topic-item">기본단위 정의 방법 (빛의 속도·아보가드로 등)</div>
+      <div class="topic-item">측정 표준의 종류와 활용</div>
+      <div class="topic-item">단위 환산 · 밀도 · 속도 · 농도 계산</div>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="tab-btn active" onclick="setFilter('all',this)">전체</button>
+      <button class="tab-btn" onclick="setFilter('mc',this)">📝 객관식</button>
+      <button class="tab-btn" onclick="setFilter('tf',this)">⭕ O/X</button>
+      <button class="tab-btn" onclick="setFilter('ab',this)">🔀 A/B 선택</button>
+    </div>
+
+    <button class="btn btn-primary" onclick="startQuiz(false)">🚀 퀴즈 시작</button>
+    <button class="btn btn-outline" id="retryBtn" onclick="startQuiz(true)">⚡ 오답만 다시 풀기</button>
+  </div>
+
+  <!-- 퀴즈 화면 -->
+  <div id="quizScreen" style="display:none">
+    <div class="quiz-meta">
+      <span class="badge" id="typeBadge"></span>
+      <span class="q-counter" id="qCounter"></span>
+    </div>
+    <div class="question-card">
+      <div class="question-text" id="questionText"></div>
+    </div>
+    <div id="answerArea"></div>
+    <div class="feedback" id="feedback">
+      <div class="feedback-icon" id="fbIcon"></div>
+      <div class="feedback-title" id="fbTitle"></div>
+      <div class="feedback-body" id="fbBody"></div>
+    </div>
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">다음 문제 →</button>
+  </div>
+
+  <!-- 결과 화면 -->
+  <div id="resultScreen" style="display:none">
+    <div class="result-screen">
+      <div class="score-circle" id="scoreCircle">
+        <div id="scoreText"></div>
+        <div class="score-label">점수</div>
+      </div>
+      <div class="result-message" id="resultMessage"></div>
+      <div class="result-sub" id="resultSub"></div>
+      <div class="result-breakdown">
+        <div class="breakdown-item"><div class="breakdown-num cn" id="correctCount">0</div><div class="breakdown-label">정답</div></div>
+        <div class="breakdown-item"><div class="breakdown-num wn" id="wrongCount">0</div><div class="breakdown-label">오답</div></div>
+        <div class="breakdown-item"><div class="breakdown-num tn" id="totalPlayed">0</div><div class="breakdown-label">전체</div></div>
+      </div>
+      <div class="wrong-list" id="wrongList"></div>
+      <button class="btn btn-primary" onclick="startQuiz(false)">🔄 다시 풀기 (랜덤)</button>
+      <button class="btn btn-outline" onclick="startQuiz(true)">❌ 오답만 다시 풀기</button>
+      <button class="btn btn-outline" onclick="showStart()">🏠 처음으로</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ================================================================
+// 문제 데이터 — 이미지 노트 전체 내용 기반
+// type: 'mc'=객관식(4지선다)  'tf'=O/X  'ab'=A/B 선택형
+// ================================================================
+const ALL_QUESTIONS = [
+
+  // ── 객관식 (mc) ─────────────────────────────────────────────
+
+  { type:'mc', q:'다음 중 SI 기본량이 아닌 것은?',
+    opts:['길이','질량','속도','시간'], ans:2,
+    exp:'속도는 유도량입니다. SI 7가지 기본량: 길이·질량·시간·전류·온도·물질량·광도' },
+
+  { type:'mc', q:'길이의 SI 기본단위는?',
+    opts:['kg','m','s','A'], ans:1,
+    exp:'길이의 기본단위는 미터(m)입니다.' },
+
+  { type:'mc', q:'질량의 SI 기본단위는?',
+    opts:['g','M','kg','lb'], ans:2,
+    exp:'질량의 기본단위는 킬로그램(kg)입니다.' },
+
+  { type:'mc', q:'전류의 SI 기본단위는?',
+    opts:['V','W','Ω','A'], ans:3,
+    exp:'전류의 기본단위는 암페어(A)입니다.' },
+
+  { type:'mc', q:'온도의 SI 기본단위는?',
+    opts:['°C','°F','K','R'], ans:2,
+    exp:'온도의 기본단위는 켈빈(K)입니다. °C가 아님에 주의!' },
+
+  { type:'mc', q:'물질량의 SI 기본단위는?',
+    opts:['g','mol','kg','cd'], ans:1,
+    exp:'물질량의 기본단위는 몰(mol)입니다.' },
+
+  { type:'mc', q:'광도의 SI 기본단위는?',
+    opts:['lm','lx','cd','W'], ans:2,
+    exp:'광도의 기본단위는 칸델라(cd)입니다.' },
+
+  { type:'mc', q:'접두사 G(기가)가 나타내는 값은?',
+    opts:['10⁶','10⁹','10¹²','10³'], ans:1,
+    exp:'기가(G) = 10⁹ = 1,000,000,000' },
+
+  { type:'mc', q:'접두사 M(메가)가 나타내는 값은?',
+    opts:['10³','10⁶','10⁹','10¹²'], ans:1,
+    exp:'메가(M) = 10⁶ = 1,000,000' },
+
+  { type:'mc', q:'접두사 k(킬로)가 나타내는 값은?',
+    opts:['10','10²','10³','10⁴'], ans:2,
+    exp:'킬로(k) = 10³ = 1,000' },
+
+  { type:'mc', q:'접두사 m(밀리)가 나타내는 값은?',
+    opts:['10⁻¹','10⁻²','10⁻³','10⁻⁶'], ans:2,
+    exp:'밀리(m) = 10⁻³ = 0.001' },
+
+  { type:'mc', q:'접두사 μ(마이크로)가 나타내는 값은?',
+    opts:['10⁻³','10⁻⁶','10⁻⁹','10⁻¹²'], ans:1,
+    exp:'마이크로(μ) = 10⁻⁶' },
+
+  { type:'mc', q:'접두사 n(나노)가 나타내는 값은?',
+    opts:['10⁻⁶','10⁻⁸','10⁻⁹','10⁻¹²'], ans:2,
+    exp:'나노(n) = 10⁻⁹' },
+
+  { type:'mc', q:'접두사 p(피코)가 나타내는 값은?',
+    opts:['10⁻⁹','10⁻¹⁰','10⁻¹²','10⁻¹⁵'], ans:2,
+    exp:'피코(p) = 10⁻¹²' },
+
+  { type:'mc', q:'접두사 T(테라)가 나타내는 값은?',
+    opts:['10⁹','10¹⁰','10¹²','10¹⁵'], ans:2,
+    exp:'테라(T) = 10¹²' },
+
+  { type:'mc', q:'압력의 SI 유도단위는?',
+    opts:['J','W','Pa','N'], ans:2,
+    exp:'압력 = 힘/면적, 단위는 파스칼(Pa) = kg/(m·s²)' },
+
+  { type:'mc', q:'에너지(일)의 SI 유도단위는?',
+    opts:['N','Pa','W','J'], ans:3,
+    exp:'에너지 단위는 줄(J) = kg·m²/s²' },
+
+  { type:'mc', q:'전압을 기본단위로 나타내면?',
+    opts:['kg·m²/(s³·A)','kg·m/s²','kg·m²/s²','A·s'], ans:0,
+    exp:'V = 일/전하량 = kg·m²/s² ÷ A·s = kg·m²/(s³·A)' },
+
+  { type:'mc', q:'전기저항을 기본단위로 나타내면?',
+    opts:['kg·m²/(s³·A²)','kg·m/s·A','kg·m²/s·A','kg/(m·s²)'], ans:0,
+    exp:'Ω = V/A = kg·m²/(s³·A²)' },
+
+  { type:'mc', q:'정전용량(전기용량)을 기본단위로 나타내면?',
+    opts:['A²·s⁴/(kg·m²)','kg·m²/s²','A·s/kg','kg·m/(s²·A)'], ans:0,
+    exp:'패럿(F) = 전하/전압 = A²·s⁴/(kg·m²)' },
+
+  { type:'mc', q:'자기장(자속밀도)의 단위는?',
+    opts:['H (헨리)','Wb (웨버)','T (테슬라)','S (지멘스)'], ans:2,
+    exp:'자속밀도 단위는 테슬라(T) = kg/(A·s²)' },
+
+  { type:'mc', q:'1 nm는 몇 m인가?',
+    opts:['10⁻⁶ m','10⁻⁷ m','10⁻⁹ m','10⁻¹² m'], ans:2,
+    exp:'나노(n) = 10⁻⁹ → 1 nm = 10⁻⁹ m' },
+
+  { type:'mc', q:'수소 원자 반지름 ≈ 4×10⁻¹¹ m를 pm으로 나타내면?',
+    opts:['4 pm','40 pm','400 pm','4000 pm'], ans:1,
+    exp:'1 pm = 10⁻¹² m → 4×10⁻¹¹ m = 40 pm' },
+
+  { type:'mc', q:'태양-지구 거리 1.5×10¹¹ m를 km로 나타내면?',
+    opts:['1.5×10⁵ km','1.5×10⁶ km','1.5×10⁸ km','1.5×10¹¹ km'], ans:2,
+    exp:'1 km = 10³ m → 1.5×10¹¹ ÷ 10³ = 1.5×10⁸ km' },
+
+  { type:'mc', q:'길이의 기본단위 1 m를 정의하는 방법은?',
+    opts:['지구 둘레의 1/40,000,000','특정 금속막대의 길이','빛이 진공에서 1/299,792,458 s에 이동한 거리','원자의 파장'], ans:2,
+    exp:'현재 1 m = 빛이 진공에서 1/299,792,458초 동안 이동한 거리로 정의됩니다.' },
+
+  { type:'mc', q:'아보가드로 상수 Nₐ의 값은?',
+    opts:['6.022×10²³ /mol','6.022×10²⁰ /mol','9.109×10⁻³¹ /mol','1.380×10⁻²³ /mol'], ans:0,
+    exp:'Nₐ = 6.02214076×10²³ mol⁻¹' },
+
+  { type:'mc', q:'볼츠만 상수의 값은?',
+    opts:['6.626×10⁻³⁴ J·s','1.380649×10⁻²³ J/K','6.022×10²³ /mol','9.109×10⁻³¹ kg'], ans:1,
+    exp:'볼츠만 상수 k = 1.380649×10⁻²³ J/K' },
+
+  { type:'mc', q:'기본 전하(전자 전하량)의 값은?',
+    opts:['9.109×10⁻³¹ C','6.022×10²³ C','1.602176634×10⁻¹⁹ C','6.674×10⁻¹¹ C'], ans:2,
+    exp:'기본 전하 e = 1.602176634×10⁻¹⁹ C' },
+
+  { type:'mc', q:'밀도의 유도단위는?',
+    opts:['kg·m','kg/m','kg/m²','kg/m³'], ans:3,
+    exp:'밀도 = 질량/부피 = kg/m³' },
+
+  { type:'mc', q:'속도의 유도단위는?',
+    opts:['m·s','m/s²','m/s','m²/s'], ans:2,
+    exp:'속도 = 거리/시간 = m/s' },
+
+  { type:'mc', q:'가속도의 유도단위는?',
+    opts:['m/s','m²/s','m/s²','m²/s²'], ans:2,
+    exp:'가속도 = 속도변화/시간 = m/s²' },
+
+  { type:'mc', q:'전하량의 단위는?',
+    opts:['A','V','C','W'], ans:2,
+    exp:'전하량 단위는 쿨롱(C) = A·s' },
+
+  { type:'mc', q:'진동수의 단위는?',
+    opts:['rad/s','rev/min','Hz','rpm'], ans:2,
+    exp:'진동수 단위는 헤르츠(Hz) = s⁻¹' },
+
+  { type:'mc', q:'1 GHz는 몇 Hz인가?',
+    opts:['10⁶ Hz','10⁷ Hz','10⁹ Hz','10¹² Hz'], ans:2,
+    exp:'기가(G) = 10⁹ → 1 GHz = 10⁹ Hz' },
+
+  { type:'mc', q:'수영 선수가 50 m를 25초에 완주했다. 평균 속력은?',
+    opts:['1 m/s','2 m/s','3 m/s','4 m/s'], ans:1,
+    exp:'속력 = 50 m ÷ 25 s = 2 m/s' },
+
+  { type:'mc', q:'5% 포도당 용액 400 g 속 포도당의 질량은?',
+    opts:['5 g','10 g','20 g','40 g'], ans:2,
+    exp:'400 g × 5/100 = 20 g' },
+
+  { type:'mc', q:'측정 표준의 활용 예로 가장 적절한 것은?',
+    opts:['SNS 팔로워 수 비교','택시 거리·시간 요금 계산','학교 성적 등급','물가 비교'], ans:1,
+    exp:'택시 미터기는 거리·시간 기반 측정 표준을 이용한 대표적 사례입니다.' },
+
+  { type:'mc', q:'미세 먼지 농도를 나타낼 때 쓰는 단위는?',
+    opts:['kg/m³','g/m³','mg/m³','μg/m³'], ans:3,
+    exp:'미세먼지 농도는 μg/m³ (마이크로그램 per 세제곱미터)로 나타냅니다.' },
+
+  { type:'mc', q:'부피 20 m³ 방에 미세 먼지 100 μg이 있을 때 농도는?',
+    opts:['2 μg/m³','5 μg/m³','10 μg/m³','20 μg/m³'], ans:1,
+    exp:'농도 = 100 μg ÷ 20 m³ = 5 μg/m³' },
+
+  // ── O/X (tf) ────────────────────────────────────────────────
+
+  { type:'tf', q:'SI 기본단위는 총 7가지이다.',
+    ans:true,
+    exp:'길이(m)·질량(kg)·시간(s)·전류(A)·온도(K)·물질량(mol)·광도(cd) — 7가지 맞습니다.' },
+
+  { type:'tf', q:'속도는 SI 기본량이다.',
+    ans:false,
+    exp:'속도는 길이와 시간으로 유도되는 유도량입니다.' },
+
+  { type:'tf', q:'온도의 SI 기본단위는 섭씨(°C)이다.',
+    ans:false,
+    exp:'온도 기본단위는 켈빈(K)입니다. °C는 SI 허용 단위이지만 기본단위가 아닙니다.' },
+
+  { type:'tf', q:'줄(J)은 유도단위이다.',
+    ans:true,
+    exp:'J = kg·m²/s² — 기본단위로부터 유도된 유도단위입니다.' },
+
+  { type:'tf', q:'접두사 k(킬로)는 10³을 나타낸다.',
+    ans:true,
+    exp:'킬로(k) = 10³ = 1,000 입니다.' },
+
+  { type:'tf', q:'접두사 G(기가)는 10⁶을 나타낸다.',
+    ans:false,
+    exp:'기가(G) = 10⁹입니다. 10⁶은 메가(M)입니다.' },
+
+  { type:'tf', q:'1 μm = 10⁻⁶ m이다.',
+    ans:true,
+    exp:'마이크로(μ) = 10⁻⁶ → 1 μm = 10⁻⁶ m. 맞습니다.' },
+
+  { type:'tf', q:'1 μm = 10⁻³ m이다.',
+    ans:false,
+    exp:'마이크로(μ) = 10⁻⁶이므로 1 μm = 10⁻⁶ m입니다. 10⁻³은 밀리(m)입니다.' },
+
+  { type:'tf', q:'1 nm = 10⁻⁹ m이다.',
+    ans:true,
+    exp:'나노(n) = 10⁻⁹ → 1 nm = 10⁻⁹ m. 맞습니다.' },
+
+  { type:'tf', q:'압력 Pa(파스칼)는 유도단위이다.',
+    ans:true,
+    exp:'Pa = N/m² = kg/(m·s²) — 유도단위입니다.' },
+
+  { type:'tf', q:'전류 기본단위는 암페어(A)이다.',
+    ans:true,
+    exp:'암페어(A)는 SI 전류 기본단위입니다.' },
+
+  { type:'tf', q:'광도의 SI 기본단위는 루멘(lm)이다.',
+    ans:false,
+    exp:'광도 기본단위는 칸델라(cd)입니다. lm(루멘)은 광속의 단위입니다.' },
+
+  { type:'tf', q:'밀도의 단위는 kg/m³이다.',
+    ans:true,
+    exp:'밀도 = 질량/부피 = kg/m³. 맞습니다.' },
+
+  { type:'tf', q:'전하량의 단위 쿨롱(C)은 A·s로 표현할 수 있다.',
+    ans:true,
+    exp:'C = A·s (암페어 × 초). 맞습니다.' },
+
+  { type:'tf', q:'기본량과 기본단위의 수는 서로 다를 수 있다.',
+    ans:false,
+    exp:'SI에서 7가지 기본량에 7가지 기본단위가 1:1 대응됩니다.' },
+
+  { type:'tf', q:'측정 표준은 세계 대부분의 국가에서 공통으로 사용한다.',
+    ans:true,
+    exp:'국제 측정 표준은 국가 간 상거래·과학 연구의 신뢰성을 위해 공통으로 사용합니다.' },
+
+  { type:'tf', q:'아보가드로 상수의 단위는 mol⁻¹이다.',
+    ans:true,
+    exp:'Nₐ = 6.022×10²³ mol⁻¹. 맞습니다.' },
+
+  { type:'tf', q:'전기저항 단위 옴(Ω)은 기본단위이다.',
+    ans:false,
+    exp:'Ω = V/A = kg·m²/(s³·A²) — 유도단위입니다.' },
+
+  { type:'tf', q:'길이의 기본단위는 빛의 속도를 이용하여 정의된다.',
+    ans:true,
+    exp:'1 m = 빛이 진공에서 1/299,792,458초 동안 이동한 거리로 정의됩니다.' },
+
+  { type:'tf', q:'물질량의 SI 기본단위는 몰(mol)이다.',
+    ans:true,
+    exp:'mol은 물질량의 SI 기본단위입니다.' },
+
+  // ── A/B 선택형 (ab) ─────────────────────────────────────────
+
+  { type:'ab', q:'다음 중 SI 기본단위는 어느 것인가?',
+    opts:['A. 뉴턴(N) — 힘의 단위', 'B. 켈빈(K) — 온도의 단위'], ans:1,
+    exp:'뉴턴(N)은 유도단위(kg·m/s²)이고, 켈빈(K)이 SI 온도 기본단위입니다.' },
+
+  { type:'ab', q:'접두사 크기 비교: 어느 쪽이 더 큰가?',
+    opts:['A. 기가(G) = 10⁹', 'B. 테라(T) = 10¹²'], ans:1,
+    exp:'테라(T) = 10¹²로 기가(G) = 10⁹ 보다 1,000배 큽니다.' },
+
+  { type:'ab', q:'접두사 크기 비교: 어느 쪽이 더 작은가?',
+    opts:['A. 밀리(m) = 10⁻³', 'B. 마이크로(μ) = 10⁻⁶'], ans:1,
+    exp:'마이크로(μ) = 10⁻⁶으로 밀리(m) = 10⁻³ 보다 1,000배 작습니다.' },
+
+  { type:'ab', q:'1 km를 m로 나타내면?',
+    opts:['A. 10² m', 'B. 10³ m'], ans:1,
+    exp:'킬로(k) = 10³ → 1 km = 10³ m = 1,000 m' },
+
+  { type:'ab', q:'압력의 단위 Pa를 기본단위로 올바르게 나타낸 것은?',
+    opts:['A. kg·m/s²', 'B. kg/(m·s²)'], ans:1,
+    exp:'Pa = N/m² = (kg·m/s²)/m² = kg/(m·s²). B가 맞습니다.' },
+
+  { type:'ab', q:'에너지 단위 줄(J)을 기본단위로 올바르게 나타낸 것은?',
+    opts:['A. kg·m²/s²', 'B. kg·m/s²'], ans:0,
+    exp:'J = N·m = (kg·m/s²)·m = kg·m²/s². A가 맞습니다.' },
+
+  { type:'ab', q:'전압을 기본단위로 나타내면?',
+    opts:['A. kg·m²/(s³·A)', 'B. kg·m²/(s²·A)'], ans:0,
+    exp:'V = W/A = kg·m²/s³ ÷ A = kg·m²/(s³·A). A가 맞습니다.' },
+
+  { type:'ab', q:'전기용량(패럿)의 특징으로 옳은 것은?',
+    opts:['A. 기본단위이다.', 'B. 유도단위이다.'], ans:1,
+    exp:'패럿(F) = A²·s⁴/(kg·m²) — 기본단위로부터 유도된 유도단위입니다.' },
+
+  { type:'ab', q:'다음 중 기본량은?',
+    opts:['A. 부피', 'B. 물질량'], ans:1,
+    exp:'부피는 길이³ 으로 유도량이고, 물질량(mol)은 SI 기본량입니다.' },
+
+  { type:'ab', q:'수소 원자 반지름 ≈ 5×10⁻¹¹ m를 pm으로 나타내면?',
+    opts:['A. 5 pm', 'B. 50 pm'], ans:1,
+    exp:'1 pm = 10⁻¹² m → 5×10⁻¹¹ ÷ 10⁻¹² = 50 pm. B가 맞습니다.' },
+
+  { type:'ab', q:'1.5×10¹¹ m를 km로 나타내면?',
+    opts:['A. 1.5×10⁸ km', 'B. 1.5×10⁶ km'], ans:0,
+    exp:'1 km = 10³ m → 1.5×10¹¹ ÷ 10³ = 1.5×10⁸ km. A가 맞습니다.' },
+
+  { type:'ab', q:'측정값 B = 0.2×10⁻⁶ F를 지수 형태로 올바르게 나타낸 것은?',
+    opts:['A. 2×10⁻⁷ F', 'B. 2×10⁻⁵ F'], ans:0,
+    exp:'0.2×10⁻⁶ = 2×10⁻¹×10⁻⁶ = 2×10⁻⁷ F. A가 맞습니다.' },
+
+  { type:'ab', q:'기본단위 정의에 사용되는 것은?',
+    opts:['A. 빛의 속도 (길이 정의)', 'B. 소리의 속도 (길이 정의)'], ans:0,
+    exp:'길이 1 m는 빛이 진공에서 1/299,792,458초에 이동한 거리로 정의됩니다.' },
+
+  { type:'ab', q:'측정 표준이 필요한 이유로 가장 적절한 것은?',
+    opts:['A. 아름다운 숫자를 만들기 위해', 'B. 국가 간 신뢰할 수 있는 측정 결과를 공유하기 위해'], ans:1,
+    exp:'측정 표준은 산업·과학·상거래에서 신뢰성 있는 측정을 보장하기 위해 필요합니다.' },
+
+  { type:'ab', q:'다음 중 유도단위가 아닌 것은?',
+    opts:['A. 암페어(A)', 'B. 뉴턴(N)'], ans:0,
+    exp:'암페어(A)는 전류의 기본단위이고, 뉴턴(N) = kg·m/s²은 유도단위입니다.' },
+
+  { type:'ab', q:'속력 = 거리 ÷ 시간. 50 m를 10 s에 달렸다면 속력은?',
+    opts:['A. 5 m/s', 'B. 500 m/s'], ans:0,
+    exp:'50 ÷ 10 = 5 m/s. A가 맞습니다.' },
+
+  { type:'ab', q:'농도 10%인 소금물 200 g에 들어 있는 소금의 질량은?',
+    opts:['A. 20 g', 'B. 10 g'], ans:0,
+    exp:'200 × 10/100 = 20 g. A가 맞습니다.' },
+
+  { type:'ab', q:'진동수 s⁻¹ 와 같은 의미의 단위는?',
+    opts:['A. Hz (헤르츠)', 'B. Pa (파스칼)'], ans:0,
+    exp:'Hz = s⁻¹ — 진동수의 단위. A가 맞습니다.' },
+
+  { type:'ab', q:'1 GHz를 Hz로 나타내면?',
+    opts:['A. 10⁹ Hz', 'B. 10⁶ Hz'], ans:0,
+    exp:'기가(G) = 10⁹ → 1 GHz = 10⁹ Hz. A가 맞습니다.' },
+
+  { type:'ab', q:'다음 중 기본단위로 올바르게 짝지어진 것은?',
+    opts:['A. 시간 — 분(min)', 'B. 시간 — 초(s)'], ans:1,
+    exp:'시간의 SI 기본단위는 초(s)입니다. 분(min)은 허용 단위이나 기본단위가 아닙니다.' },
+
+];
+
+// ================================================================
+let questions = [];
+let current = 0;
+let score = 0;
+let wrongItems = [];
+let answered = false;
+let activeFilter = 'all';
+let savedWrongQs = JSON.parse(localStorage.getItem('wrongQs') || '[]');
+
+document.getElementById('totalCount').textContent = ALL_QUESTIONS.length;
+updateRetryBtn();
+
+function updateRetryBtn() {
+  const btn = document.getElementById('retryBtn');
+  if (!btn) return;
+  if (savedWrongQs.length > 0) {
+    btn.textContent = `⚡ 오답만 다시 풀기 (${savedWrongQs.length}개)`;
+    btn.style.borderColor = 'var(--danger)';
+    btn.style.color = 'var(--danger)';
+  } else {
+    btn.textContent = '⚡ 오답만 다시 풀기';
+    btn.style.borderColor = '';
+    btn.style.color = '';
+  }
+}
+
+function setFilter(f, el) {
+  activeFilter = f;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz(wrongOnly) {
+  let pool = ALL_QUESTIONS;
+
+  if (wrongOnly) {
+    if (savedWrongQs.length === 0) { alert('저장된 오답이 없습니다!'); return; }
+    pool = ALL_QUESTIONS.filter(q => savedWrongQs.includes(q.q));
+  }
+
+  if (activeFilter !== 'all') pool = pool.filter(q => q.type === activeFilter);
+  if (pool.length === 0) { alert('해당 유형의 문제가 없습니다.'); return; }
+
+  questions = shuffle(pool);
+  current = 0; score = 0; wrongItems = []; answered = false;
+
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'none';
+  document.getElementById('quizScreen').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (current >= questions.length) { showResult(); return; }
+  answered = false;
+  const q = questions[current];
+
+  document.getElementById('progressFill').style.width = (current / questions.length * 100) + '%';
+  document.getElementById('qCounter').textContent = (current + 1) + ' / ' + questions.length;
+
+  const badge = document.getElementById('typeBadge');
+  if      (q.type === 'mc') { badge.textContent = '📝 객관식';    badge.className = 'badge badge-mc'; }
+  else if (q.type === 'tf') { badge.textContent = '⭕ O / X';     badge.className = 'badge badge-tf'; }
+  else                      { badge.textContent = '🔀 A / B 선택'; badge.className = 'badge badge-ab'; }
+
+  document.getElementById('questionText').textContent = q.q;
+
+  const area = document.getElementById('answerArea');
+  const fb   = document.getElementById('feedback');
+  fb.className = 'feedback';
+  document.getElementById('nextBtn').className = 'next-btn';
+
+  if (q.type === 'mc') {
+    const labels = ['A','B','C','D'];
+    area.innerHTML = `<div class="options">${q.opts.map((o,i) =>
+      `<button class="option" onclick="answerMC(${i})" id="opt${i}">
+         <div class="option-label">${labels[i]}</div><span>${o}</span>
+       </button>`).join('')}</div>`;
+
+  } else if (q.type === 'tf') {
+    area.innerHTML = `
+      <div class="ox-buttons">
+        <button class="ox-btn o-btn" onclick="answerTF(true)"  id="btnO">⭕<span>맞다</span></button>
+        <button class="ox-btn x-btn" onclick="answerTF(false)" id="btnX">❌<span>틀리다</span></button>
+      </div>`;
+
+  } else {
+    area.innerHTML = `
+      <div class="ab-buttons">${q.opts.map((o,i) =>
+        `<button class="ab-btn" onclick="answerAB(${i})" id="ab${i}">
+           <div class="ab-label">${i===0?'A':'B'}</div><span>${o}</span>
+         </button>`).join('')}</div>`;
+  }
+}
+
+function showFeedback(correct, q) {
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback show ' + (correct ? 'correct-fb' : 'wrong-fb');
+  document.getElementById('fbIcon').textContent  = correct ? '🎉' : '💡';
+  document.getElementById('fbTitle').textContent = correct ? '정답입니다!' : '오답입니다';
+  document.getElementById('fbBody').textContent  = q.exp;
+  document.getElementById('nextBtn').className   = 'next-btn show';
+}
+
+function record(correct, q, myA, correctA) {
+  if (correct) { score++; }
+  else { wrongItems.push({ q: q.q, myA, correctA }); }
+  showFeedback(correct, q);
+}
+
+function answerMC(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const correct = idx === q.ans;
+  document.querySelectorAll('.option').forEach((el, i) => {
+    el.disabled = true;
+    if (i === q.ans) el.classList.add('correct');
+    else if (i === idx && !correct) el.classList.add('wrong');
+  });
+  record(correct, q, q.opts[idx], q.opts[q.ans]);
+}
+
+function answerTF(val) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const correct = val === q.ans;
+  const btnO = document.getElementById('btnO');
+  const btnX = document.getElementById('btnX');
+  btnO.onclick = null; btnX.onclick = null;
+  if (q.ans) btnO.className = 'ox-btn correct-o'; else btnX.className = 'ox-btn correct-x';
+  if (!correct) { (val ? btnO : btnX).classList.add('wrong-hi'); }
+  record(correct, q, val ? 'O' : 'X', q.ans ? 'O' : 'X');
+}
+
+function answerAB(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const correct = idx === q.ans;
+  [0, 1].forEach(i => {
+    const el = document.getElementById('ab' + i);
+    el.disabled = true;
+    if (i === q.ans) el.classList.add('correct');
+    else if (i === idx && !correct) el.classList.add('wrong');
+  });
+  record(correct, q, q.opts[idx], q.opts[q.ans]);
+}
+
+function nextQuestion() { current++; renderQuestion(); }
+
+function showResult() {
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('quizScreen').style.display  = 'none';
+  document.getElementById('resultScreen').style.display = 'block';
+
+  const total = questions.length;
+  const pct   = Math.round(score / total * 100);
+  document.getElementById('scoreText').textContent   = pct + '%';
+  document.getElementById('correctCount').textContent = score;
+  document.getElementById('wrongCount').textContent   = total - score;
+  document.getElementById('totalPlayed').textContent  = total;
+
+  const circle = document.getElementById('scoreCircle');
+  let grade, msg, sub;
+  if      (pct >= 90) { grade='grade-a'; msg='🏆 완벽합니다!';     sub='시험 준비 완료! 자신감을 가지세요.'; }
+  else if (pct >= 70) { grade='grade-b'; msg='👍 잘했습니다!';     sub='오답 부분만 한 번 더 확인하세요.'; }
+  else if (pct >= 50) { grade='grade-c'; msg='📖 조금 더 공부해요'; sub='오답 문제를 집중적으로 복습하세요.'; }
+  else                { grade='grade-d'; msg='💪 다시 도전!';       sub='기본 개념부터 다시 정리해보세요.'; }
+  circle.className = 'score-circle ' + grade;
+  document.getElementById('resultMessage').textContent = msg;
+  document.getElementById('resultSub').textContent     = sub;
+
+  savedWrongQs = wrongItems.map(w => w.q);
+  localStorage.setItem('wrongQs', JSON.stringify(savedWrongQs));
+  updateRetryBtn();
+
+  const wl = document.getElementById('wrongList');
+  if (wrongItems.length > 0) {
+    wl.innerHTML = `<h3>❌ 오답 목록 (${wrongItems.length}개)</h3>` +
+      wrongItems.map(w => `
+        <div class="wrong-item">
+          <div class="wq">Q: ${w.q}</div>
+          <div class="wa">✓ 정답: ${w.correctA}</div>
+          <div class="wmy">✗ 내 답: ${w.myA}</div>
+        </div>`).join('');
+  } else {
+    wl.innerHTML = `<div style="text-align:center;padding:16px;color:var(--success);font-weight:700">🎉 오답이 없습니다!</div>`;
+  }
+}
+
+function showStart() {
+  document.getElementById('resultScreen').style.display = 'none';
+  document.getElementById('quizScreen').style.display   = 'none';
+  document.getElementById('startScreen').style.display  = 'block';
+  document.getElementById('progressFill').style.width   = '0%';
+  updateRetryBtn();
+}
+</script>
+</body>
+</html>
