@@ -24,3 +24,9 @@ node_modules/
 # webhook secrets
 api/webhook/.env
 api/webhook/data/
+
+# Google 서비스 계정 키 (절대 커밋 금지)
+scripts/credentials/service-account.json
+
+# 생성된 PDF
+files/pdf/
