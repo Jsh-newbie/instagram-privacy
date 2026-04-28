@@ -32,6 +32,26 @@ fi
 PDF_PATH="files/pdf/${ITEM_ID}.pdf"
 JSON_FILE="data/library.json"
 
+# JSON에서 제목·등급 읽어서 파일명 생성
+PDF_NAME=$(python3 -c "
+import json, re
+with open('$JSON_FILE') as f:
+    data = json.load(f)
+for item in data['items']:
+    if item['id'] == '$ITEM_ID':
+        title = item.get('title', '$ITEM_ID')
+        grade = item.get('grade', '')
+        name = (grade + ' ' + title).strip() if grade else title
+        # 파일명에 쓸 수 없는 문자 제거
+        name = re.sub(r'[/\\\\:*?\"<>|]', '', name)
+        print(name + '.pdf')
+        break
+")
+
+if [[ -z "$PDF_NAME" ]]; then
+  PDF_NAME="${ITEM_ID}.pdf"
+fi
+
 echo "🚀 publish 시작: $ITEM_ID"
 echo "──────────────────────────────"
 
@@ -40,8 +60,8 @@ echo "📄 PDF 생성 중..."
 node "$ROOT/scripts/pdf.js" "$COVER_HTML" "$BODY_HTML" "$PDF_PATH"
 
 # ── 2. Google Drive 업로드 ────────────────────────────────
-echo "☁️  Google Drive 업로드 중..."
-DOWNLOAD_URL=$(node "$ROOT/scripts/drive-upload.js" "$PDF_PATH" "${ITEM_ID}.pdf" 2>&1 | tee /dev/stderr | grep '^https://' | tail -1)
+echo "☁️  Google Drive 업로드 중... ($PDF_NAME)"
+DOWNLOAD_URL=$(node "$ROOT/scripts/drive-upload.js" "$PDF_PATH" "$PDF_NAME" 2>&1 | tee /dev/stderr | grep '^https://' | tail -1)
 
 if [[ -z "$DOWNLOAD_URL" ]]; then
   echo "❌ 다운로드 URL을 가져오지 못했습니다."
