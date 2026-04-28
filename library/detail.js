@@ -19,12 +19,25 @@
     } else {
       coverEl.style.background = item.cover_gradient;
     }
-    coverEl.innerHTML =
-      '<div>' +
-        '<p class="cover__label">' + esc(item.label) + '</p>' +
-        '<h1 class="cover__title">' + esc(item.title).replace(/—/, '<br/>—') + '</h1>' +
-      '</div>' +
-      '<span class="cover__badge">' + esc(item.type) + '</span>';
+    if (item.cover_image) {
+      // 썸네일 있으면 커버에 제목 오버레이 없이 badge만
+      coverEl.innerHTML = '<span class="cover__badge">' + esc(item.type) + '</span>';
+    } else {
+      coverEl.innerHTML =
+        '<div>' +
+          '<p class="cover__label">' + esc(item.label) + '</p>' +
+          '<h1 class="cover__title">' + esc(item.title).replace(/—/, '<br/>—') + '</h1>' +
+        '</div>' +
+        '<span class="cover__badge">' + esc(item.type) + '</span>';
+    }
+
+    // 커버 아래 제목 (썸네일 있을 때만)
+    var titleBlock = item.cover_image
+      ? '<div class="cover-title-block">' +
+          '<p class="cover__label">' + esc(item.label) + '</p>' +
+          '<h1 class="cover-title">' + esc(item.title) + '</h1>' +
+        '</div>'
+      : '';
 
     // 메타 칩
     var chips = [item.subject, item.grade, item.type,
@@ -83,6 +96,7 @@
     var root = document.getElementById('root');
     root.innerHTML =
       '<div class="content">' +
+        titleBlock +
         metaRow +
         intro + divider +
         targets + divider +
