@@ -1746,10 +1746,13 @@
       return (abbr[item.subject] || item.subject.slice(0,3).toUpperCase()) + ' · ' + item.subject;
     }
     function coverHtml(item) {
+      return item.cover_image ? '' : thumbText(item);
+    }
+    function coverStyle(item) {
       if (item.cover_image) {
-        return '<img src="' + item.cover_image + '" alt="" style="width:100%;height:100%;object-fit:cover;">';
+        return 'background-image:url(' + item.cover_image + ');background-size:cover;background-position:center;';
       }
-      return thumbText(item);
+      return 'background:' + (item.cover_gradient || 'var(--primary)') + ';display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:var(--accent);text-align:center;';
     }
     function statusText(item) { return item.status === 'available' ? '다운로드 가능' : '준비 중'; }
 
@@ -1762,10 +1765,9 @@
         var latest = items[items.length - 1];
         var latestEl = document.getElementById('latestCard');
         if (latestEl && latest) {
-          var coverStyle = latest.cover_image ? '' : 'background:' + (latest.cover_gradient || 'var(--primary)') + ';display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:var(--accent);';
           latestEl.innerHTML =
             '<a class="latest__card" href="/library/' + latest.id + '/">' +
-              '<div class="latest__cover" style="' + coverStyle + '">' + coverHtml(latest) + '</div>' +
+              '<div class="latest__cover" style="' + coverStyle(latest) + '">' + coverHtml(latest) + '</div>' +
               '<div class="latest__body">' +
                 '<span class="latest__tag">' + latest.label + '</span>' +
                 '<h3 class="latest__title">' + latest.title + '</h3>' +
@@ -1789,9 +1791,8 @@
 
         function makeCards() {
           return items.map(function(item) {
-            var coverStyle = item.cover_image ? '' : 'background:' + (item.cover_gradient || 'var(--primary)') + ';display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:var(--accent);text-align:center;';
             return '<a class="marquee-card" href="/library/' + item.id + '/">' +
-              '<div class="strip__cover" style="' + coverStyle + '">' + coverHtml(item) + '</div>' +
+              '<div class="strip__cover" style="' + coverStyle(item) + '">' + coverHtml(item) + '</div>' +
               '<div class="strip__body">' +
                 '<span class="strip__tag">' + item.label + '</span>' +
                 '<h3 class="strip__title">' + item.title + '</h3>' +
