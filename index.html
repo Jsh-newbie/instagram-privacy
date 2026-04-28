@@ -1352,7 +1352,7 @@
     </div>
 
     <div class="marquee-wrap" id="libraryMarquee">
-      <div class="marquee-track" id="libraryTrack"></div>
+      <div class="marquee-track" id="libraryTrack" style="animation:none;"></div>
     </div>
   </section>
 
@@ -1804,9 +1804,14 @@
 
         var track = document.getElementById('libraryTrack');
         if (track) {
-          // 원본 + 복제본 (무한루프)
           var setHtml = makeCards();
           track.innerHTML = setHtml + setHtml;
+          // DOM 반영 후 한 프레임 뒤 애니메이션 시작 (빈 공간/속도 이상 방지)
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              track.style.animation = '';
+            });
+          });
         }
       })
       .catch(function() {});
