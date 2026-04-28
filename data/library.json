@@ -91,7 +91,7 @@
       "subject": "통합과학",
       "grade": "예비고1",
       "type": "PDF",
-      "status": "coming_soon",
+      "status": "available",
       "cover_image": "/assets/covers/library-sci-vocab-integrated.jpg",
       "cover_gradient": "linear-gradient(135deg, #1B3B36 0%, #2d5c54 100%)",
       "preview_images": [
@@ -110,7 +110,7 @@
         "각 용어의 정의와 예시로 개념을 정확하게 잡을 수 있습니다",
         "고등 교과 연계 포인트로 예습 효과까지 얻을 수 있습니다"
       ],
-      "download_url": null
+      "download_url": "https://drive.google.com/uc?export=download&id=1-mOOQQ-6mKatFJjml_cRzrPmTfZ8XzNe"
     }
   ]
 }
