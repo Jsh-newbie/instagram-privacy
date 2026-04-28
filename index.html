@@ -1336,15 +1336,7 @@
       가장 최근에 공개한 무료 자료입니다. 시기에 맞춰 새 자료가 추가됩니다.
     </p>
 
-    <a class="latest__card" href="/library/integrated-1/">
-      <div class="latest__cover">PREVIEW · COMING SOON</div>
-      <div class="latest__body">
-        <span class="latest__tag">고1 통합과학 · 4월</span>
-        <h3 class="latest__title">중간 직후, 6주 동안 무엇을 바꿔야 할까</h3>
-        <p class="latest__desc">중간고사 시험지 진단 · 기말 범위 재배치 · 수행평가 동선 정리 한 장 가이드. 곧 공개됩니다.</p>
-        <span class="latest__cta">자세히 보기 →</span>
-      </div>
-    </a>
+    <div id="latestCard"></div>
   </section>
 
   <!-- 3. LIBRARY — 공개 자료 목록 (가로 카드) -->
@@ -1360,82 +1352,7 @@
     </div>
 
     <div class="marquee-wrap" id="libraryMarquee">
-      <div class="marquee-track">
-        <!-- 원본 -->
-        <a class="marquee-card" href="/library/integrated-1/">
-          <div class="strip__cover">CHEM · 통합과학</div>
-          <div class="strip__body">
-            <span class="strip__tag">통합과학</span>
-            <h3 class="strip__title">단원별 핵심 정리 — 1단원</h3>
-            <p class="strip__desc">자유 낙하·운동·물질의 규칙성. 시험 직전 한 번에 보는 정리본.</p>
-            <span class="strip__meta">PDF · 준비 중</span>
-          </div>
-        </a>
-        <a class="marquee-card" href="/library/biology-25/">
-          <div class="strip__cover">BIO · 통합과학</div>
-          <div class="strip__body">
-            <span class="strip__tag">생명·지구과학</span>
-            <h3 class="strip__title">생명 시스템 핵심 25제</h3>
-            <p class="strip__desc">세포·물질대사·항상성 빈출 문항을 골라 풀이까지.</p>
-            <span class="strip__meta">PDF · 준비 중</span>
-          </div>
-        </a>
-        <a class="marquee-card" href="/library/physics-error/">
-          <div class="strip__cover">PHYS · 통합과학</div>
-          <div class="strip__body">
-            <span class="strip__tag">통합과학</span>
-            <h3 class="strip__title">물리 단원 오답 패턴 분석</h3>
-            <p class="strip__desc">중간고사에서 자주 틀리는 유형 정리, 다음 시험을 위한 점검표.</p>
-            <span class="strip__meta">PDF · 준비 중</span>
-          </div>
-        </a>
-        <a class="marquee-card" href="/library/">
-          <div class="strip__cover">+ MORE</div>
-          <div class="strip__body">
-            <span class="strip__tag">전체 보기</span>
-            <h3 class="strip__title">자료실에서 더 보기</h3>
-            <p class="strip__desc">시험·단원·시기별 모든 공개 자료를 한 곳에서.</p>
-            <span class="strip__meta">→ /library/</span>
-          </div>
-        </a>
-        <!-- 복제 (무한루프용) -->
-        <a class="marquee-card" href="/library/integrated-1/">
-          <div class="strip__cover">CHEM · 통합과학</div>
-          <div class="strip__body">
-            <span class="strip__tag">통합과학</span>
-            <h3 class="strip__title">단원별 핵심 정리 — 1단원</h3>
-            <p class="strip__desc">자유 낙하·운동·물질의 규칙성. 시험 직전 한 번에 보는 정리본.</p>
-            <span class="strip__meta">PDF · 준비 중</span>
-          </div>
-        </a>
-        <a class="marquee-card" href="/library/biology-25/">
-          <div class="strip__cover">BIO · 통합과학</div>
-          <div class="strip__body">
-            <span class="strip__tag">생명·지구과학</span>
-            <h3 class="strip__title">생명 시스템 핵심 25제</h3>
-            <p class="strip__desc">세포·물질대사·항상성 빈출 문항을 골라 풀이까지.</p>
-            <span class="strip__meta">PDF · 준비 중</span>
-          </div>
-        </a>
-        <a class="marquee-card" href="/library/physics-error/">
-          <div class="strip__cover">PHYS · 통합과학</div>
-          <div class="strip__body">
-            <span class="strip__tag">통합과학</span>
-            <h3 class="strip__title">물리 단원 오답 패턴 분석</h3>
-            <p class="strip__desc">중간고사에서 자주 틀리는 유형 정리, 다음 시험을 위한 점검표.</p>
-            <span class="strip__meta">PDF · 준비 중</span>
-          </div>
-        </a>
-        <a class="marquee-card" href="/library/">
-          <div class="strip__cover">+ MORE</div>
-          <div class="strip__body">
-            <span class="strip__tag">전체 보기</span>
-            <h3 class="strip__title">자료실에서 더 보기</h3>
-            <p class="strip__desc">시험·단원·시기별 모든 공개 자료를 한 곳에서.</p>
-            <span class="strip__meta">→ /library/</span>
-          </div>
-        </a>
-      </div>
+      <div class="marquee-track" id="libraryTrack"></div>
     </div>
   </section>
 
@@ -1818,6 +1735,79 @@
           }
           requestAnimationFrame(step);
         }, 200);
+      })
+      .catch(function() {});
+  })();
+
+  // Library JSON → Latest + 마퀴 슬라이더
+  (function() {
+    var abbr = { '통합과학': 'SCI', '생명과학': 'BIO', '지구과학': 'GEO', '화학': 'CHE', '물리학': 'PHY', '천문학': 'AST' };
+    function thumbText(item) {
+      return (abbr[item.subject] || item.subject.slice(0,3).toUpperCase()) + ' · ' + item.subject;
+    }
+    function coverHtml(item) {
+      if (item.cover_image) {
+        return '<img src="' + item.cover_image + '" alt="" style="width:100%;height:100%;object-fit:cover;">';
+      }
+      return thumbText(item);
+    }
+    function statusText(item) { return item.status === 'available' ? '다운로드 가능' : '준비 중'; }
+
+    fetch('/data/library.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var items = data.items;
+
+        // --- Latest: 가장 마지막 항목 ---
+        var latest = items[items.length - 1];
+        var latestEl = document.getElementById('latestCard');
+        if (latestEl && latest) {
+          var coverStyle = latest.cover_image ? '' : 'background:' + (latest.cover_gradient || 'var(--primary)') + ';display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:var(--accent);';
+          latestEl.innerHTML =
+            '<a class="latest__card" href="/library/' + latest.id + '/">' +
+              '<div class="latest__cover" style="' + coverStyle + '">' + coverHtml(latest) + '</div>' +
+              '<div class="latest__body">' +
+                '<span class="latest__tag">' + latest.label + '</span>' +
+                '<h3 class="latest__title">' + latest.title + '</h3>' +
+                '<p class="latest__desc">' + latest.intro + '</p>' +
+                '<span class="latest__cta">자세히 보기 →</span>' +
+              '</div>' +
+            '</a>';
+        }
+
+        // --- Library 마퀴 슬라이더 ---
+        var moreCard =
+          '<a class="marquee-card" href="/library/">' +
+            '<div class="strip__cover">+ MORE</div>' +
+            '<div class="strip__body">' +
+              '<span class="strip__tag">전체 보기</span>' +
+              '<h3 class="strip__title">자료실에서 더 보기</h3>' +
+              '<p class="strip__desc">시험·단원·시기별 모든 공개 자료를 한 곳에서.</p>' +
+              '<span class="strip__meta">→ /library/</span>' +
+            '</div>' +
+          '</a>';
+
+        function makeCards() {
+          return items.map(function(item) {
+            var coverStyle = item.cover_image ? '' : 'background:' + (item.cover_gradient || 'var(--primary)') + ';display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:var(--accent);text-align:center;';
+            return '<a class="marquee-card" href="/library/' + item.id + '/">' +
+              '<div class="strip__cover" style="' + coverStyle + '">' + coverHtml(item) + '</div>' +
+              '<div class="strip__body">' +
+                '<span class="strip__tag">' + item.label + '</span>' +
+                '<h3 class="strip__title">' + item.title + '</h3>' +
+                '<p class="strip__desc">' + item.intro.slice(0, 50) + (item.intro.length > 50 ? '…' : '') + '</p>' +
+                '<span class="strip__meta">PDF · ' + statusText(item) + '</span>' +
+              '</div>' +
+            '</a>';
+          }).join('') + moreCard;
+        }
+
+        var track = document.getElementById('libraryTrack');
+        if (track) {
+          // 원본 + 복제본 (무한루프)
+          var setHtml = makeCards();
+          track.innerHTML = setHtml + setHtml;
+        }
       })
       .catch(function() {});
   })();
