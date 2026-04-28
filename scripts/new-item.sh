@@ -73,7 +73,7 @@ cat > "$ITEM_DIR/index.html" << HTML
 <div class="page" id="page">
   <nav class="nav">
     <a class="nav__back" href="/$SECTION/">← $BACK_LABEL</a>
-    <span class="nav__title">자료 상세</span>
+    <span class="nav__title">Detail</span>
     <span style="width:48px;"></span>
   </nav>
   <div id="root"></div>
