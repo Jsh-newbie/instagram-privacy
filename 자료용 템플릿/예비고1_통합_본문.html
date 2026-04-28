@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>prof.Z — 필수 과학 용어 정리 · 통합판</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Noto+Serif+KR:wght@300;400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1B3B36;
+    --gold: #C2964A;
+    --paper: #F2EFE8;
+    --ink: #14241F;
+    --ink-mid: #3a4945;
+    --ink-soft: #6b7672;
+    --rule: rgba(20,36,31,.10);
+    --cards-h-with-title: 242mm;
+    --cards-h-no-title:   256mm;
+  }
+  @page { size: A4; margin: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #3a3a3a;
+    font-family: 'Noto Serif KR', serif;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 210mm; height: 297mm;
+    margin: 24px auto;
+    background: var(--paper);
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    padding: 12mm 18mm 10mm;
+    display: flex; flex-direction: column;
+  }
+  @media print {
+    html, body { background: #fff; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+    .page:last-of-type { page-break-after: auto; }
+  }
+  .head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 6px; margin-bottom: 5mm; flex-shrink: 0;
+  }
+  .head .section {
+    font-family: 'Noto Serif KR', serif; font-weight: 600; font-size: 11pt;
+    color: var(--green); letter-spacing: -0.01em; white-space: nowrap;
+  }
+  .head .right {
+    font-family: 'Inter', sans-serif; font-size: 9pt;
+    color: var(--ink-soft); letter-spacing: 0.04em; white-space: nowrap;
+  }
+  .section-title { margin-bottom: 5mm; display: inline-block; flex-shrink: 0; }
+  .section-title h2 {
+    font-family: 'Noto Serif KR', serif; font-weight: 600; font-size: 20pt;
+    color: var(--green); letter-spacing: -0.02em; line-height: 1.1; white-space: nowrap;
+  }
+  .section-title .gold-rule { width: 100%; height: 1px; background: var(--gold); margin-top: 7px; }
+  .cards { display: flex; flex-direction: column; gap: 2.5mm; overflow: hidden; }
+  .page--with-title .cards { max-height: var(--cards-h-with-title); }
+  .page:not(.page--with-title) .cards { max-height: var(--cards-h-no-title); }
+  .card {
+    background: #fff; border-radius: 3mm; padding: 3.5mm 6mm 4mm;
+    page-break-inside: avoid; break-inside: avoid;
+    border: 0.4px solid rgba(20,36,31,.06); flex-shrink: 0;
+  }
+  .term-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 2mm; }
+  .term-ko {
+    font-family: 'Noto Serif KR', serif; font-weight: 700; font-size: 16pt;
+    color: var(--green); letter-spacing: -0.02em; line-height: 1.1;
+  }
+  .term-en {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+    font-size: 12pt; color: var(--gold); letter-spacing: 0.01em;
+  }
+  .def {
+    font-family: 'Noto Serif KR', serif; font-weight: 400; font-size: 9.5pt;
+    line-height: 1.55; color: var(--ink); text-wrap: pretty; margin-bottom: 1.5mm;
+  }
+  .def:last-child { margin-bottom: 0; }
+  .ex { list-style: none; margin-bottom: 1.5mm; }
+  .ex:last-child { margin-bottom: 0; }
+  .ex li {
+    position: relative; padding-left: 12px;
+    font-size: 8.5pt; line-height: 1.45; color: var(--ink-mid);
+  }
+  .ex li::before {
+    content: ""; position: absolute; left: 0; top: 8px;
+    width: 4px; height: 1px; background: var(--gold);
+  }
+  .hs {
+    font-size: 8pt; line-height: 1.45; color: var(--ink-soft);
+    padding-top: 1.5mm; border-top: 0.6px dotted rgba(20,36,31,.18);
+  }
+  .hs::before {
+    content: "고등 연계"; display: inline-block;
+    font-family: 'Inter', sans-serif; font-size: 7.5pt;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-right: 10px; font-weight: 500;
+  }
+  .note {
+    font-size: 8pt; line-height: 1.45; color: var(--ink-soft);
+    padding-top: 1.5mm; border-top: 0.6px dotted rgba(20,36,31,.18);
+  }
+  .note::before {
+    content: "참고"; display: inline-block;
+    font-family: 'Inter', sans-serif; font-size: 7.5pt;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-soft); margin-right: 10px; font-weight: 500;
+  }
+  .foot {
+    margin-top: auto; padding-top: 2mm;
+    border-top: 0.6px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'Inter', sans-serif; font-size: 7.5pt;
+    color: var(--ink-soft); letter-spacing: 0.04em; flex-shrink: 0;
+  }
+  .foot .doc { color: var(--ink-mid); font-family: 'Noto Serif KR', serif; font-weight: 400; }
+  .foot .right { display: flex; gap: 14px; align-items: center; }
+  .foot .sns { color: var(--gold); font-weight: 500; }
+  .foot .pg {
+    font-family: 'Noto Serif KR', serif; font-weight: 400;
+    font-size: 8pt; color: var(--ink-mid); letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+  PAGE 01 · 생명과학 · 세포와 생명 시스템
+  page--with-title / 카드 가용 242mm
+  6카드: 36+28+28+28+28+28 + 5×2.5 = 188mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">생명과학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>세포와 생명 시스템</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">세포</div><div class="term-en">Cell</div></div>
+      <p class="def">생물체를 구성하는 가장 작은 구조적·기능적 단위. 모든 생명 활동이 여기서 일어난다.</p>
+      <ul class="ex">
+        <li>양파 표피 세포 — 식물 세포의 대표적 관찰 시료</li>
+        <li>사람의 적혈구 — 핵이 없는 동물 세포의 예</li>
+      </ul>
+      <div class="hs">고등 「생명과학Ⅰ」에서 세포 소기관 구조·기능과 물질대사의 출발점이 된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">조직</div><div class="term-en">Tissue</div></div>
+      <p class="def">유사한 기능을 가진 세포들이 모여 형성된 구조.</p>
+      <ul class="ex">
+        <li>근육 조직 — 수축하여 움직임을 만든다</li>
+        <li>신경 조직 — 전기 신호를 전달한다</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">기관</div><div class="term-en">Organ</div></div>
+      <p class="def">여러 조직이 모여 특정 기능을 수행하는 구조.</p>
+      <ul class="ex">
+        <li>심장 — 혈액을 순환시키는 기관</li>
+        <li>폐 — 기체 교환을 담당하는 기관</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">기관계</div><div class="term-en">Organ System</div></div>
+      <p class="def">관련된 기관들이 모여 특정 생리 기능을 수행하는 시스템.</p>
+      <ul class="ex">
+        <li>순환계 — 심장·혈관이 혈액을 온몸에 운반</li>
+        <li>소화계 — 입·위·소장 등이 영양소를 흡수</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">광합성</div><div class="term-en">Photosynthesis</div></div>
+      <p class="def">식물이 빛 에너지를 이용해 CO₂와 물로부터 포도당과 O₂를 만드는 과정.</p>
+      <ul class="ex">
+        <li>엽록체에서 진행 — 엽록소가 빛을 흡수</li>
+        <li>검정말 실험 — 기포(O₂) 발생으로 확인</li>
+      </ul>
+      <div class="hs">고등에서 명반응(틸라코이드)·암반응(스트로마)의 세부 반응 단계로 심화된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">세포 호흡</div><div class="term-en">Respiration</div></div>
+      <p class="def">세포가 포도당을 분해해 생명 활동에 필요한 에너지(ATP)를 얻는 과정.</p>
+      <ul class="ex">
+        <li>미토콘드리아에서 주로 진행</li>
+        <li>포도당 + O₂ → CO₂ + H₂O + 에너지</li>
+      </ul>
+      <div class="hs">고등에서 해당과정·TCA회로·전자전달계의 3단계로 상세히 다룬다.</div>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">01</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 02 · 생명과학 · 세포 구조
+  page / 카드 가용 256mm
+  7카드: 36+28+28+28+28+28+18 + 6×2.5 = 209mm ✓
+══════════════════════════════════════════ -->
+<article class="page">
+  <header class="head">
+    <div class="section">생명과학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">미토콘드리아</div><div class="term-en">Mitochondria</div></div>
+      <p class="def">세포 내 에너지(ATP)를 생산하는 소기관. 세포 호흡이 일어나는 장소.</p>
+      <ul class="ex">
+        <li>근육 세포에 특히 많이 분포 — 에너지 소비가 크기 때문</li>
+        <li>자체 DNA를 가지며 이분법으로 증식</li>
+      </ul>
+      <div class="hs">고등 물질대사 단원에서 ATP 합성 메커니즘의 핵심으로 다뤄진다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">엽록체</div><div class="term-en">Chloroplast</div></div>
+      <p class="def">식물 세포에서 광합성이 이루어지는 소기관. 엽록소를 포함해 빛을 흡수한다.</p>
+      <ul class="ex">
+        <li>잎의 세포에 주로 분포</li>
+        <li>엽록소가 녹색 빛을 반사 → 식물이 녹색으로 보임</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">세포벽</div><div class="term-en">Cell Wall</div></div>
+      <p class="def">세포막 바깥쪽에 위치하여 세포를 보호하고 형태를 유지하는 구조. 식물·세균에 있음.</p>
+      <ul class="ex">
+        <li>식물 세포벽 — 셀룰로스로 구성</li>
+        <li>동물 세포에는 없다</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">기공</div><div class="term-en">Stomata</div></div>
+      <p class="def">식물 잎 표면의 작은 구멍으로 기체 교환과 증산이 일어나는 부분.</p>
+      <ul class="ex">
+        <li>공변세포가 기공을 열고 닫아 조절</li>
+        <li>빛이 있을 때 열려 CO₂ 흡수 / 밤에 닫힘</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">물관</div><div class="term-en">Xylem</div></div>
+      <p class="def">식물 뿌리에서 흡수된 물과 무기물을 잎으로 운반하는 조직.</p>
+      <ul class="ex">
+        <li>줄기 단면에서 관찰 가능</li>
+        <li>죽은 세포로 구성 — 빈 통로 역할</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">체관</div><div class="term-en">Phloem</div></div>
+      <p class="def">광합성으로 만든 유기 양분(포도당)을 식물 전체로 운반하는 조직.</p>
+      <ul class="ex">
+        <li>잎에서 뿌리·줄기·열매로 양분을 공급</li>
+        <li>살아있는 세포로 구성</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">핵막</div><div class="term-en">Nuclear Membrane</div></div>
+      <p class="def">세포핵을 감싸는 이중막. 진핵세포에만 있으며 핵과 세포질을 구분한다.</p>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">02</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 03 · 생명과학 · 생태계와 다양성
+  page--with-title / 카드 가용 242mm
+  6카드: 36+28+28+28+28+28 + 5×2.5 = 188mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">생명과학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>생태계와 생물 다양성</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">생태계</div><div class="term-en">Ecosystem</div></div>
+      <p class="def">생물적 요인과 비생물적 요인이 서로 영향을 주고받으며 이루는 유기적 단위.</p>
+      <ul class="ex">
+        <li>숲 생태계 — 생산자·소비자·분해자 공존</li>
+        <li>갯벌 생태계 — 조류와 무척추동물의 먹이 그물</li>
+      </ul>
+      <div class="hs">고등 「생명과학Ⅰ」에서 물질 순환과 에너지 흐름, 생태 피라미드로 확장된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">먹이 사슬</div><div class="term-en">Food Chain</div></div>
+      <p class="def">생태계에서 에너지와 영양분이 생물 사이를 이동하는 연결 관계.</p>
+      <ul class="ex">
+        <li>풀 → 토끼 → 여우 → 독수리</li>
+        <li>먹이 사슬이 복잡하게 얽히면 먹이 그물이 된다</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">생물다양성</div><div class="term-en">Biodiversity</div></div>
+      <p class="def">지구 상의 다양한 생명체와 그 생태계를 포함한 생물의 다양성. 유전적·종·생태계 다양성으로 구분.</p>
+      <ul class="ex">
+        <li>아마존 열대우림 — 높은 생물다양성의 대표 지역</li>
+        <li>생물다양성 감소 → 생태계 불균형 초래</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">외래종</div><div class="term-en">Invasive Species</div></div>
+      <p class="def">인간 활동으로 새로운 지역에 유입되어 토착 생물에 영향을 미치는 종.</p>
+      <ul class="ex">
+        <li>황소개구리 — 한국의 대표적 외래종</li>
+        <li>뉴트리아·배스도 생태계를 교란하는 외래종</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">서식지 단편화</div><div class="term-en">Habitat Fragmentation</div></div>
+      <p class="def">서식지가 도로·개발 등으로 분리되어 생물의 이동과 생존이 어려워지는 현상.</p>
+      <ul class="ex">
+        <li>도로 건설 → 야생 동물 이동 차단</li>
+        <li>생태 통로 설치로 단편화 영향을 줄임</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">생태계 평형</div><div class="term-en">Ecological Balance</div></div>
+      <p class="def">생태계 내 생물과 환경이 균형을 이루는 상태. 외부 교란이 없으면 자연적으로 회복된다.</p>
+      <ul class="ex">
+        <li>포식자-피식자 수의 균형 유지</li>
+        <li>인간 활동·오염이 균형을 깨뜨릴 수 있다</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">03</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 04 · 생명과학 · 유전과 세포분열
+  page--with-title / 카드 가용 242mm
+  6카드: 36+36+28+28+28+28 + 5×2.5 = 196.5mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">생명과학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>유전과 세포 분열</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">DNA</div><div class="term-en">Deoxyribonucleic Acid</div></div>
+      <p class="def">유전 정보를 저장하는 이중 나선 구조의 분자. 세포의 기능과 생물의 형질을 결정한다.</p>
+      <ul class="ex">
+        <li>염색체 안에 유전자 형태로 저장</li>
+        <li>세포 분열 전 복제되어 딸세포에 전달</li>
+      </ul>
+      <div class="hs">고등에서 DNA 복제·전사·번역(유전자 발현)의 중심 원리로 확장된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">유전자</div><div class="term-en">Gene</div></div>
+      <p class="def">생물의 형질을 결정하는 DNA의 특정 부분. 부모로부터 자손에게 전달된다.</p>
+      <ul class="ex">
+        <li>눈 색깔·혈액형을 결정하는 유전자</li>
+        <li>유전자 돌연변이 → 새로운 형질 발현 가능</li>
+      </ul>
+      <div class="hs">고등에서 멘델의 유전 법칙과 연관·독립 유전으로 심화된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">체세포 분열</div><div class="term-en">Mitosis</div></div>
+      <p class="def">하나의 세포가 유전적으로 동일한 두 딸세포로 나뉘는 과정. 성장·재생에 이용.</p>
+      <ul class="ex">
+        <li>피부 세포 재생, 상처 치유</li>
+        <li>전기→중기→후기→말기 순으로 진행</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">감수 분열</div><div class="term-en">Meiosis</div></div>
+      <p class="def">생식세포 형성 시 세포가 두 번 분열해 염색체 수가 절반인 세포를 만드는 과정.</p>
+      <ul class="ex">
+        <li>난자·정자 생성에 이용</li>
+        <li>유전적 다양성의 원천</li>
+      </ul>
+      <div class="hs">고등에서 독립의 법칙·교차(crossing over)로 유전 다양성 원리를 설명한다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">변이</div><div class="term-en">Variation</div></div>
+      <p class="def">같은 종 내 개체들 사이의 형질 차이. 진화의 원동력이 된다.</p>
+      <ul class="ex">
+        <li>사람의 눈 색깔·혈액형 차이</li>
+        <li>돌연변이나 생식 과정에서 발생</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">표현형</div><div class="term-en">Phenotype</div></div>
+      <p class="def">유전자와 환경의 상호작용으로 겉으로 나타나는 생물의 특성.</p>
+      <ul class="ex">
+        <li>머리 색깔·키·혈액형</li>
+        <li>같은 유전자형이라도 환경에 따라 달라질 수 있다</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">04</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 05 · 생명과학 · 신경계와 항상성
+  page--with-title / 카드 가용 242mm
+  6카드: 36+28+28+36+28+28 + 5×2.5 = 196.5mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">생명과학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>신경계와 항상성</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">뉴런</div><div class="term-en">Neuron</div></div>
+      <p class="def">신경계를 구성하는 기본 단위. 전기 신호를 통해 정보를 전달하는 신경 세포.</p>
+      <ul class="ex">
+        <li>가지 돌기(수상돌기) — 신호를 받아들이는 부분</li>
+        <li>축삭 돌기 — 신호를 다음 세포로 보내는 긴 돌기</li>
+      </ul>
+      <div class="hs">고등에서 활동 전위·시냅스 전달 메커니즘으로 심화된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">시냅스</div><div class="term-en">Synapse</div></div>
+      <p class="def">신경 세포 간의 연결 부위. 신경전달물질을 통해 신호가 화학적으로 전달된다.</p>
+      <ul class="ex">
+        <li>시냅스 소포에서 신경전달물질 방출</li>
+        <li>학습·기억 형성에 중요한 역할</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">반사</div><div class="term-en">Reflex</div></div>
+      <p class="def">자극에 대해 뇌를 거치지 않고 척수에서 즉각적으로 일어나는 반응.</p>
+      <ul class="ex">
+        <li>뜨거운 물체에 손이 닿으면 즉시 떼는 반응</li>
+        <li>무릎 반사 — 척수 반사의 대표 예</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">항상성</div><div class="term-en">Homeostasis</div></div>
+      <p class="def">체내 환경을 일정하게 유지하려는 생물체의 능력.</p>
+      <ul class="ex">
+        <li>체온 조절 — 땀·떨림으로 37°C 유지</li>
+        <li>혈당 조절 — 인슐린·글루카곤으로 조절</li>
+      </ul>
+      <div class="hs">고등에서 피드백 조절 원리와 호르몬·신경의 복합 조절로 심화된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">인슐린</div><div class="term-en">Insulin</div></div>
+      <p class="def">혈당이 높을 때 췌장에서 분비되어 혈당을 낮추는 호르몬.</p>
+      <ul class="ex">
+        <li>포도당 → 글리코겐으로 전환시켜 간에 저장</li>
+        <li>인슐린 부족 또는 기능 이상 → 당뇨병</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">글루카곤</div><div class="term-en">Glucagon</div></div>
+      <p class="def">혈당이 낮을 때 췌장에서 분비되어 혈당을 높이는 호르몬.</p>
+      <ul class="ex">
+        <li>간에 저장된 글리코겐 → 포도당으로 전환</li>
+        <li>인슐린과 길항 작용으로 혈당 균형 유지</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">05</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 06 · 지구과학 · 지구 내부 구조
+  page--with-title / 카드 가용 242mm
+  7카드: 28+18+18+18+28+28+28 + 6×2.5 = 181mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">지구과학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>지구 내부 구조</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">지각</div><div class="term-en">Crust</div></div>
+      <p class="def">지구의 가장 바깥층. 대륙지각(화강암질)과 해양지각(현무암질)으로 구분된다.</p>
+      <ul class="ex">
+        <li>대륙지각 두께 약 30~50km, 해양지각 약 5~10km</li>
+        <li>판 구조론의 핵심 구성 요소</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">맨틀</div><div class="term-en">Mantle</div></div>
+      <p class="def">지각 아래의 두꺼운 암석층. 유동성을 가진 고체 상태로 판이 이동하는 기반이 된다.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">외핵</div><div class="term-en">Outer Core</div></div>
+      <p class="def">지구 핵의 바깥 부분. 액체 상태의 철·니켈로 구성되며 지구 자기장을 만든다.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">내핵</div><div class="term-en">Inner Core</div></div>
+      <p class="def">지구 중심부. 고체 상태의 철·니켈로 구성되며, 높은 압력으로 고체를 유지한다.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">연약권</div><div class="term-en">Asthenosphere</div></div>
+      <p class="def">맨틀 상부의 유동성이 있는 층. 지각 판이 이 위에서 이동하는 기반이 된다.</p>
+      <ul class="ex">
+        <li>지각 아래 약 100~700km 깊이</li>
+        <li>판 이동의 원동력 제공</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">지진파</div><div class="term-en">Seismic Wave</div></div>
+      <p class="def">지진 발생 시 지구 내부를 통과하며 전달되는 탄성파. P파와 S파로 구분된다.</p>
+      <ul class="ex">
+        <li>P파 — 고체·액체 통과 가능 (종파)</li>
+        <li>S파 — 고체만 통과 (횡파) → 외핵이 액체임을 증명</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">모호면</div><div class="term-en">Mohorovičić Discontinuity</div></div>
+      <p class="def">지각과 맨틀 사이의 경계면. 지진파 속도가 급격히 변하는 곳.</p>
+      <ul class="ex">
+        <li>1909년 모호로비치치가 발견</li>
+        <li>대륙 아래 약 30~50km 깊이에 위치</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">06</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 07 · 지구과학 · 판 구조론
+  page--with-title / 카드 가용 242mm
+  6카드: 28+28+28+28+28+28 + 5×2.5 = 180.5mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">지구과학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>판 구조론과 지각 변동</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">판게아</div><div class="term-en">Pangaea</div></div>
+      <p class="def">약 2억 5천만 년 전 존재했던 하나의 거대한 원시 대륙. 이후 분리되어 현재의 대륙이 됨.</p>
+      <ul class="ex">
+        <li>베게너가 대륙 이동설 근거로 제시</li>
+        <li>서로 멀리 떨어진 대륙에서 같은 화석 발견</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">발산형 경계</div><div class="term-en">Divergent Boundary</div></div>
+      <p class="def">두 지각 판이 서로 멀어지는 경계. 새로운 해양 지각이 생성된다.</p>
+      <ul class="ex">
+        <li>대서양 중앙 해령 — 대표적인 발산형 경계</li>
+        <li>해저 확장이 일어나 해양이 넓어진다</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">수렴형 경계</div><div class="term-en">Convergent Boundary</div></div>
+      <p class="def">두 지각 판이 서로 가까워지는 경계. 지진·화산 활동이 활발하다.</p>
+      <ul class="ex">
+        <li>히말라야 — 대륙판 충돌로 형성된 산맥</li>
+        <li>일본 해구 — 해양판이 대륙판 아래로 섭입</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">화산</div><div class="term-en">Volcano</div></div>
+      <p class="def">마그마가 지표로 분출하는 지형 또는 구조.</p>
+      <ul class="ex">
+        <li>제주도 한라산 — 한국의 대표적 화산</li>
+        <li>판 경계부나 열점에서 주로 발생</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">지진</div><div class="term-en">Earthquake</div></div>
+      <p class="def">지각의 급격한 움직임으로 발생하는 진동 현상. 단층 활동이 주요 원인.</p>
+      <ul class="ex">
+        <li>진원 — 지하에서 지진이 실제로 발생한 지점</li>
+        <li>진앙 — 진원 바로 위 지표면의 위치</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">쓰나미</div><div class="term-en">Tsunami</div></div>
+      <p class="def">해저 지진이나 화산 활동으로 발생하는 거대한 해일.</p>
+      <ul class="ex">
+        <li>2011년 일본 동일본 대지진 — 대규모 쓰나미 피해</li>
+        <li>외해에서는 파고가 낮지만 해안에서 급격히 높아짐</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">07</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 08 · 지구과학 · 암석과 광물 / 대기
+  page--with-title / 카드 가용 242mm
+  7카드: 28+18+18+18+28+28+28 + 6×2.5 = 181mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">지구과학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>암석·광물과 대기</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">암석의 순환</div><div class="term-en">Rock Cycle</div></div>
+      <p class="def">화성암·퇴적암·변성암이 오랜 시간 동안 서로 변화하며 순환하는 과정.</p>
+      <ul class="ex">
+        <li>화성암 → 풍화·침식 → 퇴적암</li>
+        <li>퇴적암 → 열·압력 → 변성암</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">화성암</div><div class="term-en">Igneous Rock</div></div>
+      <p class="def">마그마나 용암이 식어서 굳어진 암석. 화강암(심성암)과 현무암(화산암)이 대표적.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">퇴적암</div><div class="term-en">Sedimentary Rock</div></div>
+      <p class="def">퇴적물이 쌓여 굳어진 암석. 화석을 많이 포함하며 지층의 역사를 알려준다.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">변성암</div><div class="term-en">Metamorphic Rock</div></div>
+      <p class="def">기존 암석이 열과 압력에 의해 변형되어 형성된 암석. 편암·대리암이 대표적.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">온실 효과</div><div class="term-en">Greenhouse Effect</div></div>
+      <p class="def">대기 중 온실 기체가 지구 복사열을 흡수하여 지표 온도를 높이는 현상.</p>
+      <ul class="ex">
+        <li>CO₂·메탄 등이 주요 온실 기체</li>
+        <li>과도한 온실 효과 → 지구 온난화</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">오존층</div><div class="term-en">Ozone Layer</div></div>
+      <p class="def">성층권에 위치하며 자외선을 흡수해 생명체를 보호하는 오존이 밀집된 층.</p>
+      <ul class="ex">
+        <li>프레온 가스(CFC)가 오존층 파괴의 주범</li>
+        <li>오존층 파괴 → 자외선 증가 → 피부암 등 유발</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">기압</div><div class="term-en">Atmospheric Pressure</div></div>
+      <p class="def">공기의 무게로 지표면에 가해지는 압력. 고도가 높을수록 낮아진다.</p>
+      <ul class="ex">
+        <li>해수면 기압 약 1013hPa (1기압)</li>
+        <li>고기압 — 맑은 날씨, 저기압 — 흐리고 비</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">08</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 09 · 화학 · 물질의 구성
+  page--with-title / 카드 가용 242mm
+  6카드: 36+28+28+28+28+28 + 5×2.5 = 188mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">화학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>물질의 구성</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">원자</div><div class="term-en">Atom</div></div>
+      <p class="def">물질을 구성하는 기본 단위. 원소의 성질을 가지며 더 이상 화학적으로 분해할 수 없는 입자.</p>
+      <ul class="ex">
+        <li>수소 원자 — 양성자 1개, 전자 1개</li>
+        <li>산소 원자 — 전자 6개, 두 전자껍질 보유</li>
+      </ul>
+      <div class="hs">고등 화학에서 원자 모형의 발전(보어→현대 모형)과 전자 배치로 심화된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">분자</div><div class="term-en">Molecule</div></div>
+      <p class="def">두 개 이상의 원자가 화학 결합으로 이루어진 입자. 물질의 성질을 나타내는 최소 단위.</p>
+      <ul class="ex">
+        <li>H₂O — 수소 2 + 산소 1로 구성된 물 분자</li>
+        <li>CO₂ — 탄소 1 + 산소 2로 구성</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">원소</div><div class="term-en">Element</div></div>
+      <p class="def">화학적으로 더 이상 분해할 수 없는 물질의 기본 성분.</p>
+      <ul class="ex">
+        <li>주기율표에 118개의 원소가 배열</li>
+        <li>수소(H), 산소(O), 철(Fe) 등</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">화합물</div><div class="term-en">Compound</div></div>
+      <p class="def">두 가지 이상의 원소가 화학 결합하여 생성된 순물질.</p>
+      <ul class="ex">
+        <li>물(H₂O) — 수소와 산소의 화합물</li>
+        <li>이산화탄소(CO₂) — 탄소와 산소의 화합물</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">혼합물</div><div class="term-en">Mixture</div></div>
+      <p class="def">두 가지 이상의 순물질이 화학 결합 없이 섞여 있는 물질. 각 성분의 성질이 유지된다.</p>
+      <ul class="ex">
+        <li>공기 — 질소·산소·이산화탄소 등의 혼합물</li>
+        <li>소금물 — 물과 소금의 혼합물</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">이온</div><div class="term-en">Ion</div></div>
+      <p class="def">전자를 잃거나 얻어 전하를 띠게 된 원자 또는 원자단.</p>
+      <ul class="ex">
+        <li>Na⁺ (나트륨 이온) — 양이온의 대표</li>
+        <li>Cl⁻ (염화 이온) — 음이온의 대표</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">09</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 10 · 화학 · 화학 반응
+  page--with-title / 카드 가용 242mm
+  6카드: 36+36+28+28+28+28 + 5×2.5 = 196.5mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">화학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>화학 반응</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">산화</div><div class="term-en">Oxidation</div></div>
+      <p class="def">물질이 산소와 결합하거나 전자를 잃는 반응.</p>
+      <ul class="ex">
+        <li>철이 산화 → 녹(산화철) 생성</li>
+        <li>연소 반응 — 산소와 빠르게 결합하는 산화 반응</li>
+      </ul>
+      <div class="hs">고등에서 산화-환원은 전자 이동의 관점으로 확장되며, 산화수 개념이 추가된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">환원</div><div class="term-en">Reduction</div></div>
+      <p class="def">물질이 산소를 잃거나 전자를 얻는 반응. 산화와 항상 동시에 일어난다.</p>
+      <ul class="ex">
+        <li>산화철에서 산소를 제거 → 철로 환원</li>
+        <li>광합성에서 CO₂가 포도당으로 환원</li>
+      </ul>
+      <div class="hs">산화-환원 반응은 항상 쌍으로 일어남(산화제·환원제 관계)을 고등에서 다룬다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">산 (酸)</div><div class="term-en">Acid</div></div>
+      <p class="def">수용액에서 수소 이온(H⁺)을 내놓는 물질. 신맛이 나고 금속을 녹인다.</p>
+      <ul class="ex">
+        <li>염산(HCl) — 강산, 금속과 반응해 수소 기체 발생</li>
+        <li>아세트산 — 식초의 주성분인 약산</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">염기</div><div class="term-en">Base</div></div>
+      <p class="def">수용액에서 수산화 이온(OH⁻)을 내놓는 물질. 쓴맛·미끈미끈한 성질을 가진다.</p>
+      <ul class="ex">
+        <li>수산화나트륨(NaOH) — 강염기</li>
+        <li>비누 — 약염기성으로 세정 작용</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">중화 반응</div><div class="term-en">Neutralization</div></div>
+      <p class="def">산과 염기가 반응하여 물과 염을 생성하는 반응. H⁺ + OH⁻ → H₂O.</p>
+      <ul class="ex">
+        <li>염산 + 수산화나트륨 → 물 + 염화나트륨(소금)</li>
+        <li>위산 과다 시 제산제(염기성) 복용</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">질량 보존 법칙</div><div class="term-en">Law of Conservation of Mass</div></div>
+      <p class="def">화학 반응이 일어나도 반응물과 생성물의 총 질량은 변하지 않는다.</p>
+      <ul class="ex">
+        <li>수소 + 산소 → 물: 반응 전후 질량 동일</li>
+        <li>연소 후 CO₂·H₂O 질량 합 = 연료 + 산소 질량</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">10</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 11 · 화학 · 상태 변화
+  page--with-title / 카드 가용 242mm
+  7카드: 28+18+18+18+18+18+28 + 6×2.5 = 161mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">화학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>물질의 상태 변화</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">상태 변화</div><div class="term-en">Phase Change</div></div>
+      <p class="def">물질이 고체·액체·기체 상태 사이에서 변하는 과정. 물질의 성질은 변하지 않는다.</p>
+      <ul class="ex">
+        <li>얼음 → 물 → 수증기 (온도 증가에 따른 상태 변화)</li>
+        <li>상태 변화 시 열에너지를 흡수 또는 방출</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">융해</div><div class="term-en">Melting</div></div>
+      <p class="def">고체가 열을 받아 액체로 변하는 상태 변화.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">응고</div><div class="term-en">Solidification</div></div>
+      <p class="def">액체가 냉각되어 고체로 변하는 상태 변화.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">증발</div><div class="term-en">Evaporation</div></div>
+      <p class="def">액체 표면에서 분자가 기체 상태로 변하는 현상. 온도 관계없이 발생.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">승화</div><div class="term-en">Sublimation</div></div>
+      <p class="def">고체가 바로 기체로, 또는 기체가 바로 고체로 변하는 상태 변화.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">녹는점 / 끓는점</div><div class="term-en">Melting Point / Boiling Point</div></div>
+      <p class="def">녹는점은 고체→액체로 변하는 온도, 끓는점은 액체→기체로 변하는 온도.</p>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">일정 성분비 법칙</div><div class="term-en">Law of Definite Proportions</div></div>
+      <p class="def">한 화합물을 구성하는 원소들은 항상 일정한 질량비로 결합한다.</p>
+      <ul class="ex">
+        <li>물(H₂O) — 항상 수소:산소 = 2:1 (질량비 1:8)</li>
+        <li>이산화탄소(CO₂) — 탄소:산소 = 3:8 (질량비)</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">11</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 12 · 물리학 · 힘과 운동
+  page--with-title / 카드 가용 242mm
+  6카드: 36+28+28+28+28+28 + 5×2.5 = 188mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">물리학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>힘과 운동</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">중력</div><div class="term-en">Gravity</div></div>
+      <p class="def">질량을 가진 물체 사이에 작용하는 만유인력. 지구 표면에서 물체를 아래로 당긴다.</p>
+      <ul class="ex">
+        <li>사과가 땅으로 떨어지는 이유</li>
+        <li>행성들이 태양 주위를 공전하는 이유</li>
+      </ul>
+      <div class="hs">고등 「물리학Ⅰ」에서 만유인력 법칙(F=GMm/r²)과 케플러 법칙으로 확장된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">속력</div><div class="term-en">Speed</div></div>
+      <p class="def">단위 시간당 이동한 거리. 방향과 무관한 스칼라량. 속력 = 이동 거리 ÷ 시간.</p>
+      <ul class="ex">
+        <li>자동차 시속 80km — 1시간에 80km 이동</li>
+        <li>평균 속력 vs. 순간 속력 구분</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">속도</div><div class="term-en">Velocity</div></div>
+      <p class="def">속력에 이동 방향을 포함한 벡터량. 방향이 바뀌면 속력이 같아도 속도가 달라진다.</p>
+      <ul class="ex">
+        <li>북쪽으로 60km/h — 방향 포함</li>
+        <li>원운동: 속력은 일정하지만 속도는 계속 변한다</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">관성</div><div class="term-en">Inertia</div></div>
+      <p class="def">물체가 현재의 운동 상태를 유지하려는 성질. 질량이 클수록 관성이 크다.</p>
+      <ul class="ex">
+        <li>버스가 갑자기 멈추면 승객이 앞으로 쏠림</li>
+        <li>정지한 물체는 힘이 없으면 계속 정지</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">마찰력</div><div class="term-en">Friction</div></div>
+      <p class="def">두 물체가 접촉하여 상대 운동을 방해하는 힘.</p>
+      <ul class="ex">
+        <li>얼음 위 — 마찰력이 작아 미끄러짐</li>
+        <li>자동차 브레이크 — 마찰력으로 제동</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">부력</div><div class="term-en">Buoyancy</div></div>
+      <p class="def">유체 속에서 물체를 위로 떠오르게 하는 힘. 물체가 밀어낸 유체의 무게와 같다.</p>
+      <ul class="ex">
+        <li>배가 물에 뜨는 원리</li>
+        <li>헬륨 풍선 — 공기보다 가벼워 부력으로 상승</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">12</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 13 · 물리학 · 파동과 빛
+  page--with-title / 카드 가용 242mm
+  6카드: 36+28+28+28+28+28 + 5×2.5 = 188mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">물리학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>파동과 빛</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">파동</div><div class="term-en">Wave</div></div>
+      <p class="def">에너지가 매질을 통해 퍼져나가는 현상. 물질 자체는 이동하지 않고 에너지만 전달된다.</p>
+      <ul class="ex">
+        <li>물결파 — 수면을 통해 전파되는 파동</li>
+        <li>소리 — 공기를 매질로 전달되는 종파</li>
+      </ul>
+      <div class="hs">고등에서 파장·진동수·속도의 관계(v=fλ)와 간섭·회절 현상으로 확장된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">빛</div><div class="term-en">Light</div></div>
+      <p class="def">전자기파의 일종으로, 시각적으로 감지 가능한 에너지원. 진공 중 속도 약 3×10⁸m/s.</p>
+      <ul class="ex">
+        <li>태양 — 자연적인 빛의 주요 원천</li>
+        <li>프리즘으로 백색광을 분산시키면 무지개 색</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">빛의 반사</div><div class="term-en">Reflection</div></div>
+      <p class="def">빛이 물체에 부딪혀 되돌아 나오는 현상. 입사각 = 반사각.</p>
+      <ul class="ex">
+        <li>거울에 모습이 비치는 원리</li>
+        <li>수면에 비친 풍경</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">굴절</div><div class="term-en">Refraction</div></div>
+      <p class="def">빛이 서로 다른 매질의 경계를 지날 때 속도 변화로 진행 방향이 꺾이는 현상.</p>
+      <ul class="ex">
+        <li>물속의 젓가락이 꺾여 보이는 원리</li>
+        <li>렌즈가 빛을 모으거나 퍼뜨리는 원리</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">질량과 무게</div><div class="term-en">Mass &amp; Weight</div></div>
+      <p class="def">질량 — 물체가 가진 물질의 양(어디서나 일정). 무게 — 중력에 의해 물체에 작용하는 힘(N).</p>
+      <ul class="ex">
+        <li>지구에서 60kg의 무게 ≈ 588N</li>
+        <li>달에서 무게는 1/6이지만 질량은 같다</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">탄성력</div><div class="term-en">Elastic Force</div></div>
+      <p class="def">변형된 물체가 원래 형태로 돌아가려는 힘.</p>
+      <ul class="ex">
+        <li>스프링을 늘리면 원래 길이로 되돌아오려는 힘</li>
+        <li>훅의 법칙: F = kx (k: 용수철 상수)</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">13</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 14 · 물리학 · 열과 기체
+  page--with-title / 카드 가용 242mm
+  6카드: 36+28+28+28+28+28 + 5×2.5 = 188mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">물리학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>열과 기체</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">온도와 열</div><div class="term-en">Temperature &amp; Heat</div></div>
+      <p class="def">온도 — 물질의 열적 상태를 나타내는 척도(℃, K). 열 — 온도 차이에 의해 이동하는 에너지(J).</p>
+      <ul class="ex">
+        <li>뜨거운 물 + 차가운 물 → 열이 고온에서 저온으로 이동</li>
+        <li>열평형 — 두 물체의 온도가 같아진 상태</li>
+      </ul>
+      <div class="hs">고등에서 열역학 1·2법칙, 내부 에너지 개념으로 확장된다.</div>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">보일의 법칙</div><div class="term-en">Boyle's Law</div></div>
+      <p class="def">일정한 온도에서 기체의 부피는 압력에 반비례한다. P₁V₁ = P₂V₂.</p>
+      <ul class="ex">
+        <li>압력을 2배로 → 부피가 1/2로 줄어든다</li>
+        <li>주사기 끝 막고 누르면 공기가 압축</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">샤를의 법칙</div><div class="term-en">Charles's Law</div></div>
+      <p class="def">일정한 압력에서 기체의 부피는 온도에 비례한다. V/T = 일정.</p>
+      <ul class="ex">
+        <li>온도를 높이면 기체 부피가 늘어난다</li>
+        <li>열기구 — 뜨거운 공기가 팽창해 상승</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">확산</div><div class="term-en">Diffusion</div></div>
+      <p class="def">분자나 입자가 농도 높은 곳에서 낮은 곳으로 스스로 퍼져나가는 현상.</p>
+      <ul class="ex">
+        <li>향수를 뿌리면 향기가 퍼짐</li>
+        <li>잉크 한 방울이 물 전체로 퍼짐</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">발열 반응</div><div class="term-en">Exothermic Reaction</div></div>
+      <p class="def">화학 반응에서 열에너지가 방출되어 주변 온도가 올라가는 반응.</p>
+      <ul class="ex">
+        <li>연소 반응 — 가스레인지 불꽃</li>
+        <li>손난로 — 철의 산화 반응으로 열 방출</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">흡열 반응</div><div class="term-en">Endothermic Reaction</div></div>
+      <p class="def">화학 반응에서 열에너지를 흡수하여 주변 온도가 낮아지는 반응.</p>
+      <ul class="ex">
+        <li>얼음이 녹는 과정 — 주변의 열을 흡수</li>
+        <li>냉각 팩 — 암모늄 나이트레이트가 물에 녹으며 흡열</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">14</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 15 · 천문학 · 태양계
+  page--with-title / 카드 가용 242mm
+  6카드: 28+28+28+28+28+28 + 5×2.5 = 180.5mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">천문학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>태양계와 우주</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">태양계</div><div class="term-en">Solar System</div></div>
+      <p class="def">태양과 그 주위를 도는 모든 천체의 집합. 8개 행성과 위성·소행성·혜성 등으로 구성.</p>
+      <ul class="ex">
+        <li>내행성 — 수성, 금성 (지구보다 태양에 가까움)</li>
+        <li>외행성 — 화성, 목성, 토성, 천왕성, 해왕성</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">항성</div><div class="term-en">Star</div></div>
+      <p class="def">자체적으로 빛과 열을 발산하는 거대한 가스 구체. 수소 핵융합으로 에너지를 생산한다.</p>
+      <ul class="ex">
+        <li>태양 — 지구에서 가장 가까운 항성</li>
+        <li>밤하늘의 별들은 모두 먼 거리의 항성</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">행성</div><div class="term-en">Planet</div></div>
+      <p class="def">항성 주위를 공전하며 자체 발광하지 않는 천체.</p>
+      <ul class="ex">
+        <li>지구형 행성 — 수성, 금성, 지구, 화성 (암석형)</li>
+        <li>목성형 행성 — 목성, 토성, 천왕성, 해왕성 (가스형)</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">달의 위상</div><div class="term-en">Moon Phase</div></div>
+      <p class="def">달이 지구를 공전할 때 태양빛에 비친 부분의 변화로 달의 모습이 달라지는 현상.</p>
+      <ul class="ex">
+        <li>초승달 → 상현달 → 보름달 → 하현달 → 그믐달</li>
+        <li>약 29.5일 주기로 반복 (삭망월)</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">일식</div><div class="term-en">Solar Eclipse</div></div>
+      <p class="def">달이 태양을 가려서 지구에서 태양이 가려 보이는 현상.</p>
+      <ul class="ex">
+        <li>개기 일식 — 달이 태양을 완전히 가림, 코로나 관측 가능</li>
+        <li>부분 일식 — 일부만 가려지는 현상</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">월식</div><div class="term-en">Lunar Eclipse</div></div>
+      <p class="def">지구가 태양과 달 사이에 위치하여 달이 지구 그림자에 가려지는 현상.</p>
+      <ul class="ex">
+        <li>보름달일 때만 발생</li>
+        <li>개기 월식 시 달이 붉게 보임 (피의 달)</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">15</span></div>
+  </footer>
+</article>
+
+<!-- ══════════════════════════════════════════
+  PAGE 16 · 천문학 · 별과 우주
+  page--with-title / 카드 가용 242mm
+  6카드: 28+28+28+28+28+28 + 5×2.5 = 180.5mm ✓
+══════════════════════════════════════════ -->
+<article class="page page--with-title">
+  <header class="head">
+    <div class="section">천문학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+  <div class="section-title">
+    <h2>별과 우주</h2>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="cards">
+    <section class="card">
+      <div class="term-head"><div class="term-ko">은하</div><div class="term-en">Galaxy</div></div>
+      <p class="def">수많은 별과 가스, 먼지로 이루어진 거대한 우주 구조체.</p>
+      <ul class="ex">
+        <li>우리 은하 — 막대 나선 은하, 약 2천억 개의 별</li>
+        <li>안드로메다 은하 — 가장 가까운 외부 은하</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">우주</div><div class="term-en">Universe</div></div>
+      <p class="def">모든 물질과 에너지를 포함하는 공간과 그 안의 모든 구조. 현재 계속 팽창 중.</p>
+      <ul class="ex">
+        <li>빅뱅 이론 — 약 138억 년 전 대폭발로 시작</li>
+        <li>허블의 법칙 — 은하들이 서로 멀어짐으로 팽창 증명</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">광년</div><div class="term-en">Light Year (LY)</div></div>
+      <p class="def">빛이 1년 동안 이동하는 거리 (약 9.46×10¹²km). 우주 거리를 측정하는 단위.</p>
+      <ul class="ex">
+        <li>태양에서 가장 가까운 별 — 약 4.3광년</li>
+        <li>안드로메다 은하 — 약 250만 광년 거리</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">혜성</div><div class="term-en">Comet</div></div>
+      <p class="def">태양을 중심으로 타원 궤도를 그리며 공전하는 얼음과 먼지로 이루어진 천체.</p>
+      <ul class="ex">
+        <li>헬리 혜성 — 약 76년 주기로 관측</li>
+        <li>태양에 가까워지면 꼬리가 태양 반대 방향으로 생김</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">연주 운동</div><div class="term-en">Annual Motion</div></div>
+      <p class="def">지구의 공전으로 인해 별자리가 1년을 주기로 하늘에서 이동하는 것처럼 보이는 현상.</p>
+      <ul class="ex">
+        <li>여름에 보이는 별자리와 겨울에 보이는 별자리가 다름</li>
+        <li>태양은 1년 동안 황도 12궁을 이동하는 것처럼 보임</li>
+      </ul>
+    </section>
+    <section class="card">
+      <div class="term-head"><div class="term-ko">대폭발 우주론</div><div class="term-en">Big Bang Theory</div></div>
+      <p class="def">우주가 약 138억 년 전 대폭발(빅뱅)로 탄생하여 현재까지 팽창하고 있다는 이론.</p>
+      <ul class="ex">
+        <li>우주 배경 복사 — 빅뱅의 잔열, 증거 중 하나</li>
+        <li>먼 은하일수록 더 빠르게 멀어짐 (허블의 법칙)</li>
+      </ul>
+    </section>
+  </div>
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 통합판</div>
+    <div class="right"><span class="sns">@jysk_prof.z</span><span class="pg">16</span></div>
+  </footer>
+</article>
+
+</body>
+</html>

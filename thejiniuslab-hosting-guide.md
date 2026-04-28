@@ -36,16 +36,18 @@
 ```bash
 # 작업 디렉토리: /Users/sunghyunji/개발/homepage
 
-# 1. 배포
-CLOUDFLARE_ACCOUNT_ID=ec95c9a7199595c9e70aaf48dd4a28fa \
-npx wrangler pages deploy . \
-  --project-name thejiniuslab \
-  --commit-dirty=true
+# 1. 배포 (deploy.sh 사용 — 25MB 초과 파일 자동 제외)
+./deploy.sh
 
-# 2. GitHub에도 push (계정 전환 필요)
-gh auth switch --user Jsh-newbie
+# 2. GitHub에도 push
 git add -A && git commit -m "update" && git push origin main
 ```
+
+> **`deploy.sh`를 사용하는 이유:** Cloudflare Pages는 25MB 초과 파일을 업로드할 수 없음.
+> `files/prof.Z 홍보 동영상.mp4` (26.9MB)가 해당됨. `deploy.sh`가 배포 전 자동으로 임시 제외하고 완료 후 복구함.
+> wrangler `pages deploy`에는 파일 제외 옵션이 없어 스크립트로 우회함.
+
+> ⚠️ **직접 `wrangler pages deploy` 명령어를 쓰면 오류 발생.** 반드시 `./deploy.sh` 사용.
 
 ### Worker (API 엔드포인트)
 
@@ -87,8 +89,12 @@ homepage/                       ← 로컬 작업 디렉토리
 │   ├── bio-topics/             ← 생명 진로 탐구 주제 12선
 │   └── report-template/        ← 보고서 양식
 ├── data/
-│   └── reviews.json            ← 후기·성적 데이터 (추가 시 여기에)
+│   ├── reviews.json            ← 후기·성적 데이터
+│   ├── library.json            ← 공개 자료 목록 및 상세 데이터
+│   └── insight.json            ← 세특 자료 목록 및 상세 데이터
 ├── assets/
+│   ├── covers/                 ← 자료 커버 이미지 (= 미리보기 첫 번째)
+│   ├── previews/               ← 자료 내용 미리보기 이미지 (두 번째)
 │   ├── logo-final.png
 │   └── profile-green.jpg
 ├── privacy/
@@ -99,6 +105,100 @@ homepage/                       ← 로컬 작업 디렉토리
 ├── _redirects                  ← Cloudflare 리다이렉트 설정
 └── sitemap.xml
 ```
+
+---
+
+## 자료 관리 (Library / Insight)
+
+> 상세 페이지는 JS가 JSON을 읽어서 렌더링함. **HTML은 건드리지 않아도 됨.**
+
+### 자료 추가 (`data/library.json` 또는 `data/insight.json`)
+
+**1단계 — JSON에 항목 추가**
+
+```json
+{
+  "id": "new-item",
+  "title": "자료 제목",
+  "label": "과목 · 분류",
+  "subject": "통합과학",
+  "grade": "고1",
+  "type": "PDF",
+  "status": "coming_soon",
+  "cover_image": null,
+  "cover_gradient": "linear-gradient(135deg, #1B3B36 0%, #2d5c54 100%)",
+  "preview_images": [null, null],
+  "intro": "자료 소개 첫 문장 (굵게 표시됨)",
+  "intro_sub": "자료 소개 두 번째 문단 (선택)",
+  "targets": ["추천 대상 1", "추천 대상 2", "추천 대상 3"],
+  "benefits": ["얻을 수 있는 것 1", "얻을 수 있는 것 2", "얻을 수 있는 것 3"],
+  "download_url": null
+}
+```
+
+**2단계 — 상세 페이지 폴더 생성**
+
+```bash
+mkdir library/new-item
+```
+
+`library/integrated-1/index.html`을 복사해서 붙여넣고, 첫 번째 `<script>` 태그의 `ITEM_ID`만 변경:
+
+```html
+<script>window.ITEM_ID = 'new-item'; window.DATA_SRC = '/data/library.json'; ...</script>
+```
+
+`<title>`, `<meta name="description">`, `<link rel="canonical">`도 자료에 맞게 수정.
+
+---
+
+### 커버 이미지 추가
+
+```
+assets/covers/new-item.jpg   ← 표지 이미지 (4:3 비율 권장)
+```
+
+JSON에서:
+```json
+"cover_image": "/assets/covers/new-item.jpg"
+```
+
+→ 커버 영역과 미리보기 첫 번째 슬롯에 자동 반영됨.
+
+---
+
+### 내용 미리보기 이미지 추가
+
+```
+assets/previews/new-item-p1.jpg   ← 실제 내용 페이지 캡처
+```
+
+JSON에서:
+```json
+"preview_images": [null, "/assets/previews/new-item-p1.jpg"]
+```
+
+첫 번째 값은 `null` 그대로 두면 커버 이미지가 자동으로 들어감.
+
+---
+
+### 다운로드 활성화
+
+PDF를 외부(Google Drive, S3 등)에 업로드하고 공개 링크를 복사한 뒤:
+
+```json
+"status": "available",
+"download_url": "https://..."
+```
+
+→ 하단 버튼이 자동으로 활성화됨.
+
+---
+
+### 자료 수정
+
+내용만 바꿀 때는 해당 JSON 파일만 수정 후 배포.  
+커버/미리보기 이미지를 교체할 때는 `assets/`에 파일을 덮어쓴 후 배포.
 
 ---
 

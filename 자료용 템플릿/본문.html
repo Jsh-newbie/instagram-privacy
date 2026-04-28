@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>prof.Z — 본문</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Noto+Serif+KR:wght@300;400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /*
+  ════════════════════════════════════════════════════════
+  prof.Z 자료 본문 템플릿
+  ════════════════════════════════════════════════════════
+
+  【페이지 레이아웃 기준】
+  ┌─────────────────────────────────────┐
+  │ 상단 패딩         12mm              │
+  │ 헤더              ≈ 10.5mm          │
+  │ 섹션타이틀        ≈ 14mm  (있을 때) │
+  │ ─────────────────────────────────── │
+  │ 카드 가용 높이                       │
+  │   섹션타이틀 있음 → 242mm           │
+  │   섹션타이틀 없음 → 256mm           │
+  │ ─────────────────────────────────── │
+  │ 푸터              ≈ 7.5mm           │
+  │ 하단 패딩         10mm              │
+  └─────────────────────────────────────┘
+
+  【AI 작성 지침】
+  - <article class="page page--with-title"> : 섹션타이틀 있는 페이지 (카드 가용 242mm)
+  - <article class="page">                 : 섹션타이틀 없는 페이지 (카드 가용 256mm)
+  - 카드 총 높이가 가용치 초과 시 반드시 새 <article class="page">를 추가할 것
+  - 카드는 절대 중간에 자르지 말 것 (break-inside: avoid 적용됨)
+  - 각 카드 유형별 대략적인 높이:
+      .card--sm  (정의만)              ≈ 18mm
+      .card      (정의+예시)           ≈ 28mm
+      .card--lg  (정의+예시+고등연계)  ≈ 36mm
+  - 카드 사이 gap: 2.5mm
+  - 페이지 번호는 푸터 .pg에 직접 기입
+
+  【카드 구성 요소 — 모두 선택적으로 조합 가능】
+  - .term-head > .term-ko + .term-en  : 용어명 (한글 + 영문)
+  - .def                              : 정의 (1~2줄)
+  - ul.ex > li                        : 예시 (보통 2개)
+  - .hs                               : 고등 연계 (선택)
+  - .note                             : 보충 설명 / 참고 (선택)
+  ════════════════════════════════════════════════════════
+  */
+
+  :root {
+    --green: #1B3B36;
+    --gold: #C2964A;
+    --paper: #F2EFE8;
+    --ink: #14241F;
+    --ink-mid: #3a4945;
+    --ink-soft: #6b7672;
+    --rule: rgba(20,36,31,.10);
+
+    /* 카드 가용 높이 변수 */
+    --cards-h-with-title: 242mm;
+    --cards-h-no-title:   256mm;
+  }
+
+  @page { size: A4; margin: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #3a3a3a;
+    font-family: 'Noto Serif KR', serif;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ===== Page ===== */
+  .page {
+    width: 210mm;
+    height: 297mm;
+    margin: 24px auto;
+    background: var(--paper);
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    padding: 12mm 18mm 10mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media print {
+    html, body { background: #fff; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+    .page:last-of-type { page-break-after: auto; }
+  }
+
+  /* ===== Header ===== */
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 6px;
+    margin-bottom: 5mm;
+    flex-shrink: 0;
+  }
+  .head .section {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 600;
+    font-size: 11pt;
+    color: var(--green);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .head .right {
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  /* ===== Section title ===== */
+  .section-title {
+    margin-bottom: 5mm;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .section-title h2 {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 600;
+    font-size: 20pt;
+    color: var(--green);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .section-title .gold-rule {
+    width: 100%;
+    height: 1px;
+    background: var(--gold);
+    margin-top: 7px;
+  }
+
+  /* ===== Cards container ===== */
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5mm;
+    overflow: hidden;
+  }
+  /* 섹션타이틀 있는 페이지 */
+  .page--with-title .cards {
+    max-height: var(--cards-h-with-title);
+  }
+  /* 섹션타이틀 없는 페이지 */
+  .page:not(.page--with-title) .cards {
+    max-height: var(--cards-h-no-title);
+  }
+
+  /* ===== Card base ===== */
+  .card {
+    background: #fff;
+    border-radius: 3mm;
+    padding: 3.5mm 6mm 4mm;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    border: 0.4px solid rgba(20,36,31,.06);
+    flex-shrink: 0;
+  }
+
+  /* 용어명 */
+  .term-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 2mm;
+  }
+  .term-ko {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: 16pt;
+    color: var(--green);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .term-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 12pt;
+    color: var(--gold);
+    letter-spacing: 0.01em;
+  }
+
+  /* 정의 */
+  .def {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 400;
+    font-size: 9.5pt;
+    line-height: 1.55;
+    color: var(--ink);
+    text-wrap: pretty;
+    margin-bottom: 1.5mm;
+  }
+  .def:last-child { margin-bottom: 0; }
+
+  /* 예시 */
+  .ex {
+    list-style: none;
+    margin-bottom: 1.5mm;
+  }
+  .ex:last-child { margin-bottom: 0; }
+  .ex li {
+    position: relative;
+    padding-left: 12px;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    color: var(--ink-mid);
+  }
+  .ex li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 4px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  /* 고등 연계 */
+  .hs {
+    font-size: 8pt;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    padding-top: 1.5mm;
+    border-top: 0.6px dotted rgba(20,36,31,.18);
+  }
+  .hs::before {
+    content: "고등 연계";
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-right: 10px;
+    font-weight: 500;
+  }
+
+  /* 보충 설명 */
+  .note {
+    font-size: 8pt;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    padding-top: 1.5mm;
+    border-top: 0.6px dotted rgba(20,36,31,.18);
+  }
+  .note::before {
+    content: "참고";
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-right: 10px;
+    font-weight: 500;
+  }
+
+  /* ===== Footer ===== */
+  .foot {
+    margin-top: auto;
+    padding-top: 2mm;
+    border-top: 0.6px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 7.5pt;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .foot .doc {
+    color: var(--ink-mid);
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 400;
+  }
+  .foot .right {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .foot .sns { color: var(--gold); font-weight: 500; }
+  .foot .pg {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 400;
+    font-size: 8pt;
+    color: var(--ink-mid);
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+
+<!--
+  ════════════════════════════════════════════
+  페이지 1 — 섹션타이틀 있음 (카드 가용 242mm)
+  class="page page--with-title" 사용
+  ════════════════════════════════════════════
+-->
+<article class="page page--with-title">
+
+  <header class="head">
+    <div class="section">생명과학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+
+  <div class="section-title">
+    <h2>세포와 생명 현상</h2>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="cards">
+
+    <!-- 카드 유형 A: 정의 + 예시 + 고등연계 (.card--lg ≈ 36mm) -->
+    <section class="card">
+      <div class="term-head">
+        <div class="term-ko">세포</div>
+        <div class="term-en">Cell</div>
+      </div>
+      <p class="def">생물체를 구성하는 가장 작은 구조적·기능적 단위로, 모든 생명 활동이 일어나는 기본 단위이다.</p>
+      <ul class="ex">
+        <li>양파 표피 세포 — 식물 세포의 대표적 관찰 시료</li>
+        <li>사람의 적혈구 — 핵이 없는 동물 세포의 예</li>
+      </ul>
+      <div class="hs">고등 「생명과학Ⅰ」에서 세포 소기관의 구조·기능과 물질대사 단원의 출발점으로 확장된다.</div>
+    </section>
+
+    <!-- 카드 유형 B: 정의 + 예시 (기본형 ≈ 28mm) -->
+    <section class="card">
+      <div class="term-head">
+        <div class="term-ko">광합성</div>
+        <div class="term-en">Photosynthesis</div>
+      </div>
+      <p class="def">식물이 빛 에너지를 이용해 이산화 탄소와 물로부터 포도당과 산소를 합성하는 과정이다.</p>
+      <ul class="ex">
+        <li>잎의 엽록체에서 빛을 흡수해 양분을 만드는 반응</li>
+        <li>수생식물 검정말을 이용한 산소 발생 실험</li>
+      </ul>
+    </section>
+
+    <!-- 카드 유형 C: 정의만 (간단한 용어 ≈ 18mm) -->
+    <section class="card">
+      <div class="term-head">
+        <div class="term-ko">확산</div>
+        <div class="term-en">Diffusion</div>
+      </div>
+      <p class="def">입자가 농도가 높은 곳에서 낮은 곳으로 스스로 퍼져 나가는 현상으로, 농도가 같아질 때까지 일어난다.</p>
+    </section>
+
+    <!-- 카드 유형 D: 정의 + 예시 + 참고 (보충설명 ≈ 36mm) -->
+    <section class="card">
+      <div class="term-head">
+        <div class="term-ko">생태계</div>
+        <div class="term-en">Ecosystem</div>
+      </div>
+      <p class="def">생물적 요인과 비생물적 요인이 서로 영향을 주고받으며 하나의 체계를 이루는 유기적 단위이다.</p>
+      <ul class="ex">
+        <li>숲 생태계 — 생산자·소비자·분해자가 공존</li>
+        <li>갯벌 생태계 — 조류와 무척추동물의 먹이 그물</li>
+      </ul>
+      <div class="note">생물적 요인과 비생물적 요인의 구분이 시험에 자주 출제된다.</div>
+    </section>
+
+  </div>
+
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 1편</div>
+    <div class="right">
+      <span class="sns">@jysk_prof.z</span>
+      <span class="pg">01</span>
+    </div>
+  </footer>
+
+</article>
+
+
+<!--
+  ════════════════════════════════════════════
+  페이지 2 — 섹션타이틀 없음 (카드 가용 256mm)
+  class="page" 만 사용 (page--with-title 없음)
+  ════════════════════════════════════════════
+-->
+<article class="page">
+
+  <header class="head">
+    <div class="section">생명과학</div>
+    <div class="right">@jysk_prof.z</div>
+  </header>
+
+  <div class="cards">
+
+    <section class="card">
+      <div class="term-head">
+        <div class="term-ko">미토콘드리아</div>
+        <div class="term-en">Mitochondria</div>
+      </div>
+      <p class="def">세포에서 에너지(ATP)를 생산하는 소기관으로, 세포 호흡이 일어나는 장소이다.</p>
+      <ul class="ex">
+        <li>근육 세포에 특히 많이 분포</li>
+        <li>자체 DNA를 가지며 이분법으로 증식</li>
+      </ul>
+      <div class="hs">고등 「생명과학Ⅰ」 물질대사 단원에서 산소 호흡의 반응 단계(해당과정·TCA회로·전자전달계)로 심화된다.</div>
+    </section>
+
+    <section class="card">
+      <div class="term-head">
+        <div class="term-ko">엽록체</div>
+        <div class="term-en">Chloroplast</div>
+      </div>
+      <p class="def">식물 세포에서 광합성이 이루어지는 소기관으로, 빛 에너지를 화학 에너지로 전환한다.</p>
+      <ul class="ex">
+        <li>잎의 세포에 주로 분포</li>
+        <li>엽록소를 포함해 식물이 녹색으로 보이게 함</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer class="foot">
+    <div class="doc">필수 과학 용어 정리 · 중등 기본 용어 1편</div>
+    <div class="right">
+      <span class="sns">@jysk_prof.z</span>
+      <span class="pg">02</span>
+    </div>
+  </footer>
+
+</article>
+
+</body>
+</html>

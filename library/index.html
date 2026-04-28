@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Library · TheJiniusLab</title>
+<meta name="description" content="고1 통합과학·화학·생명과학 핵심 정리, 오답 패턴 분석 등 공개 자료 모음." />
+<link rel="canonical" href="https://thejiniuslab.com/library/" />
+<link rel="icon" type="image/png" href="/assets/logo-final.png" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&display=swap');
+  @font-face {
+    font-family: 'Pretendard Variable';
+    font-weight: 45 920;
+    font-style: normal;
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/PretendardVariable.woff2') format('woff2-variations');
+  }
+
+  :root {
+    --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-heading: 'Cormorant Garamond', 'Times New Roman', serif;
+    --bg: #F2EFE8;
+    --bg-elev: #FFFFFF;
+    --ink: #14241F;
+    --ink-2: #3D4F49;
+    --ink-3: #7E8B85;
+    --line: #DDD6C8;
+    --primary: #1B3B36;
+    --primary-ink: #F2EFE8;
+    --accent: #C2964A;
+    --accent-soft: #E8D9B6;
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 20px;
+    --r-pill: 999px;
+    --page-max: 420px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  .page {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    background: var(--bg);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 56px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(242, 239, 232, 0.85);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__back {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+  .nav__title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--primary);
+    letter-spacing: 0.01em;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 32px 20px 24px;
+    border-bottom: 1px solid var(--line);
+  }
+  .page-header__label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .page-header__title {
+    margin: 0 0 10px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 40px;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+  }
+  .page-header__desc {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  /* FILTER CHIPS */
+  .filter {
+    padding: 16px 20px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .filter::-webkit-scrollbar { display: none; }
+  .filter__chip {
+    flex-shrink: 0;
+    height: 30px;
+    padding: 0 14px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line);
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .filter__chip.active,
+  .filter__chip:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-ink);
+  }
+
+  /* CARD LIST */
+  .card-list {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 20px rgba(27,59,54,0.08);
+  }
+  .card__thumb {
+    flex-shrink: 0;
+    width: 52px;
+    height: 64px;
+    border-radius: 6px;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-align: center;
+    line-height: 1.4;
+  }
+  .card__body { flex: 1; min-width: 0; }
+  .card__tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .card__title {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .card__desc {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .card__meta {
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    letter-spacing: 0.05em;
+  }
+  .card__arrow {
+    flex-shrink: 0;
+    color: var(--ink-3);
+    font-size: 16px;
+  }
+
+  /* COMING CARD */
+  .card--coming {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .card--coming .card__tag::after {
+    content: ' · 준비 중';
+  }
+
+  @media (min-width: 720px) {
+    body { background: #ECE7DC; }
+    .page {
+      box-shadow: 0 30px 80px rgba(0,0,0,0.08);
+      margin-top: 24px;
+      margin-bottom: 24px;
+      border-radius: 24px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav">
+    <a class="nav__back" href="/">← 홈</a>
+    <span class="nav__title">Library</span>
+    <span style="width:48px;"></span>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-header__label">공개 자료</p>
+    <h1 class="page-header__title">Library.</h1>
+    <p class="page-header__desc">시험·단원별로 정리한 핵심 자료를 무료로 공개합니다.<br/>자료는 순차적으로 추가됩니다.</p>
+  </div>
+
+  <div class="filter">
+    <button class="filter__chip active" data-filter="all">전체</button>
+    <button class="filter__chip" data-filter="통합과학">통합과학</button>
+    <button class="filter__chip" data-filter="생명·지구과학">생명·지구과학</button>
+    <button class="filter__chip" data-filter="화학">화학</button>
+  </div>
+
+  <div class="card-list">
+
+    <a class="card" href="/library/integrated-1/" data-tags="통합과학">
+      <div class="card__thumb">CHEM<br/>통합과학</div>
+      <div class="card__body">
+        <p class="card__tag">통합과학</p>
+        <h2 class="card__title">단원별 핵심 정리 — 1단원</h2>
+        <p class="card__desc">자유 낙하·운동·물질의 규칙성. 시험 직전 한 번에 보는 정리본.</p>
+        <p class="card__meta">PDF · 준비 중</p>
+      </div>
+      <span class="card__arrow">›</span>
+    </a>
+
+    <a class="card" href="/library/biology-25/" data-tags="생명·지구과학">
+      <div class="card__thumb">BIO<br/>통합과학</div>
+      <div class="card__body">
+        <p class="card__tag">생명·지구과학</p>
+        <h2 class="card__title">생명 시스템 핵심 25제</h2>
+        <p class="card__desc">세포·물질대사·항상성 빈출 문항을 골라 풀이까지.</p>
+        <p class="card__meta">PDF · 준비 중</p>
+      </div>
+      <span class="card__arrow">›</span>
+    </a>
+
+    <a class="card" href="/library/physics-error/" data-tags="통합과학">
+      <div class="card__thumb">PHYS<br/>통합과학</div>
+      <div class="card__body">
+        <p class="card__tag">통합과학</p>
+        <h2 class="card__title">물리 단원 오답 패턴 분석</h2>
+        <p class="card__desc">중간고사에서 자주 틀리는 유형 정리, 다음 시험을 위한 점검표.</p>
+        <p class="card__meta">PDF · 준비 중</p>
+      </div>
+      <span class="card__arrow">›</span>
+    </a>
+
+  </div>
+
+</div>
+<script>
+  document.querySelectorAll('.filter__chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      document.querySelectorAll('.filter__chip').forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      var filter = chip.getAttribute('data-filter');
+      document.querySelectorAll('.card').forEach(function(card) {
+        if (filter === 'all' || card.getAttribute('data-tags').includes(filter)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
